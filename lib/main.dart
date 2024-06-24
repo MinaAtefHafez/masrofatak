@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:masrofatak/app.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
+import 'package:masrofatak/core/helpers/shared_pref_helper/shared_preference.dart';
+import 'package:masrofatak/core/helpers/sqflite_helper/sqflite_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Future.wait([
     EasyLocalization.ensureInitialized(),
-    DependencyInjection.setUpLocator()
+    DependencyInjection.setUpLocator(),
+    SharedPref.init(),
+    SqfliteHelper.init()
   ]);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
