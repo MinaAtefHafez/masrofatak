@@ -3,5 +3,11 @@
    "YourExpenseManager" : "Your Expense Manager" ,
    "CreateUnAccount" : "Create un account" ,
    "CreateAccountDescription" : "Get started by creating your account to secure your data & manage on multiple devices anytime" ,
-   "SignUpWithGoogle" : "Sign up with Google"
+   "SignUpWithGoogle" : "Sign up with Google" ,
+   "Home" : "Home" ,
+   "Settings" : "Settings"  ,
+   "Report" : "Report" ,
+   "Expenses" : "Expenses" ,
+   "Balance" : "Balance" ,
+   "Income" : "Income"
 }

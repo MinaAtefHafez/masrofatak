@@ -3,5 +3,11 @@
   "YourExpenseManager" : "مدير النفقات الخاصة بك" ,
   "CreateUnAccount" : "انشاء حساب" ,
   "CreateAccountDesciption" : "ابدأ بإنشاء حسابك لتأمين بياناتك وإدارتها على أجهزة متعددة في أي وقت" ,
-  "SignUpWithGoogle" : "التسجيل بواسطة جوجل"
+  "SignUpWithGoogle" : "التسجيل بواسطة جوجل" ,
+  "Home" : "الرئيسية" ,
+  "Settings" : "الاعدادات" ,
+  "Report" : "تقارير" ,
+  "Expenses" : "نفقات" ,
+  "Balance" : "توازن" ,
+  "Income" : "دخل"
 }

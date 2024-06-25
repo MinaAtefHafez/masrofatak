@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masrofatak/features/auth/presentation/view/screens/auth_screen.dart';
+import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/splash_screen.dart';
@@ -7,9 +7,9 @@ import 'package:masrofatak/features/settings/presentation/view/screens/splash_sc
 abstract class CustomRouter {
   static Route onGenerateRoutes(RouteSettings settings) {
     final widget = switch (settings.name) {
+      HomeDetailsScreen.name => const HomeDetailsScreen(),
       HomeScreen.name => const HomeScreen(),
-      AuthScreen.name => const AuthScreen(),
-      DetailsScreen.name => const DetailsScreen(),
+      SettingsScreen.name => const SettingsScreen(),
       _ => const SplashScreen()
     };
 

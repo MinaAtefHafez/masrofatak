@@ -6,7 +6,7 @@ import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/router/navigation.dart';
-import 'package:masrofatak/features/auth/presentation/view/screens/auth_screen.dart';
+import 'package:masrofatak/features/home/presentation/view/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     Future.delayed(const Duration(seconds: 5), () {
-      CustomNavigator.pushAndReplacementNamed(AuthScreen.name);
+      CustomNavigator.pushAndReplacementNamed(HomeScreen.name);
     });
 
     _controller =

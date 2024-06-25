@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
 
-  static const name = '/details';
+  static const name = '/settings';
 
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold();
