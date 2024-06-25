@@ -1,4 +1,7 @@
 {
   "Masrofatk" : "مصروفاتك" ,
-  "YourExpenseManager" : "مدير النفقات الخاصة بك"
+  "YourExpenseManager" : "مدير النفقات الخاصة بك" ,
+  "CreateUnAccount" : "انشاء حساب" ,
+  "CreateAccountDesciption" : "ابدأ بإنشاء حسابك لتأمين بياناتك وإدارتها على أجهزة متعددة في أي وقت" ,
+  "SignUpWithGoogle" : "التسجيل بواسطة جوجل"
 }

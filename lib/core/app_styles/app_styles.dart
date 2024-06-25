@@ -11,4 +11,7 @@ abstract class AppStyles {
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
   );
+
+  static final styleSemiBold20 =
+      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500);
 }

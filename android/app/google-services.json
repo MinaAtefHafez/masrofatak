@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "479824674507",
+    "project_id": "masrofatak",
+    "storage_bucket": "masrofatak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479824674507:android:db4e77048a59e0f8d8254e",
+        "android_client_info": {
+          "package_name": "com.example.masrofatak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479824674507-jspvn738pbubo5csbjkjpf4h1ere5aqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJa2GaBAT7U2dvfKzHK0f8-HJN6dxenXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479824674507-jspvn738pbubo5csbjkjpf4h1ere5aqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

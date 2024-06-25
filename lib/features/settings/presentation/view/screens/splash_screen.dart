@@ -6,7 +6,7 @@ import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/router/navigation.dart';
-import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
+import 'package:masrofatak/features/auth/presentation/view/screens/auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,20 +21,24 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
-  late final Animation<Offset> _animation;
+  late final Animation<Offset> _animation1;
+  late final Animation<Offset> _animation2;
 
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(seconds: 5), () {
-      CustomNavigator.pushAndReplacementNamed(DetailsScreen.name);
+      CustomNavigator.pushAndReplacementNamed(AuthScreen.name);
     });
 
     _controller =
-        AnimationController(duration: const Duration(seconds: 4), vsync: this);
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
 
-    _animation = Tween<Offset>(begin: const Offset(0, 5), end: Offset.zero)
+    _animation1 = Tween<Offset>(begin: const Offset(5, 0), end: Offset.zero)
+        .animate(_controller);
+
+    _animation2 = Tween<Offset>(begin: const Offset(-5, 0), end: Offset.zero)
         .animate(_controller);
 
     _controller.forward();
@@ -62,16 +66,15 @@ class _SplashScreenState extends State<SplashScreen>
             ),
             SizedBox(height: 24.h),
             SlideTransition(
-                position: _animation,
-                child: Column(
-                  children: [
-                    Text(tr('Masrofatk'), style: AppStyles.styleSemiBold24),
-                    SizedBox(height: 4.h),
-                    Text(tr('YourExpenseManager'),
-                        style: AppStyles.styleRegular14
-                            .copyWith(color: AppColors.color616161)),
-                  ],
-                )),
+                position: _animation1,
+                child: Text(tr('Masrofatk'), style: AppStyles.styleSemiBold24)),
+            SizedBox(height: 4.h),
+            SlideTransition(
+              position: _animation2,
+              child: Text(tr('YourExpenseManager'),
+                  style: AppStyles.styleRegular14
+                      .copyWith(color: AppColors.color616161)),
+            ),
           ],
         ),
       ),

@@ -1,4 +1,7 @@
 {
-   "Masrofatk" : "Masrofatk" ,
-   "YourExpenseManager" : "Your Expense Manager"
+   "Masrofatk" : "Masrofatak" ,
+   "YourExpenseManager" : "Your Expense Manager" ,
+   "CreateUnAccount" : "Create un account" ,
+   "CreateAccountDescription" : "Get started by creating your account to secure your data & manage on multiple devices anytime" ,
+   "SignUpWithGoogle" : "Sign up with Google"
 }
