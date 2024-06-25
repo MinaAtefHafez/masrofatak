@@ -26,7 +26,6 @@ abstract class SqfliteHelper {
         log('created successfully');
       },
       onOpen: (db) async {
-        
         log('open successfully');
       },
     );
@@ -36,7 +35,7 @@ abstract class SqfliteHelper {
     required Map<String, Object?> data,
     required String tableName,
   }) async {
-    await _db.insert('masrofatak', data).then((_) {
+    await _db.insert(tableName, data).then((_) {
       log('inserted successfully');
     });
   }
