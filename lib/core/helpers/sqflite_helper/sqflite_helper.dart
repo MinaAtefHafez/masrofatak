@@ -1,15 +1,18 @@
 import 'dart:developer';
 
+import 'package:masrofatak/core/helpers/sqflite_helper/sqflite_keys.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class SqfliteHelper {
   static late Database _db;
 
-  static Future<void> createTable() async {
-    await _db.execute("""CREATE TABLE masrofatak(
-         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,
-         masrofatakName TEXT ,
-         masrofatakNumber TEXT
+  static Future<void> createUserTable() async {
+    await _db.execute("""CREATE TABLE ${SqfliteKeys.userTable}(
+          id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+          name TEXT ,
+          email TEXT ,
+          photo TEXT ,
+          token TEXT
         )""");
   }
 
@@ -19,26 +22,21 @@ abstract class SqfliteHelper {
       version: 1,
       onCreate: (db, version) async {
         _db = db;
-        await createTable();
+        await createUserTable();
+        log('created successfully');
       },
-      onOpen: (db) async {},
+      onOpen: (db) async {
+        
+        log('open successfully');
+      },
     );
   }
 
-  static Future<void> insertRow(
-      {required String masrofatakName, required String masrofatakNumber}) async {
-    await _db.transaction((txn) async {
-      await txn.insert(
-          'masrofatak', {'masrofatakName': masrofatakName, 'masrofatakNumber': masrofatakNumber}).then((_) {
-        log('inserted successfully');
-      });
-    });
-  }
-
-  static Future<void> insert(
-      {required String masrofatakName, required String masrofatakNumber}) async {
-    await _db.insert(
-        'masrofatak', {'masrofatakName': masrofatakName, 'masrofatakNumber': masrofatakNumber}).then((_) {
+  static Future<void> insert({
+    required Map<String, Object?> data,
+    required String tableName,
+  }) async {
+    await _db.insert('masrofatak', data).then((_) {
       log('inserted successfully');
     });
   }
@@ -51,21 +49,30 @@ abstract class SqfliteHelper {
     });
   }
 
-  static Future<void> delete(String id) async {
-    await _db.delete('masrofatak', where: 'id = ?', whereArgs: [id]).then((_) {
+  static Future<void> delete(
+      {required String tableName, required String id}) async {
+    await _db.delete(tableName, where: 'id = ?', whereArgs: [id]).then((_) {
       log('deleted successfully sdfsdf');
     });
   }
 
-  static Future<List<Map<String, Object?>>> getAll() async {
-    return await _db.query('masrofatak', orderBy: "id");
+  static Future<List<Map<String, Object?>>> getAll(
+      {required String tableName}) async {
+    return await _db.query(tableName, orderBy: "id");
+  }
+
+  static Future<Map<String, Object?>?> get(
+      {required String tableName, required String id}) async {
+    await _db.query(tableName, where: 'id = ?', whereArgs: [id]).then((value) {
+      return value;
+    });
+    return null;
   }
 
   static Future<void> updateRow(
-      {required String masrofatakName,
-      required String masrofatakNumber,
+      {required Map<String, Object?> data,
+      required String tableName,
       required String id}) async {
-    await _db.update('masrofatak', {'masrofatakName': masrofatakName},
-        where: 'id = ?', whereArgs: [id]);
+    await _db.update(tableName, data, where: 'id = ?', whereArgs: [id]);
   }
 }
