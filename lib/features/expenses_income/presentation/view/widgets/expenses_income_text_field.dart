@@ -12,7 +12,8 @@ class ExpensesIncomeTextField extends StatelessWidget {
       this.readOnly,
       this.hint,
       this.onChanged,
-      this.inputType});
+      this.inputType,
+       this.initValue});
 
   final TextEditingController? controller;
   final Function()? onTap;
@@ -21,12 +22,14 @@ class ExpensesIncomeTextField extends StatelessWidget {
   final String? hint;
   final Function(String value)? onChanged;
   final TextInputType? inputType;
+  final String? initValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       onTap: onTap,
+      initialValue: initValue,
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hint,

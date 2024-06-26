@@ -18,5 +18,6 @@
   "AddNewCategory" : "اضافة فئة جديدة" ,
   "MustNotBeEmpty" : "يجب أن لا يكون فارغ" ,
   "AddExpenses" : "اضافة نفقات" ,
-  "AddIncome" : "اضافة دخل"
+  "AddIncome" : "اضافة دخل" ,
+  "AddDoneSuccess" : "تم الاضافة بنجاح"
 }

@@ -12,6 +12,9 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final CategoryRepo _categoryRepo;
 
+  CategoryModel category =
+      CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping);
+
   List<CategoryModel> categories = [
     CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping),
     CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
@@ -49,6 +52,13 @@ class CategoryCubit extends Cubit<CategoryState> {
     var colorIndex = random.nextInt(categoriesColors.length - 1);
     return categoriesColors[colorIndex];
   }
+
+  Future<void> chooseCategory(CategoryModel categ) async {
+    category = categ;
+    emit(ChooseCategory());
+  }
+
+  CategoryModel get getCategory => category;
 
   Future<void> saveAllCategoriesLocal() async {
     await _categoryRepo.saveAllCategoriesLocal(categories);

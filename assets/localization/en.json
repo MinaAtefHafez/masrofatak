@@ -18,5 +18,6 @@
    "AddNewCategory" : "Add New Category" ,
    "MustNotBeEmpty" : "Must not be empty" ,
    "AddExpenses" : "Add Expenses" ,
-   "AddIncome" : "Add income"
+   "AddIncome" : "Add income" ,
+   "AddDoneSuccess" : "Add Done Successfully"
 }
