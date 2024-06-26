@@ -1,20 +1,19 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:masrofatak/core/helpers/hive_helper/adapters.dart';
+
+import '../../../features/categories/data/models/categories_model.dart';
+import '../../../features/expenses_income/data/models/expenses_income_model.dart';
 
 abstract class HiveHelper {
   static late final Box box;
 
   static Future<void> init() async {
     await Hive.initFlutter();
-    await registerAdapters();
+    Hive.registerAdapter<CategoryModel>(CategoryModelAdapter());
+    Hive.registerAdapter<ExpensesIncomeModel>(ExpensesIncomeModelAdapter());
     box = await Hive.openBox(HiveConstants.box);
   }
 
-  static Future<void> registerAdapters() async {
-    for (final adapter in HiveAdapters.adapters) {
-      Hive.registerAdapter(adapter);
-    }
-  }
+  
 
   static bool isContainesKey(String key) {
     return box.containsKey(key);
@@ -33,4 +32,5 @@ abstract class HiveHelper {
 abstract class HiveConstants {
   static const box = 'box';
   static const categories = 'categories';
+  static const expensesIncome = 'expensesIncome';
 }

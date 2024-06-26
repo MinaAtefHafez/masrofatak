@@ -11,6 +11,7 @@ import 'package:masrofatak/features/categories/presentation/manager/category_sta
 import '../../../../../core/dependency_injection/dependency_injection.dart';
 import '../../../../categories/data/models/categories_model.dart';
 import '../../../../categories/presentation/manager/category_cubit.dart';
+import '../../manager/expenses_income_cubit.dart';
 
 class ExpensesCategoryBottomSheerWidget extends StatefulWidget {
   const ExpensesCategoryBottomSheerWidget(
@@ -26,6 +27,7 @@ class ExpensesCategoryBottomSheerWidget extends StatefulWidget {
 class _ExpensesCategoryBottomSheerWidgetState
     extends State<ExpensesCategoryBottomSheerWidget> {
   final categoryCubit = getIt<CategoryCubit>();
+  final expensesIncomeCubit = getIt<ExpensesIncomeCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +54,11 @@ class _ExpensesCategoryBottomSheerWidgetState
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    categoryCubit.chooseCategory(widget.categories[index]);
+                  onTap: () async {
+                    await categoryCubit
+                        .chooseCategory(widget.categories[index]);
+                    expensesIncomeCubit
+                        .chooseCategory(widget.categories[index]);
                   },
                   child: UnconstrainedBox(
                     child: Container(

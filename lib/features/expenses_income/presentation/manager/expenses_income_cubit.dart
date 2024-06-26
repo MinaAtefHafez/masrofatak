@@ -1,15 +1,35 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/categories/data/models/categories_model.dart';
+import 'package:masrofatak/features/expenses_income/data/repo/expenses_income_repo.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
-
 import '../../data/models/expenses_income_model.dart';
 
 class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
-  ExpensesIncomeCubit() : super(InitialState());
+  ExpensesIncomeCubit(this._expensesIncomeRepo) : super(InitialState());
+
+  final ExpensesIncomeRepo _expensesIncomeRepo;
 
   ExpensesIncomeModel expensesIncomeModel = ExpensesIncomeModel();
 
   bool isExpense = true;
+  List<dynamic> expensesIncomeList = [];
+
+  Future<void> addExpensesIncomeToList() async {
+    expensesIncomeList.add(expensesIncomeModel);
+    emit(AddExpensesIncomeToList());
+  }
+
+
+  Future <void> getExpensesIncomesLocal () async {
+    expensesIncomeList = await _expensesIncomeRepo.getExpensesIncomeLocal();
+    emit(GetExpensesIncomesLocal());
+  }
+
+  Future <void> saveExpensesIncomesLocal () async {
+    await _expensesIncomeRepo.saveExpensesIncomeLocal(expensesIncomeList);
+
+    emit(SaveExpensesIncomeLocal());
+  }
 
   void onAmountChanged(String amount) {
     expensesIncomeModel =

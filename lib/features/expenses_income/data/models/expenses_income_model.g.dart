@@ -17,9 +17,9 @@ class ExpensesIncomeModelAdapter extends TypeAdapter<ExpensesIncomeModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExpensesIncomeModel(
-      month: fields[5] as String?,
-      day: fields[4] as String?,
-      type: fields[6] as String?,
+      month: fields[4] as String?,
+      day: fields[3] as String?,
+      type: fields[5] as String?,
       category: fields[0] as CategoryModel?,
       amount: fields[1] as double?,
       description: fields[2] as String?,
@@ -36,11 +36,11 @@ class ExpensesIncomeModelAdapter extends TypeAdapter<ExpensesIncomeModel> {
       ..write(obj.amount)
       ..writeByte(2)
       ..write(obj.description)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.day)
-      ..writeByte(5)
+      ..writeByte(4)
       ..write(obj.month)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.type);
   }
 
