@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:masrofatak/app.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
-import 'package:masrofatak/core/helpers/shared_pref_helper/shared_preference.dart';
-
+import 'package:masrofatak/core/helpers/hive_helper/hive_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +11,7 @@ void main() async {
   await Future.wait([
     EasyLocalization.ensureInitialized(),
     DependencyInjection.setUpLocator(),
-    SharedPref.init(),
+    HiveHelper.init()
   ]);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

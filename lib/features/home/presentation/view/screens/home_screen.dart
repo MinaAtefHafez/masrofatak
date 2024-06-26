@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
+import 'package:masrofatak/core/router/navigation.dart';
+import 'package:masrofatak/features/expenses_income/presentation/view/screens/add_expenses_income_screen.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
+
+import '../../../../categories/presentation/manager/category_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +22,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final homeCubit = getIt<HomeCubit>();
+  final categoryCubit = getIt<CategoryCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    call();
+  }
+
+  void call() async {
+    await categoryCubit.saveAllCategoriesLocal();
+    await categoryCubit.getAllCategoriesLocal();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {} ,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CustomNavigator.pushNamed(AddExpensesIncomeScreen.name);
+        },
         child: const Icon(Icons.add),
       ),
     );

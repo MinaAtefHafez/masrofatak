@@ -9,5 +9,14 @@
   "Report" : "تقارير" ,
   "Expenses" : "نفقات" ,
   "Balance" : "توازن" ,
-  "Income" : "دخل"
+  "Income" : "دخل" ,
+  "AddNew" : "اضافة جديدة" ,
+  "CategoryName" : "اسم الفئة" ,
+  "EnterAmount" : "ادخل الكمية" ,
+  "Description" : "الوصف"  ,
+  "ChooseCategory" : "اختر الفئة" ,
+  "AddNewCategory" : "اضافة فئة جديدة" ,
+  "MustNotBeEmpty" : "يجب أن لا يكون فارغ" ,
+  "AddExpenses" : "اضافة نفقات" ,
+  "AddIncome" : "اضافة دخل"
 }

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 
 abstract class AppTheme {
   static final lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
-          centerTitle: true,
-          actionsIconTheme: IconThemeData(
+          centerTitle: false,
+          titleTextStyle:
+              AppStyles.styleRegular16.copyWith(color: AppColors.color424242),
+          actionsIconTheme: const IconThemeData(
             color: Colors.black,
           )),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(

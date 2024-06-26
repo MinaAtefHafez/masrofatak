@@ -14,4 +14,13 @@ abstract class AppStyles {
 
   static final styleSemiBold20 =
       TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500);
+
+  static final styleRegular16 =
+      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400);
+
+  static final styleMedium10 =
+      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500);
+
+      static final styleMedium12 =
+      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500);
 }

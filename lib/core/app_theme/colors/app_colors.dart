@@ -9,6 +9,8 @@ abstract class AppColors {
   static const colorE0E0E0 = Color(0xFFE0E0E0);
   static const colorE53935 = Color(0xFFE53935);
   static const color00897B = Color(0xFF00897B);
+  static const color007BEF  =Color(0xFF007BEF);
+  
   //! Categories
   static const color1C8E6C9 = Color(0xFFC8E6C9);
   static const color2FFECB3 = Color(0xFFFFECB3);
@@ -26,4 +28,5 @@ abstract class AppColors {
   static const color15E6EE9C = Color(0xFFE6EE9C);
   static const color16FFE0B2 = Color(0xFFFFE0B2);
   static const color17FFF9C4 = Color(0xFFFFF9C4);
+  
 }

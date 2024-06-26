@@ -9,5 +9,14 @@
    "Report" : "Report" ,
    "Expenses" : "Expenses" ,
    "Balance" : "Balance" ,
-   "Income" : "Income"
+   "Income" : "Income" ,
+   "AddNew" : "Add New" ,
+   "CategoryName" : "Category Name" ,
+   "EnterAmount" :  "Enter Amount" ,
+   "Description" : "Description" ,
+   "ChooseCategory" : "Choose Category" ,
+   "AddNewCategory" : "Add New Category" ,
+   "MustNotBeEmpty" : "Must not be empty" ,
+   "AddExpenses" : "Add Expenses" ,
+   "AddIncome" : "Add income"
 }
