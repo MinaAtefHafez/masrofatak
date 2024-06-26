@@ -5,13 +5,29 @@ class Assets {
   /// assets/images/Balance.svg
   static const String imagesBalance = "assets/images/Balance.svg";
 
+  /// Assets for imagesBarCafe
+  /// assets/images/Bar_Cafe.svg
+  static const String imagesBarCafe = "assets/images/Bar_Cafe.svg";
+
   /// Assets for imagesCalendarToday
   /// assets/images/calendar_today.svg
   static const String imagesCalendarToday = "assets/images/calendar_today.svg";
 
+  /// Assets for imagesCardGiftcard
+  /// assets/images/card_giftcard.svg
+  static const String imagesCardGiftcard = "assets/images/card_giftcard.svg";
+
+  /// Assets for imagesElectronics
+  /// assets/images/electronics.svg
+  static const String imagesElectronics = "assets/images/electronics.svg";
+
   /// Assets for imagesExpenses
   /// assets/images/expenses.svg
   static const String imagesExpenses = "assets/images/expenses.svg";
+
+  /// Assets for imagesHealth
+  /// assets/images/health.svg
+  static const String imagesHealth = "assets/images/health.svg";
 
   /// Assets for imagesHomeBlack
   /// assets/images/home_black.svg
@@ -25,6 +41,14 @@ class Assets {
   /// assets/images/Income.svg
   static const String imagesIncome = "assets/images/Income.svg";
 
+  /// Assets for imagesLaundry
+  /// assets/images/laundry.svg
+  static const String imagesLaundry = "assets/images/laundry.svg";
+
+  /// Assets for imagesLiquor
+  /// assets/images/liquor.svg
+  static const String imagesLiquor = "assets/images/liquor.svg";
+
   /// Assets for imagesLogo
   /// assets/images/logo.svg
   static const String imagesLogo = "assets/images/logo.svg";
@@ -37,6 +61,10 @@ class Assets {
   /// assets/images/report_grey.svg
   static const String imagesReportGrey = "assets/images/report_grey.svg";
 
+  /// Assets for imagesRestaurantBlack24dp
+  /// assets/images/restaurant_black_24dp.svg
+  static const String imagesRestaurantBlack24dp = "assets/images/restaurant_black_24dp.svg";
+
   /// Assets for imagesSearch
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
@@ -48,5 +76,13 @@ class Assets {
   /// Assets for imagesSettingsGrey
   /// assets/images/settings_grey.svg
   static const String imagesSettingsGrey = "assets/images/settings_grey.svg";
+
+  /// Assets for imagesShopping
+  /// assets/images/shopping.svg
+  static const String imagesShopping = "assets/images/shopping.svg";
+
+  /// Assets for imagesVehicle
+  /// assets/images/Vehicle.svg
+  static const String imagesVehicle = "assets/images/Vehicle.svg";
 }
 
