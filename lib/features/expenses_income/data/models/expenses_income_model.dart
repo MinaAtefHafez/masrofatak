@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hive_flutter/adapters.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 
 import 'package:masrofatak/features/categories/data/models/categories_model.dart';
 
@@ -29,8 +30,8 @@ class ExpensesIncomeModel extends HiveObject {
     this.amount,
     this.description,
   }) {
-    day = DateTime.now().day.toString();
-    month = DateTime.now().month.toString();
+    day = IntlHelper.dayNow;
+    month = IntlHelper.monthNow;
     category =
         CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping);
   }
