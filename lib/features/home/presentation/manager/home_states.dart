@@ -11,3 +11,5 @@ final class FilterExpensesIncomesAccordingMonthDate extends HomeStates {}
 final class SortingExpensesIncomesAccordingDay extends HomeStates {}
 
 final class GetExpensesIncomesForEachDay extends HomeStates {}
+
+final class GetSumMonthNow extends HomeStates {}

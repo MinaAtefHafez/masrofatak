@@ -3,22 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
+import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/enums/enums.dart';
-import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
+import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
+import '../../../../categories/presentation/manager/category_cubit.dart';
 
-class ExpensesIncomesItem extends StatelessWidget {
+class ExpensesIncomesItem extends StatefulWidget {
   const ExpensesIncomesItem(
-      {super.key, required this.expensesIncomesModel, required this.color});
+      {super.key,
+      required this.expensesIncomesModel,
+      this.today, required this.amountPerDay,});
 
   final List<dynamic> expensesIncomesModel;
-  final Color color;
+  final String? today;
+  final int amountPerDay ;
+
+  @override
+  State<ExpensesIncomesItem> createState() => _ExpensesIncomesItemState();
+}
+
+class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
+  final categoryCubit = getIt<CategoryCubit>();
+  final homeCubit = getIt<HomeCubit>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      height: 216.h,
+      height: 230.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
@@ -27,29 +40,35 @@ class ExpensesIncomesItem extends StatelessWidget {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(
-                IntlHelper.dayNow != expensesIncomesModel[0].day
+                widget.today != null
                     ? tr('Today')
-                    : expensesIncomesModel[0].day,
-                style: AppStyles.styleMedium12
-                    .copyWith(color: AppColors.color424242)),
-            Text('11.500',
+                    : widget.expensesIncomesModel[0].day,
+                style: widget.today != null
+                    ? AppStyles.styleMedium12
+                        .copyWith(color: AppColors.color424242)
+                    : AppStyles.styleRegular14
+                        .copyWith(color: AppColors.color424242)),
+            Text(widget.amountPerDay.toString(),
                 style: AppStyles.styleMedium12
                     .copyWith(color: AppColors.color424242))
           ]),
-          if (expensesIncomesModel.isNotEmpty) ...[
+          if (widget.expensesIncomesModel.isNotEmpty) ...[
             SizedBox(height: 15.h),
             ExpensesIncomesSmallItem(
-                expensesIncomesModel: expensesIncomesModel[0], color: color),
+                expensesIncomesModel: widget.expensesIncomesModel[0],
+                color: categoryCubit.getCategoryColor),
           ],
           SizedBox(height: 15.h),
-          if (expensesIncomesModel.length >= 2) ...[
+          if (widget.expensesIncomesModel.length >= 2) ...[
             ExpensesIncomesSmallItem(
-                expensesIncomesModel: expensesIncomesModel[1], color: color),
+                expensesIncomesModel: widget.expensesIncomesModel[1],
+                color: categoryCubit.getCategoryColor),
           ],
           SizedBox(height: 15.h),
-          if (expensesIncomesModel.length >= 3) ...[
+          if (widget.expensesIncomesModel.length >= 3) ...[
             ExpensesIncomesSmallItem(
-                expensesIncomesModel: expensesIncomesModel[2], color: color)
+                expensesIncomesModel: widget.expensesIncomesModel[2],
+                color: categoryCubit.getCategoryColor)
           ],
         ],
       ),

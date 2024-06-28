@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,9 +46,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                 return Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) => ExpensesIncomesItem(
-                          expensesIncomesModel:
-                              homeCubit.allExpensesIncomes[index],
-                          color: categoryCubit.getCategoryColor),
+                            expensesIncomesModel:
+                                homeCubit.allExpensesIncomes[index],
+                                amountPerDay: homeCubit.sumsExpensesIncomesPerMonth[index],
+                          ),
                       separatorBuilder: (context, index) =>
                           SizedBox(height: 16.h),
                       itemCount: homeCubit.allExpensesIncomes.length),
