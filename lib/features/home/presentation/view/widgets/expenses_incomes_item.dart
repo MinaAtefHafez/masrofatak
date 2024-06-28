@@ -3,15 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/enums/enums.dart';
-import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
-
 import '../../../../../core/app_theme/colors/app_colors.dart';
 
 class ExpensesIncomesItem extends StatelessWidget {
   const ExpensesIncomesItem(
       {super.key, required this.expensesIncomesModel, required this.color});
 
-  final ExpensesIncomeModel expensesIncomesModel;
+  final List<dynamic> expensesIncomesModel;
   final Color color;
 
   @override
@@ -33,55 +31,80 @@ class ExpensesIncomesItem extends StatelessWidget {
                 style: AppStyles.styleMedium12
                     .copyWith(color: AppColors.color424242))
           ]),
-          SizedBox(height: 10.h),
-          Row(
+          if (expensesIncomesModel.isNotEmpty) ...[
+            SizedBox(height: 15.h),
+            ExpensesIncomesSmallItem(
+                expensesIncomesModel: expensesIncomesModel[0], color: color),
+          ],
+          SizedBox(height: 15.h),
+          if (expensesIncomesModel.length >= 2) ...[
+            ExpensesIncomesSmallItem(
+                expensesIncomesModel: expensesIncomesModel[1], color: color),
+          ],
+          SizedBox(height: 15.h),
+          if (expensesIncomesModel.length >= 3) ...[
+            ExpensesIncomesSmallItem(
+                expensesIncomesModel: expensesIncomesModel[2], color: color)
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class ExpensesIncomesSmallItem extends StatelessWidget {
+  const ExpensesIncomesSmallItem(
+      {super.key, required this.expensesIncomesModel, required this.color});
+
+  final dynamic expensesIncomesModel;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 40.w,
+          height: 40.h,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+          child: UnconstrainedBox(
+            child: SvgPicture.asset(
+              expensesIncomesModel.category!.icon!,
+              width: 24.w,
+              height: 24.w,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 40.w,
-                height: 40.h,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
-                child: UnconstrainedBox(
-                  child: SvgPicture.asset(
-                    expensesIncomesModel.category!.icon!,
-                    width: 24.w,
-                    height: 24.w,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      expensesIncomesModel.description!,
-                      style: AppStyles.styleRegular14
-                          .copyWith(color: AppColors.color212121),
-                    ),
-                    Text(
-                      expensesIncomesModel.category!.name!,
-                      style: AppStyles.styleMedium12
-                          .copyWith(color: AppColors.color616161),
-                    ),
-                  ],
-                ),
+              Text(
+                expensesIncomesModel.description!,
+                style: AppStyles.styleRegular14
+                    .copyWith(color: AppColors.color212121),
               ),
               Text(
-                getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
-                    ? '-${expensesIncomesModel.amount}'
-                    : '+${expensesIncomesModel.amount}',
-                style: AppStyles.styleRegular14.copyWith(
-                    color: getMoneyType(expensesIncomesModel.type!) ==
-                            MoneyType.incomes
-                        ? AppColors.color00897B
-                        : AppColors.colorE53935),
+                expensesIncomesModel.category!.name!,
+                style: AppStyles.styleMedium12
+                    .copyWith(color: AppColors.color616161),
               ),
             ],
           ),
-        ],
-      ),
+        ),
+        Text(
+          getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
+              ? '-${expensesIncomesModel.amount}'
+              : '+${expensesIncomesModel.amount}',
+          style: AppStyles.styleRegular14.copyWith(
+              color:
+                  getMoneyType(expensesIncomesModel.type!) == MoneyType.incomes
+                      ? AppColors.color00897B
+                      : AppColors.colorE53935),
+        ),
+      ],
     );
   }
 }

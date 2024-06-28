@@ -48,11 +48,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   child: ListView.separated(
                       itemBuilder: (context, index) => ExpensesIncomesItem(
                           expensesIncomesModel:
-                              homeCubit.expensesIncomes[index],
+                              homeCubit.allExpensesIncomes[index],
                           color: categoryCubit.getCategoryColor),
                       separatorBuilder: (context, index) =>
                           SizedBox(height: 16.h),
-                      itemCount: homeCubit.expensesIncomes.length),
+                      itemCount: homeCubit.allExpensesIncomes.length),
                 );
               },
             ),
