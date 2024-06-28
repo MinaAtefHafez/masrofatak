@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masrofatak/core/gen/app_images.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/categories/data/models/categories_model.dart';
 import 'package:masrofatak/features/expenses_income/data/repo/expenses_income_repo.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
@@ -9,7 +11,12 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   final ExpensesIncomeRepo _expensesIncomeRepo;
 
-  ExpensesIncomeModel expensesIncomeModel = ExpensesIncomeModel();
+  ExpensesIncomeModel expensesIncomeModel = ExpensesIncomeModel()
+    ..type = 'Expenses'
+    ..day = IntlHelper.dayNow
+    ..month = IntlHelper.monthNow
+    ..category =
+        CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Grocery');
 
   bool isExpense = true;
   List<dynamic> expensesIncomeList = [];
@@ -20,6 +27,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   Future<void> getExpensesIncomesLocal() async {
     var data = await _expensesIncomeRepo.getExpensesIncomeLocal();
+
     expensesIncomeList = data ?? [];
     emit(GetExpensesIncomesLocal(expensesIncomeList));
   }
@@ -38,7 +46,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   void onAmountChanged(String amount) {
     expensesIncomeModel =
-        expensesIncomeModel.copyWith(amount: double.parse(amount));
+        expensesIncomeModel.copyWith(amount: int.parse(amount));
   }
 
   void chooseCategory(CategoryModel category) {
@@ -64,7 +72,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     if (isExpense) {
       expensesIncomeModel = expensesIncomeModel.copyWith(type: 'Expenses');
     } else {
-      expensesIncomeModel = expensesIncomeModel.copyWith(type: 'Income');
+      expensesIncomeModel = expensesIncomeModel.copyWith(type: 'Incomes');
     }
     emit(OnTypeIncomeChanged());
   }

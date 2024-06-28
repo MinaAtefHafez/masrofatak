@@ -8,7 +8,7 @@ abstract class ExpensesIncomeRepo {
 
 class ExpensesIncomeRepoImpl extends ExpensesIncomeRepo {
   @override
-  Future<void> getExpensesIncomeLocal() {
+  Future<dynamic> getExpensesIncomeLocal() {
     var data = HiveHelper.getData(key: HiveConstants.expensesIncome);
     return data;
   }

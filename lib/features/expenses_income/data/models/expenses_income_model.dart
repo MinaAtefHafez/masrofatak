@@ -12,7 +12,7 @@ class ExpensesIncomeModel extends HiveObject {
   @HiveField(0)
   CategoryModel? category;
   @HiveField(1)
-  double? amount;
+  int? amount;
   @HiveField(2)
   String? description;
   @HiveField(3)
@@ -29,16 +29,11 @@ class ExpensesIncomeModel extends HiveObject {
     this.category,
     this.amount,
     this.description,
-  }) {
-    day = IntlHelper.dayNow;
-    month = IntlHelper.monthNow;
-    category =
-        CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping);
-  }
+  });
 
   ExpensesIncomeModel copyWith({
     CategoryModel? category,
-    double? amount,
+    int? amount,
     String? description,
     String? day,
     String? month,

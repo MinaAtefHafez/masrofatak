@@ -22,7 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
   ];
 
   Future<void> getExpensesIncomes(List<dynamic> expensesIncomesList) async {
-    expensesIncomes = expensesIncomesList;
+    expensesIncomes = List.from(expensesIncomesList) ;
     emit(GetAllExpensesIncomes());
   }
 }

@@ -11,7 +11,7 @@ final getIt = GetIt.instance;
 abstract class DependencyInjection {
   static Future<void> setUpLocator() async {
     //! Home
-    getIt.registerFactory<HomeCubit>(() => HomeCubit());
+    getIt.registerLazySingleton<HomeCubit>(() => HomeCubit());
 
     //! Categories
     getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepoImpl());

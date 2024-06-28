@@ -1,3 +1,4 @@
+
 abstract class ExpensesIncomeState {}
 
 final class InitialState extends ExpensesIncomeState {}

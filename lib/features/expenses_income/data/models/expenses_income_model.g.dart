@@ -21,7 +21,7 @@ class ExpensesIncomeModelAdapter extends TypeAdapter<ExpensesIncomeModel> {
       day: fields[3] as String?,
       type: fields[5] as String?,
       category: fields[0] as CategoryModel?,
-      amount: fields[1] as double?,
+      amount: fields[1] as int?,
       description: fields[2] as String?,
     );
   }

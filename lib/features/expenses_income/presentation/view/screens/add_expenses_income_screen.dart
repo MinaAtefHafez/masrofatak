@@ -101,8 +101,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                       inputType: TextInputType.number,
                       hint: tr('EnterAmount'),
                       onChanged: (value) {
-                        value = value.replaceAll('', '0').trim();
-                        expensesIncomeCubit.onAmountChanged(value);
+                        expensesIncomeCubit.onAmountChanged(value.trim());
                       },
                     ),
                     SizedBox(height: 30.h),
@@ -117,7 +116,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                         return CustomElevatedButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-                                expensesIncomeCubit.addExpensesOrIncome();
+                                await expensesIncomeCubit.addExpensesOrIncome();
                               }
                             },
                             text: expensesIncomeCubit.isExpense
