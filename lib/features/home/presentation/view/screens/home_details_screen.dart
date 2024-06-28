@@ -40,21 +40,39 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
             SizedBox(height: 30.h),
             const HomeBasicItem(),
             const SizedBox(height: 16),
-            BlocBuilder<HomeCubit, HomeStates>(
-              bloc: homeCubit,
-              builder: (context, state) {
-                return Expanded(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) => ExpensesIncomesItem(
-                            expensesIncomesModel:
-                                homeCubit.allExpensesIncomes[index],
-                                amountPerDay: homeCubit.sumsExpensesIncomesPerMonth[index],
+            Expanded(
+              child: SingleChildScrollView(
+                child: BlocBuilder<HomeCubit, HomeStates>(
+                  bloc: homeCubit,
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        if (homeCubit.todayy != null &&
+                            homeCubit.todayy!.isNotEmpty) ...[
+                          ExpensesIncomesItem(
+                            today: 'today' ,
+                            expensesIncomesModel: homeCubit.todayy!,
+                            amountPerDay: homeCubit.sumToday,
                           ),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 16.h),
-                      itemCount: homeCubit.allExpensesIncomes.length),
-                );
-              },
+                        ],
+                        ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>
+                                ExpensesIncomesItem(
+                                  expensesIncomesModel:
+                                      homeCubit.allExpensesIncomes[index],
+                                  amountPerDay: homeCubit
+                                      .sumsExpensesIncomesPerMonth[index],
+                                ),
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: 16.h),
+                            itemCount:
+                                homeCubit.allExpensesIncomes.length),
+                      ],
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),

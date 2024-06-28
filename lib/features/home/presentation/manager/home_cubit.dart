@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
@@ -12,10 +15,16 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic> expensesIncomesForMonth = [];
   List<List<dynamic>> expensesIncomesEachDay = [];
   List<int> sumsExpensesIncomesPerMonth = [];
+  dynamic today;
+  int sumAmountToday = 0;
 
   List<dynamic> get expensesIncomesMonth => expensesIncomesForMonth;
 
   List<List<dynamic>> get allExpensesIncomes => expensesIncomesEachDay;
+
+  List<dynamic>? get todayy => today;
+
+  int get sumToday => sumAmountToday;
 
   void changeBottomNavIndex(int index) {
     bottomNavIndex = index;
@@ -28,16 +37,42 @@ class HomeCubit extends Cubit<HomeStates> {
     const SettingsScreen(),
   ];
 
-  Future<void> getExpensesIncomes(
+  Future<void> showExpensesIncomes(
       List<dynamic> expensesIncomesList, String month) async {
     await getExpensesIncomesFromExpensesCubit(expensesIncomesList);
     await filterExpensesIncomesForMonth(month);
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
     await getSumForMonthImpl();
+    await getToday();
+    await getSumAmountToday();
   }
 
-  
+  Future<void> getToday() async {
+    for (var e in expensesIncomesEachDay) {
+      if (e[0].day == IntlHelper.dayNow) {
+        today = e;
+        break;
+      }
+    }
+    emit(GetToday());
+  }
+
+  Future<void> getSumAmountToday() async {
+    if (today == null) {
+      return;
+    }
+    int sum = 0;
+    for (var e in today) {
+      if (e.type == 'Expenses') {
+        sum = (sum + e.amount).toInt() * -1;
+      } else {
+        sum = (sum + e.amount).toInt();
+      }
+    }
+    sumAmountToday = sum;
+    emit(GetSumToday());
+  }
 
   Future<List<int>> getSumForMonth(List<List<dynamic>> list) async {
     List<int> amounts = [];
@@ -56,12 +91,10 @@ class HomeCubit extends Cubit<HomeStates> {
     return amounts;
   }
 
-  Future <void> getSumForMonthImpl () async {
-     sumsExpensesIncomesPerMonth = await getSumForMonth(expensesIncomesEachDay);
+  Future<void> getSumForMonthImpl() async {
+    sumsExpensesIncomesPerMonth = await getSumForMonth(expensesIncomesEachDay);
     emit(GetSumMonthNow());
   }
-
- 
 
   Future<void> getExpensesIncomesFromExpensesCubit(
       List<dynamic> expensesIncomesList) async {

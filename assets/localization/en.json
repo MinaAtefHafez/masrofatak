@@ -20,5 +20,17 @@
    "AddExpenses" : "Add Expenses" ,
    "AddIncome" : "Add income" ,
    "AddDoneSuccess" : "Add Done Successfully" ,
-   "Today"  : "Today"
+   "Today"  : "Today" ,
+   "Jan" : "Jan" ,
+   "Feb" : "Feb" ,
+   "Mar" : "Mar" ,
+   "Apr" : "Apr" ,
+   "May" : "May" ,
+   "Jun" : "Jun" ,
+   "Jul" : "Jul" ,
+   "Aug" : "Aug" ,
+   "Sep" : "Sep" ,
+   "Oct" : "Oct" ,
+   "Nov" : "Nov" ,
+   "Dec" : "Dec"
 }

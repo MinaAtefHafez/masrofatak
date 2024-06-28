@@ -32,7 +32,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      height: 330.h,
+      height: 230.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
@@ -43,14 +43,14 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
             Text(
                 widget.today != null
                     ? tr('Today')
-                    : widget.expensesIncomesModel[0].day,
+                    : '${widget.expensesIncomesModel[0].day} / ${widget.expensesIncomesModel[0].month}',
                 style: widget.today != null
                     ? AppStyles.styleMedium12
                         .copyWith(color: AppColors.color424242)
                     : AppStyles.styleRegular14
                         .copyWith(color: AppColors.color424242)),
             Text(widget.amountPerDay.toString(),
-                style: AppStyles.styleMedium12
+                style: AppStyles.styleRegular14
                     .copyWith(color: AppColors.color424242))
           ]),
           if (widget.expensesIncomesModel.isNotEmpty) ...[
@@ -65,15 +65,9 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                 expensesIncomesModel: widget.expensesIncomesModel[1],
                 color: categoryCubit.getCategoryColor),
           ],
-          SizedBox(height: 15.h),
-          if (widget.expensesIncomesModel.length >= 3) ...[
-            ExpensesIncomesSmallItem(
-                expensesIncomesModel: widget.expensesIncomesModel[2],
-                color: categoryCubit.getCategoryColor) ,
-              SizedBox(height: 40.h),
-              const ExpesesIncomesDivider(count: 50 ),
+          SizedBox(height: 25.h),
+          const ExpesesIncomesDivider(count: 50 ),
 
-          ],
         ],
       ),
     );

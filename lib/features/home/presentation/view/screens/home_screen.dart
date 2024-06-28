@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: expensesIncomesCubit,
       listener: (context, state) async {
         if (state is GetExpensesIncomesLocal) {
-          homeCubit.getExpensesIncomes(
+          homeCubit.showExpensesIncomes(
               state.expensesIncomes, IntlHelper.monthNow);
         }
       },
