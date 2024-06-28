@@ -8,6 +8,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
   int bottomNavIndex = 1;
 
+  List<dynamic> expensesIncomes = [];
+
   void changeBottomNavIndex(int index) {
     bottomNavIndex = index;
     emit(ChangeBottomNavBar());
@@ -18,4 +20,9 @@ class HomeCubit extends Cubit<HomeStates> {
     const HomeDetailsScreen(),
     const SettingsScreen(),
   ];
+
+  Future<void> getExpensesIncomes(List<dynamic> expensesIncomesList) async {
+    expensesIncomes = expensesIncomesList;
+    emit(GetAllExpensesIncomes());
+  }
 }

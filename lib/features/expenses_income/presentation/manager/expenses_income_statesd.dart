@@ -4,9 +4,10 @@ final class InitialState extends ExpensesIncomeState {}
 
 final class OnTypeIncomeChanged extends ExpensesIncomeState {}
 
-final class AddExpensesIncomeToList extends ExpensesIncomeState {}
-
 final class SaveExpensesIncomeLocal extends ExpensesIncomeState {}
 
+final class GetExpensesIncomesLocal extends ExpensesIncomeState {
+  final List<dynamic> expensesIncomes;
 
-final class GetExpensesIncomesLocal extends ExpensesIncomeState {}
+  GetExpensesIncomesLocal(this.expensesIncomes);
+}

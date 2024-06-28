@@ -16,19 +16,24 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   Future<void> addExpensesIncomeToList() async {
     expensesIncomeList.add(expensesIncomeModel);
-    emit(AddExpensesIncomeToList());
   }
 
-
-  Future <void> getExpensesIncomesLocal () async {
-    expensesIncomeList = await _expensesIncomeRepo.getExpensesIncomeLocal();
-    emit(GetExpensesIncomesLocal());
+  Future<void> getExpensesIncomesLocal() async {
+    var data = await _expensesIncomeRepo.getExpensesIncomeLocal();
+    expensesIncomeList = data ?? [];
+    emit(GetExpensesIncomesLocal(expensesIncomeList));
   }
 
-  Future <void> saveExpensesIncomesLocal () async {
+  Future<void> saveExpensesIncomesLocal() async {
     await _expensesIncomeRepo.saveExpensesIncomeLocal(expensesIncomeList);
 
     emit(SaveExpensesIncomeLocal());
+  }
+
+  Future<void> addExpensesOrIncome() async {
+    await addExpensesIncomeToList();
+    await saveExpensesIncomesLocal();
+    await getExpensesIncomesLocal();
   }
 
   void onAmountChanged(String amount) {

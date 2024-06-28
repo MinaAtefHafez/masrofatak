@@ -42,9 +42,8 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
-      bloc: expensesIncomeCubit ,
+      bloc: expensesIncomeCubit,
       listener: (context, state) {
-         
         if (state is GetExpensesIncomesLocal) {
           CustomNavigator.pop();
           CustomSnackBar.customSnackBar(context, text: tr('AddDoneSuccess'));
@@ -118,12 +117,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                         return CustomElevatedButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-                                await expensesIncomeCubit
-                                    .addExpensesIncomeToList();
-                                await expensesIncomeCubit
-                                    .saveExpensesIncomesLocal();
-                                await expensesIncomeCubit
-                                    .getExpensesIncomesLocal();
+                                expensesIncomeCubit.addExpensesOrIncome();
                               }
                             },
                             text: expensesIncomeCubit.isExpense
