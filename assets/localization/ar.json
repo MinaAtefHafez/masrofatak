@@ -19,5 +19,6 @@
   "MustNotBeEmpty" : "يجب أن لا يكون فارغ" ,
   "AddExpenses" : "اضافة نفقات" ,
   "AddIncome" : "اضافة دخل" ,
-  "AddDoneSuccess" : "تم الاضافة بنجاح"
+  "AddDoneSuccess" : "تم الاضافة بنجاح" ,
+  "Today" : "اليوم"
 }

@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/enums/enums.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
 
 class ExpensesIncomesItem extends StatelessWidget {
@@ -24,7 +26,10 @@ class ExpensesIncomesItem extends StatelessWidget {
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text('Today',
+            Text(
+                IntlHelper.dayNow != expensesIncomesModel[0].day
+                    ? tr('Today')
+                    : expensesIncomesModel[0].day,
                 style: AppStyles.styleMedium12
                     .copyWith(color: AppColors.color424242)),
             Text('11.500',

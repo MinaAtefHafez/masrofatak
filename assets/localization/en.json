@@ -19,5 +19,6 @@
    "MustNotBeEmpty" : "Must not be empty" ,
    "AddExpenses" : "Add Expenses" ,
    "AddIncome" : "Add income" ,
-   "AddDoneSuccess" : "Add Done Successfully"
+   "AddDoneSuccess" : "Add Done Successfully" ,
+   "Today"  : "Today"
 }

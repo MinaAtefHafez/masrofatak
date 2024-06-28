@@ -11,11 +11,11 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<dynamic> expensesIncomes = [];
   List<dynamic> expensesIncomesAfterFilterAccordingMonth = [];
-  List<List<dynamic>> expensesIncomesDays = [];
+  List<List<dynamic>> expensesIncomesEachDay = [];
 
   List<dynamic> get filtersList => expensesIncomesAfterFilterAccordingMonth;
 
-  List<List<dynamic>> get allExpensesIncomes => expensesIncomesDays ;
+  List<List<dynamic>> get allExpensesIncomes => expensesIncomesEachDay ;
 
   void changeBottomNavIndex(int index) {
     bottomNavIndex = index;
@@ -54,7 +54,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future <void> getExpensesIncomesForEachDay () async {
-     expensesIncomesDays = await getExpensesIncomesForEachDayImpl();
+     expensesIncomesEachDay = await getExpensesIncomesForEachDayImpl();
      emit(GetExpensesIncomesForEachDay());
   }
 
