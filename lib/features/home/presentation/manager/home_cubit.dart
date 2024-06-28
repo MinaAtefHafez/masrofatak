@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
@@ -35,7 +34,7 @@ class HomeCubit extends Cubit<HomeStates> {
     await filterExpensesIncomesForMonth(month);
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
-    await getSumMonthNow();
+    await getSumForMonthImpl();
   }
 
   
@@ -54,11 +53,10 @@ class HomeCubit extends Cubit<HomeStates> {
       }
       amounts.add(sum);
     }
-    log(amounts.length.toString());
     return amounts;
   }
 
-  Future <void> getSumMonthNow () async {
+  Future <void> getSumForMonthImpl () async {
      sumsExpensesIncomesPerMonth = await getSumForMonth(expensesIncomesEachDay);
     emit(GetSumMonthNow());
   }

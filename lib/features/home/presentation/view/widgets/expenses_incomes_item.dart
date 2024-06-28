@@ -8,6 +8,7 @@ import 'package:masrofatak/core/enums/enums.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../../../../categories/presentation/manager/category_cubit.dart';
+import 'expenses_incomes_divider.dart';
 
 class ExpensesIncomesItem extends StatefulWidget {
   const ExpensesIncomesItem(
@@ -31,7 +32,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      height: 230.h,
+      height: 330.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
@@ -68,7 +69,10 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
           if (widget.expensesIncomesModel.length >= 3) ...[
             ExpensesIncomesSmallItem(
                 expensesIncomesModel: widget.expensesIncomesModel[2],
-                color: categoryCubit.getCategoryColor)
+                color: categoryCubit.getCategoryColor) ,
+              SizedBox(height: 40.h),
+              const ExpesesIncomesDivider(count: 50 ),
+
           ],
         ],
       ),
