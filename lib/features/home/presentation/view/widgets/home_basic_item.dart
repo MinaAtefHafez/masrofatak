@@ -44,7 +44,7 @@ class HomeBasicItem extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(Assets.imagesExpenses,
+                SvgPicture.asset(Assets.imagesBalance,
                     width: 24.w, height: 24.h),
                 Text(MethodsHelper.convert(context, '12000'),
                     style: AppStyles.styleRegular14.copyWith(
@@ -64,7 +64,7 @@ class HomeBasicItem extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(Assets.imagesExpenses,
+                SvgPicture.asset(Assets.imagesIncome,
                     width: 24.w, height: 24.h),
                 Text(MethodsHelper.convert(context, '12000'),
                     style: AppStyles.styleRegular14.copyWith(
