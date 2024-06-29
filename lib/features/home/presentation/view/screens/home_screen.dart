@@ -37,8 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void call() async {
-    await categoryCubit.saveAllCategoriesLocal();
-    await categoryCubit.getAllCategoriesLocal();
+    await categoryCubit.saveExpensesCategoriesLocal();
+    await categoryCubit.getExpensesCategoriesLocal();
+    await categoryCubit.saveIncomesCategoriesLocal();
+    await categoryCubit.getIncomesCategoriesLocal();
     await expensesIncomesCubit.getExpensesIncomesLocal();
   }
 

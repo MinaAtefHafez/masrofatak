@@ -90,7 +90,9 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                           onTap: () {
                             customBottomSheet(context,
                                 widget: ExpensesCategoryBottomSheerWidget(
-                                  categories: categoryCubit.categories,
+                                  categories: categoryCubit
+                                      .getExpensesOrIncomesCategories(
+                                          expensesIncomeCubit.isExpense),
                                 ));
                           },
                         );

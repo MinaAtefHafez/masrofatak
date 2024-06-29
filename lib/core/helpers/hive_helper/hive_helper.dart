@@ -13,8 +13,6 @@ abstract class HiveHelper {
     box = await Hive.openBox(HiveConstants.box);
   }
 
-  
-
   static bool isContainesKey(String key) {
     return box.containsKey(key);
   }
@@ -31,6 +29,7 @@ abstract class HiveHelper {
 
 abstract class HiveConstants {
   static const box = 'box';
-  static const categories = 'categories';
+  static const expensesCategories = 'expensesCategories';
+  static const incomesCategories = 'incomesCategories';
   static const expensesIncome = 'expensesIncome';
 }

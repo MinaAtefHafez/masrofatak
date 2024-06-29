@@ -15,17 +15,26 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryModel category =
       CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping);
 
-  List<CategoryModel> categories = [
-    CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping),
+  List<CategoryModel> expensesCategories = [
+    CategoryModel(name: 'Shopping', id: 0, icon: Assets.imagesShopping),
     CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
     CategoryModel(name: 'Bar & Cafe', id: 2, icon: Assets.imagesBarCafe),
     CategoryModel(name: 'Health', id: 3, icon: Assets.imagesHealth),
-    CategoryModel(name: 'Commute', id: 4, icon: Assets.imagesVehicle),
+    CategoryModel(name: 'Transportation', id: 4, icon: Assets.imagesVehicle),
     CategoryModel(name: 'Electronics', id: 5, icon: Assets.imagesElectronics),
-    CategoryModel(name: 'Laundry', id: 6, icon: Assets.imagesLaundry),
+    CategoryModel(name: 'Personal', id: 6, icon: Assets.imagesLaundry),
     CategoryModel(name: 'Liquor', id: 7, icon: Assets.imagesLiquor),
     CategoryModel(
         name: 'Restaurant', id: 8, icon: Assets.imagesRestaurantBlack24dp)
+  ];
+
+  List<CategoryModel> incomesCategories = [
+    CategoryModel(name: 'Salary', id: 0, icon: Assets.imagesSalary),
+    CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
+    CategoryModel(name: 'Savings', id: 2, icon: Assets.imagesSavings),
+    CategoryModel(name: 'Wages', id: 3, icon: Assets.imagesWages),
+    CategoryModel(name: 'Interest', id: 4, icon: Assets.imagesInterest),
+    CategoryModel(name: 'Other', id: 5, icon: Assets.imagesAllowance),
   ];
 
   List<Color> categoriesColors = [
@@ -47,6 +56,10 @@ class CategoryCubit extends Cubit<CategoryState> {
     AppColors.color17FFF9C4
   ];
 
+  List<CategoryModel> getExpensesOrIncomesCategories(bool isExpenses) {
+    return isExpenses ? expensesCategories : incomesCategories;
+  }
+
   Color get getCategoryColor {
     var random = Random();
     var colorIndex = random.nextInt(categoriesColors.length - 1);
@@ -60,13 +73,23 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   CategoryModel get getCategory => category;
 
-  Future<void> saveAllCategoriesLocal() async {
-    await _categoryRepo.saveAllCategoriesLocal(categories);
+  Future<void> saveExpensesCategoriesLocal() async {
+    await _categoryRepo.saveExpensesCategoriesLocal(expensesCategories);
     emit(SaveAllCategoriesLocal());
   }
 
-  Future<void> getAllCategoriesLocal() async {
-    categories = await _categoryRepo.getAllCategoriesLocal();
+  Future<void> getExpensesCategoriesLocal() async {
+    expensesCategories = await _categoryRepo.getExpensesCategoriesLocal();
+    emit(GetAllCategoriesLocal());
+  }
+
+  Future<void> saveIncomesCategoriesLocal() async {
+    await _categoryRepo.saveIncomesCategoriesLocal(incomesCategories);
+    emit(SaveAllCategoriesLocal());
+  }
+
+  Future<void> getIncomesCategoriesLocal() async {
+    incomesCategories = await _categoryRepo.getIncomesCategoriesLocal();
     emit(GetAllCategoriesLocal());
   }
 }

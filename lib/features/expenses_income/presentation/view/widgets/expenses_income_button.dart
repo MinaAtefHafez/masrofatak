@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
+import 'package:masrofatak/core/helpers/localization_helper/localization_helper.dart';
 
 class ExpensesIncomeButton extends StatelessWidget {
   const ExpensesIncomeButton(
@@ -34,8 +35,9 @@ class ExpensesIncomeButton extends StatelessWidget {
                   color: isExpense
                       ? Colors.blue.withOpacity(0.6)
                       : AppColors.colorF5F5F5,
-                  borderRadius:
-                      BorderRadius.horizontal(left: Radius.circular(50.r))),
+                  borderRadius: LocalizationUtils.isArabic
+                      ? BorderRadius.horizontal(right: Radius.circular(50.r))
+                      : BorderRadius.horizontal(left: Radius.circular(50.r))),
               child: Text(tr('Expenses'), style: AppStyles.styleRegular14),
             ),
           )),
@@ -52,8 +54,9 @@ class ExpensesIncomeButton extends StatelessWidget {
                   color: isExpense
                       ? AppColors.colorF5F5F5
                       : Colors.blue.withOpacity(0.6),
-                  borderRadius:
-                      BorderRadius.horizontal(right: Radius.circular(50.r))),
+                  borderRadius: LocalizationUtils.isArabic
+                      ? BorderRadius.horizontal(left: Radius.circular(50.r))
+                      : BorderRadius.horizontal(right: Radius.circular(50.r))),
               child: Text(tr('Income'), style: AppStyles.styleRegular14),
             ),
           ))

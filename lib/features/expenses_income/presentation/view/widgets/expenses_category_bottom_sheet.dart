@@ -60,21 +60,30 @@ class _ExpensesCategoryBottomSheerWidgetState
                     expensesIncomeCubit
                         .chooseCategory(widget.categories[index]);
                   },
-                  child: UnconstrainedBox(
-                    child: Container(
-                      width: 50.w,
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                          color: categoryCubit.getCategoryColor,
-                          shape: BoxShape.circle),
-                      child: UnconstrainedBox(
-                        child: SvgPicture.asset(
-                          widget.categories[index].icon!,
-                          width: 32.w,
-                          height: 32.h,
+                  child: Column(
+                    children: [
+                      UnconstrainedBox(
+                        child: Container(
+                          width: 50.w,
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                              color: categoryCubit.getCategoryColor,
+                              shape: BoxShape.circle),
+                          child: UnconstrainedBox(
+                            child: SvgPicture.asset(
+                              widget.categories[index].icon!,
+                              width: 32.w,
+                              height: 32.h,
+                            ),
+                          ),
+                          
                         ),
                       ),
-                    ),
+                      SizedBox(height: 3.h),
+                      Text(widget.categories[index].name!  ,
+                              style: AppStyles.styleMedium12 ,
+                            ),
+                    ],
                   ),
                 );
               },
