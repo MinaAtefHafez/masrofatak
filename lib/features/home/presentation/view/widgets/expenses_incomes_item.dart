@@ -17,11 +17,13 @@ class ExpensesIncomesItem extends StatefulWidget {
     required this.expensesIncomesModel,
     this.today,
     required this.amountPerDay,
+    required this.onTap,
   });
 
   final List<dynamic> expensesIncomesModel;
   final String? today;
   final int amountPerDay;
+  final Function() onTap;
 
   @override
   State<ExpensesIncomesItem> createState() => _ExpensesIncomesItemState();
@@ -35,7 +37,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      height: 230.h,
+      height: 260.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
@@ -46,7 +48,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
             Text(
                 widget.today != null
                     ? tr('Today')
-                    : '${widget.expensesIncomesModel[0].day} / ${widget.expensesIncomesModel[0].month}',
+                    : '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month)}',
                 style: widget.today != null
                     ? AppStyles.styleMedium12
                         .copyWith(color: AppColors.color424242)
@@ -70,6 +72,15 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
           ],
           SizedBox(height: 25.h),
           const ExpesesIncomesDivider(count: 50),
+          Expanded(
+            child: TextButton(
+                onPressed: widget.onTap,
+                child: Text(
+                  tr('MoreDetails') ,
+                  style: AppStyles.styleRegular16
+                      .copyWith(color: AppColors.color424242),
+                )),
+          )
         ],
       ),
     );

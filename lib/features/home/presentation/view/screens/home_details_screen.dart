@@ -50,7 +50,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         if (homeCubit.todayy != null &&
                             homeCubit.todayy!.isNotEmpty) ...[
                           ExpensesIncomesItem(
-                            today: 'today' ,
+                            onTap: () {},
+                            today: 'today',
                             expensesIncomesModel: homeCubit.todayy!,
                             amountPerDay: homeCubit.sumToday,
                           ),
@@ -59,6 +60,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) =>
                                 ExpensesIncomesItem(
+                                  onTap: () {},
                                   expensesIncomesModel:
                                       homeCubit.allExpensesIncomes[index],
                                   amountPerDay: homeCubit
@@ -66,8 +68,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                 ),
                             separatorBuilder: (context, index) =>
                                 SizedBox(height: 16.h),
-                            itemCount:
-                                homeCubit.allExpensesIncomes.length),
+                            itemCount: homeCubit.allExpensesIncomes.length),
                       ],
                     );
                   },
