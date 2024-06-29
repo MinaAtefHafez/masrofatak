@@ -7,18 +7,21 @@ import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/enums/enums.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
+import '../../../../../core/helpers/methos_helper/methods_helper.dart';
 import '../../../../categories/presentation/manager/category_cubit.dart';
 import 'expenses_incomes_divider.dart';
 
 class ExpensesIncomesItem extends StatefulWidget {
-  const ExpensesIncomesItem(
-      {super.key,
-      required this.expensesIncomesModel,
-      this.today, required this.amountPerDay,});
+  const ExpensesIncomesItem({
+    super.key,
+    required this.expensesIncomesModel,
+    this.today,
+    required this.amountPerDay,
+  });
 
   final List<dynamic> expensesIncomesModel;
   final String? today;
-  final int amountPerDay ;
+  final int amountPerDay;
 
   @override
   State<ExpensesIncomesItem> createState() => _ExpensesIncomesItemState();
@@ -49,7 +52,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                         .copyWith(color: AppColors.color424242)
                     : AppStyles.styleRegular14
                         .copyWith(color: AppColors.color424242)),
-            Text(widget.amountPerDay.toString(),
+            Text(MethodsHelper.convert(context, widget.amountPerDay.toString()),
                 style: AppStyles.styleRegular14
                     .copyWith(color: AppColors.color424242))
           ]),
@@ -66,8 +69,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                 color: categoryCubit.getCategoryColor),
           ],
           SizedBox(height: 25.h),
-          const ExpesesIncomesDivider(count: 50 ),
-
+          const ExpesesIncomesDivider(count: 50),
         ],
       ),
     );
@@ -118,8 +120,8 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
         ),
         Text(
           getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
-              ? '-${expensesIncomesModel.amount}'
-              : '+${expensesIncomesModel.amount}',
+              ? '-${MethodsHelper.convert(context, expensesIncomesModel.amount.toString())}'
+              : '+${MethodsHelper.convert(context, expensesIncomesModel.amount.toString())}',
           style: AppStyles.styleRegular14.copyWith(
               color:
                   getMoneyType(expensesIncomesModel.type!) == MoneyType.incomes

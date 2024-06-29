@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
@@ -110,7 +108,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortingExppensesIncomesAccordingDay() async {
     expensesIncomesForMonth
-        .sort((a, b) => int.parse(b.day).compareTo(int.parse(a.day)));
+        .sort((a, b) => int.parse(b.day).compareTo(int.parse(a.day))) ; 
     emit(SortingExpensesIncomesAccordingDay());
   }
 

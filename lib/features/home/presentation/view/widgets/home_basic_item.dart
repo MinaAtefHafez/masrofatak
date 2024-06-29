@@ -1,11 +1,8 @@
-
-
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:masrofatak/core/helpers/methos_helper/methods_helper.dart';
 
 import '../../../../../core/app_styles/app_styles.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
@@ -29,10 +26,12 @@ class HomeBasicItem extends StatelessWidget {
               children: [
                 SvgPicture.asset(Assets.imagesExpenses,
                     width: 24.w, height: 24.h),
-                Text('-12,000',
+                Text(MethodsHelper.convert(context, '12000'),
                     style: AppStyles.styleRegular14.copyWith(
                         color: AppColors.colorE53935,
-                        fontWeight: FontWeight.w500)),
+                        fontWeight: FontWeight.w500),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
                 Text(
                   tr('Expenses'),
                   style: AppStyles.styleRegular14
@@ -47,10 +46,12 @@ class HomeBasicItem extends StatelessWidget {
               children: [
                 SvgPicture.asset(Assets.imagesExpenses,
                     width: 24.w, height: 24.h),
-                Text('-12,000',
+                Text(MethodsHelper.convert(context, '12000'),
                     style: AppStyles.styleRegular14.copyWith(
                         color: AppColors.color616161,
-                        fontWeight: FontWeight.w500)),
+                        fontWeight: FontWeight.w500),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
                 Text(
                   tr('Balance'),
                   style: AppStyles.styleRegular14
@@ -65,13 +66,16 @@ class HomeBasicItem extends StatelessWidget {
               children: [
                 SvgPicture.asset(Assets.imagesExpenses,
                     width: 24.w, height: 24.h),
-                Text('-12,000',
+                Text(MethodsHelper.convert(context, '12000'),
                     style: AppStyles.styleRegular14.copyWith(
                         color: AppColors.color00897B,
                         fontWeight: FontWeight.w500)),
                 Text(
                   tr('Income'),
-                  style: AppStyles.styleRegular14.copyWith(color: AppColors.color616161),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppStyles.styleRegular14
+                      .copyWith(color: AppColors.color616161),
                 ),
               ],
             ),
