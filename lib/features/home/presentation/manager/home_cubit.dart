@@ -14,7 +14,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<List<dynamic>> expensesIncomesEachDay = [];
   List<int> sumsExpensesIncomesPerMonth = [];
   List<dynamic> expensesIncomesPerDay = [];
-  dynamic today;
+  List<dynamic> today = [];
   int sumAmountToday = 0;
 
   List<dynamic> get expensesIncomesMonth => expensesIncomesForMonth;
@@ -42,9 +42,9 @@ class HomeCubit extends Cubit<HomeStates> {
     await filterExpensesIncomesForMonth(month);
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
-    await getSumForMonthImpl();
+    await getSumForMonth();
     await getToday();
-    await getSumAmountToday();
+    await getSumAountToday();
   }
 
   Future<void> getExpensesIncomesPerDay(int index) async {
@@ -52,51 +52,60 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetExpensesIncomesPerDay());
   }
 
-  Future<void> getToday() async {
-    for (var e in expensesIncomesEachDay) {
-      if (e[0].day == IntlHelper.dayNow) {
-        today = e;
+  Future<List<dynamic>> getDayFromDaysList(
+      {required List<List<dynamic>> days, required String day}) async {
+    List<dynamic> result = [];
+    for (var e in days) {
+      if (e[0].day == day) {
+        result = List.from(e);
         break;
       }
     }
+    return result;
+  }
+
+  Future<void> getToday() async {
+    today = await getDayFromDaysList(
+        days: expensesIncomesEachDay, day: IntlHelper.dayNow);
     emit(GetToday());
   }
 
-  Future<void> getSumAmountToday() async {
-    if (today == null) {
-      return;
-    }
+  Future<int> getSumAmountPerDay(List<dynamic> data) async {
     int sum = 0;
-    for (var e in today) {
+    List<int> amounts = [];
+    for (var e in data) {
       if (e.type == 'Expenses') {
-        sum = (sum + e.amount).toInt() * -1;
+        amounts.add(e.amount * -1);
       } else {
-        sum = (sum + e.amount).toInt();
+        amounts.add(e.amount);
       }
     }
-    sumAmountToday = sum;
+
+    for (var e in amounts) {
+      sum = sum + e;
+    }
+
+    return sum;
+  }
+
+  Future<void> getSumAountToday() async {
+    sumAmountToday = await getSumAmountPerDay(today);
     emit(GetSumToday());
   }
 
-  Future<List<int>> getSumForMonth(List<List<dynamic>> list) async {
+  Future<List<int>> getSumForMonthImpl(List<List<dynamic>> list) async {
     List<int> amounts = [];
-    int sum = 0;
     for (var e in list) {
-      sum = 0;
-      for (var j in e) {
-        if (j.type == 'Expenses') {
-          sum = (sum + j.amount).toInt() * -1;
-        } else {
-          sum = (sum + j.amount).toInt();
-        }
-      }
+      var sum = await getSumAmountPerDay(e);
+
       amounts.add(sum);
     }
     return amounts;
   }
 
-  Future<void> getSumForMonthImpl() async {
-    sumsExpensesIncomesPerMonth = await getSumForMonth(expensesIncomesEachDay);
+  Future<void> getSumForMonth() async {
+    sumsExpensesIncomesPerMonth =
+        await getSumForMonthImpl(expensesIncomesEachDay);
     emit(GetSumMonthNow());
   }
 
