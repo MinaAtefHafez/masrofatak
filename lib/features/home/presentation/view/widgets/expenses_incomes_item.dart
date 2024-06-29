@@ -58,16 +58,17 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                 style: AppStyles.styleRegular14
                     .copyWith(color: AppColors.color424242))
           ]),
+          if (widget.expensesIncomesModel.length >= 2) ...[
+            ExpensesIncomesSmallItem(
+                expensesIncomesModel: widget.expensesIncomesModel[
+                    widget.expensesIncomesModel.length - 1],
+                color: categoryCubit.getCategoryColor),
+          ],
+          SizedBox(height: 15.h),
           if (widget.expensesIncomesModel.isNotEmpty) ...[
             SizedBox(height: 15.h),
             ExpensesIncomesSmallItem(
                 expensesIncomesModel: widget.expensesIncomesModel[0],
-                color: categoryCubit.getCategoryColor),
-          ],
-          SizedBox(height: 15.h),
-          if (widget.expensesIncomesModel.length >= 2) ...[
-            ExpensesIncomesSmallItem(
-                expensesIncomesModel: widget.expensesIncomesModel[1],
                 color: categoryCubit.getCategoryColor),
           ],
           SizedBox(height: 25.h),
@@ -76,7 +77,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
             child: TextButton(
                 onPressed: widget.onTap,
                 child: Text(
-                  tr('MoreDetails') ,
+                  tr('MoreDetails'),
                   style: AppStyles.styleRegular16
                       .copyWith(color: AppColors.color424242),
                 )),
@@ -89,10 +90,14 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
 
 class ExpensesIncomesSmallItem extends StatelessWidget {
   const ExpensesIncomesSmallItem(
-      {super.key, required this.expensesIncomesModel, required this.color});
+      {super.key,
+      required this.expensesIncomesModel,
+      required this.color,
+      this.isWidgetIntrinsic = false});
 
   final dynamic expensesIncomesModel;
   final Color color;
+  final bool isWidgetIntrinsic;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -112,6 +117,7 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 5.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,15 +126,18 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
                 expensesIncomesModel.description!,
                 style: AppStyles.styleRegular14
                     .copyWith(color: AppColors.color212121),
+                maxLines: isWidgetIntrinsic ? null : 1,
+                overflow: isWidgetIntrinsic ? null : TextOverflow.ellipsis,
               ),
               Text(
                 expensesIncomesModel.category!.name!,
-                style: AppStyles.styleMedium12
+                style: AppStyles.styleMedium13
                     .copyWith(color: AppColors.color616161),
               ),
             ],
           ),
         ),
+        const SizedBox(width: 10),
         Text(
           getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
               ? '-${MethodsHelper.convert(context, expensesIncomesModel.amount.toString())}'

@@ -33,5 +33,6 @@
    "Oct" : "Oct" ,
    "Nov" : "Nov" ,
    "Dec" : "Dec" ,
-   "MoreDetails" : "More Details"
+   "MoreDetails" : "More Details" ,
+   "DayDetails" : "Day Details"
 }

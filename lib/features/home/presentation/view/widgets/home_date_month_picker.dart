@@ -29,7 +29,7 @@ class DateMonthPickerItem extends StatelessWidget {
               onPressed: onTapLeft,
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: AppColors.color000000,
+                color: AppColors.color424242,
                 size: 25.w,
               )),
           Container(
@@ -58,7 +58,7 @@ class DateMonthPickerItem extends StatelessWidget {
               onPressed: onTapRight,
               icon: Icon(
                 Icons.arrow_forward_ios,
-                color: AppColors.color000000,
+                color: AppColors.color424242,
                 size: 25.w,
               ))
         ],

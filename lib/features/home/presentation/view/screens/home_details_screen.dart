@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
+import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
+import 'package:masrofatak/features/home/presentation/view/screens/day_details_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/widgets/expenses_incomes_item.dart';
 
 import '../widgets/home_basic_item.dart';
@@ -60,7 +62,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) =>
                                 ExpensesIncomesItem(
-                                  onTap: () {},
+                                  onTap: () async {
+                                    await homeCubit
+                                        .getExpensesIncomesPerDay(index);
+                                    CustomNavigator.pushNamed(
+                                        DayDetailsScreen.name);
+                                  },
                                   expensesIncomesModel:
                                       homeCubit.allExpensesIncomes[index],
                                   amountPerDay: homeCubit

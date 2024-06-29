@@ -13,6 +13,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic> expensesIncomesForMonth = [];
   List<List<dynamic>> expensesIncomesEachDay = [];
   List<int> sumsExpensesIncomesPerMonth = [];
+  List<dynamic> expensesIncomesPerDay = [];
   dynamic today;
   int sumAmountToday = 0;
 
@@ -44,6 +45,11 @@ class HomeCubit extends Cubit<HomeStates> {
     await getSumForMonthImpl();
     await getToday();
     await getSumAmountToday();
+  }
+
+  Future<void> getExpensesIncomesPerDay(int index) async {
+    expensesIncomesPerDay = List.from(expensesIncomesEachDay[index]);
+    emit(GetExpensesIncomesPerDay());
   }
 
   Future<void> getToday() async {
@@ -108,7 +114,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortingExppensesIncomesAccordingDay() async {
     expensesIncomesForMonth
-        .sort((a, b) => int.parse(b.day).compareTo(int.parse(a.day))) ; 
+        .sort((a, b) => int.parse(b.day).compareTo(int.parse(a.day)));
     emit(SortingExpensesIncomesAccordingDay());
   }
 
