@@ -1,4 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/reports/presentation/manager/reports_states.dart';
@@ -19,50 +20,33 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> filtersExpensesToNameAndAmountOnly() async {
     reportExpensesCategories.clear();
+    int sum = 0;
 
     for (var e in allExpenses) {
-      var reports = ReportsCategoryModel();
-      for (var j in e) {
-        reports =
-            reports.copyWith(amount: (reports.amount ?? 0 + j.amount!).toInt());
-        reports = reports.copyWith(name: j.category!.name);
-        reports = reports.copyWith(dateTime: j.dateTime);
-      }
+      String? name;
+      String? dateTime;
+      sum = 0;
 
-      reportExpensesCategories.add(reports);
+      for (var j in e) {
+        sum = (sum + j.amount!).toInt();
+        name = j.category!.name;
+        dateTime = j.dateTime;
+      }
+      reportExpensesCategories.add(
+          ReportsCategoryModel(name: name, amount: sum, dateTime: dateTime));
     }
   }
 
-  Future<void> filterExpensesToLastSevenDays() async {
+  Future<void> filterExpensesToLastWeek() async {
+    if (reportExpensesCategories.isEmpty) return;
     var now = DateTime.now();
     var now_1w = now.subtract(const Duration(days: 7));
     reportExpensesCategories = reportExpensesCategories.where((e) {
+      log(reportExpensesCategories.length.toString());
       var date = DateTime.parse(e.dateTime!);
       return now_1w.isBefore(date);
     }).toList();
   }
-
-//   import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-
-// class MyObject {
-//   DateTime createdAt;
-
-//   MyObject({required this.createdAt});
-// }
-
-// void main() {
-//   List<MyObject> objectsList = []; // Assuming your list of objects
-
-//   DateTime now = DateTime.now();
-//   DateTime sevenDaysAgo = now.subtract(Duration(days: 7));
-
-//   List<MyObject> filteredObjects = objectsList.where((obj) {
-//     return obj.createdAt.isAfter(sevenDaysAgo);
-//   }).toList();
-
-//   print(filteredObjects);
-// }
 
   Future<void> filtersIncomesToNameAndAmountOnly() async {
     reportIncomesCategories.clear();
@@ -103,7 +87,9 @@ class ReportsCubit extends Cubit<ReportsStates> {
           expenses.add(j);
         }
       }
-      result.add(expenses);
+      if ( expenses.isNotEmpty) {
+        result.add(expenses);
+      }
     }
 
     return result;
