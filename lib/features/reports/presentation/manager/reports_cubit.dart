@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
@@ -10,6 +9,8 @@ import '../../data/models/reports_model.dart';
 class ReportsCubit extends Cubit<ReportsStates> {
   ReportsCubit() : super(InitialReportsState());
 
+  bool isExpeses = true;
+
   List<List<ExpensesIncomeModel>> allExpenses = [];
   List<List<ExpensesIncomeModel>> allIncomes = [];
   List<CategoryModel> expensesCategories = [];
@@ -20,48 +21,77 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> filtersExpensesToNameAndAmountOnly() async {
     reportExpensesCategories.clear();
-    int sum = 0;
-
     for (var e in allExpenses) {
-      String? name;
-      String? dateTime;
-      sum = 0;
-
+      ReportsCategoryModel model = ReportsCategoryModel();
       for (var j in e) {
-        sum = (sum + j.amount!).toInt();
-        name = j.category!.name;
-        dateTime = j.dateTime;
+        model = model.copyWith(amount: model.amount ?? 0 + j.amount!);
+        model = model.copyWith(name: j.category!.name);
+        model = model.copyWith(dateTime: j.dateTime);
       }
-      reportExpensesCategories.add(
-          ReportsCategoryModel(name: name, amount: sum, dateTime: dateTime));
+      if (model.dateTime != null) {
+        reportExpensesCategories.add(model);
+      }
     }
   }
 
-  Future<void> filterExpensesToLastWeek() async {
-    if (reportExpensesCategories.isEmpty) return;
+  Future<List<ReportsCategoryModel>> filterToLastWeek(
+      List<ReportsCategoryModel> expensesIncomes) async {
+    if (expensesIncomes.isEmpty) return [];
     var now = DateTime.now();
     var now_1w = now.subtract(const Duration(days: 7));
-    reportExpensesCategories = reportExpensesCategories.where((e) {
-      log(reportExpensesCategories.length.toString());
+    expensesIncomes = expensesIncomes.where((e) {
       var date = DateTime.parse(e.dateTime!);
       return now_1w.isBefore(date);
     }).toList();
+    return expensesIncomes;
+  }
+
+  Future<List<ReportsCategoryModel>> filterToLastMonth(
+      List<ReportsCategoryModel> expensesIncomes) async {
+    if (expensesIncomes.isEmpty) return [];
+    var now = DateTime.now();
+    var now_1w = now.subtract(const Duration(days: 30));
+    expensesIncomes = expensesIncomes.where((e) {
+      var date = DateTime.parse(e.dateTime!);
+      return now_1w.isBefore(date);
+    }).toList();
+    return expensesIncomes;
+  }
+
+  Future<void> filterExpensesToLastmonth() async {
+    reportExpensesCategories =
+        await filterToLastMonth(reportExpensesCategories);
+    emit(FilterExpensesToLastMonth());
+  }
+
+  Future<void> filterExpensesToLastWeek() async {
+    reportExpensesCategories = await filterToLastWeek(reportExpensesCategories);
+    emit(FilterExpensesToLastWeek());
+  }
+
+  Future<void> filterIncomesToLastMonth() async {
+    reportIncomesCategories = await filterToLastMonth(reportIncomesCategories);
+    emit(FilterIncomesToLastMonth());
+  }
+
+  Future<void> filterIncomesToLastWeek() async {
+    reportIncomesCategories = await filterToLastWeek(reportIncomesCategories);
+    emit(FilterIncomesToLastWeek());
   }
 
   Future<void> filtersIncomesToNameAndAmountOnly() async {
     reportIncomesCategories.clear();
-    int sum = 0;
-
+    reportExpensesCategories.clear();
     for (var e in allIncomes) {
-      String? name;
-      sum = 0;
-
+      ReportsCategoryModel model = ReportsCategoryModel();
       for (var j in e) {
-        sum = (sum + j.amount!).toInt();
-        name = j.category!.name;
+        model = model.copyWith(amount: model.amount ?? 0 + j.amount!);
+        model = model.copyWith(name: j.category!.name);
+        model = model.copyWith(dateTime: j.dateTime);
       }
-      reportIncomesCategories
-          .add(ReportsCategoryModel(name: name, amount: sum));
+      if (model.dateTime != null) {
+        reportIncomesCategories.add(model);
+      }
     }
   }
 
@@ -87,7 +117,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
           expenses.add(j);
         }
       }
-      if ( expenses.isNotEmpty) {
+      if (expenses.isNotEmpty) {
         result.add(expenses);
       }
     }
