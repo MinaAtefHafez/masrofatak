@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is GetExpensesIncomesLocal) {
           await homeCubit.showExpensesIncomes(
               state.expensesIncomes, IntlHelper.monthNow);
-          reportsCubit.getAllExpensesIncomes(state.expensesIncomes);
+          await reportsCubit.getAllExpensesIncomes(state.expensesIncomes);
           await reportsCubit.getExpenses();
           await reportsCubit.getIncomes();
           await reportsCubit.filtersExpensesToNameAndAmountOnly();
