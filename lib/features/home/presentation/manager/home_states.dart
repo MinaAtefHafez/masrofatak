@@ -23,3 +23,9 @@ final class GetExpensesIncomesPerDay extends HomeStates {}
 final class GetSumAmountToday extends HomeStates {}
 
 final class SortingExpensesIncomesForDay extends HomeStates {}
+
+final class GetAllIncomes extends HomeStates {}
+
+final class GetAllExpenses extends HomeStates {}
+
+final class GetBalance extends HomeStates {}

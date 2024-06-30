@@ -40,7 +40,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
             DateMonthPickerItem(
                 onTap: () {}, onTapLeft: () {}, onTapRight: () {}),
             SizedBox(height: 30.h),
-            const HomeBasicItem(),
+            BlocBuilder<HomeCubit, HomeStates>(
+              bloc: homeCubit,
+              builder: (context, state) {
+                return HomeBasicItem(allMoney: homeCubit.getAllMoney);
+              },
+            ),
             const SizedBox(height: 16),
             Expanded(
               child: SingleChildScrollView(

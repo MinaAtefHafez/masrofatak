@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/data/models/all_money_model.dart';
@@ -17,7 +19,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic> expensesIncomesPerDay = [];
   List<dynamic> today = [];
   int sumAmountToday = 0;
-  AllMoneyModel allMoney = AllMoneyModel();
+  AllMoneyModel allMoney = AllMoneyModel(balance: 0, expenses: 0, incomes: 0);
 
   List<dynamic> get expensesIncomesMonth => expensesIncomesForMonth;
 
@@ -26,6 +28,8 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic>? get todayy => today;
 
   int get sumToday => sumAmountToday;
+
+  AllMoneyModel get getAllMoney => allMoney;
 
   void changeBottomNavIndex(int index) {
     bottomNavIndex = index;
@@ -41,12 +45,53 @@ class HomeCubit extends Cubit<HomeStates> {
   Future<void> showExpensesIncomes(
       List<dynamic> expensesIncomesList, String month) async {
     await getExpensesIncomesFromExpensesCubit(expensesIncomesList);
+    await getAllExpenses();
+    await getAllIncomes();
+    await getBalance();
     await filterExpensesIncomesForMonth(month);
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
     await getSumForMonth();
     await getToday();
     await getSumAountToday();
+  }
+
+  Future<int> getAllIncomesImpl() async {
+    int sum = 0;
+    for (var e in expensesIncomes) {
+      if (e.type == 'Incomes') {
+        sum = (sum + e.amount).toInt();
+      }
+    }
+    return sum;
+  }
+
+  Future<int> getAllExpensesImpl() async {
+    int sum = 0;
+    for (var e in expensesIncomes) {
+      if (e.type == 'Expenses') {
+        sum = (sum + e.amount).toInt();
+      }
+    }
+    return sum;
+  }
+
+  Future<void> getAllIncomes() async {
+    var incomesSumAmount = await getAllIncomesImpl();
+    allMoney = allMoney.copyWith(incomes: incomesSumAmount);
+    emit(GetAllIncomes());
+  }
+
+  Future<void> getAllExpenses() async {
+    var expensesSumAmount = await getAllExpensesImpl();
+    allMoney = allMoney.copyWith(expenses: expensesSumAmount);
+    emit(GetAllExpenses());
+  }
+
+  Future<void> getBalance() async {
+    allMoney =
+        allMoney.copyWith(balance: allMoney.incomes! - allMoney.expenses!);
+    emit(GetBalance());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingDateTime() async {
