@@ -50,9 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: expensesIncomesCubit,
       listener: (context, state) async {
         if (state is GetExpensesIncomesLocal) {
-          homeCubit.showExpensesIncomes(
+          await homeCubit.showExpensesIncomes(
               state.expensesIncomes, IntlHelper.monthNow);
           reportsCubit.getAllExpensesIncomes(state.expensesIncomes);
+          await reportsCubit.getExpenses();
+          await reportsCubit.getIncomes();
+          await reportsCubit.filtersExpensesToNameAndAmountOnly();
+          await reportsCubit.filtersIncomesToNameAndAmountOnly();
         }
       },
       child: BlocListener<CategoryCubit, CategoryState>(
