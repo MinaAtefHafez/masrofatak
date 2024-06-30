@@ -81,7 +81,6 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> filtersIncomesToNameAndAmountOnly() async {
     reportIncomesCategories.clear();
-    reportExpensesCategories.clear();
     for (var e in allIncomes) {
       ReportsCategoryModel model = ReportsCategoryModel();
       for (var j in e) {
