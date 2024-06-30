@@ -34,5 +34,9 @@
    "Nov" : "Nov" ,
    "Dec" : "Dec" ,
    "MoreDetails" : "More Details" ,
-   "DayDetails" : "Day Details"
+   "DayDetails" : "Day Details" ,
+   "Newest" : "Newest" ,
+   "Oldest" : "Oldest",
+   "MostExpensive" : "Most Expensive" ,
+  "LeastExpensive" : "Least Expensive"
 }

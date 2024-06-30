@@ -15,6 +15,8 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     ..type = 'Expenses'
     ..day = IntlHelper.dayNow
     ..month = IntlHelper.monthNow
+    ..year = IntlHelper.yearNow
+    ..dateTime = IntlHelper.dateTimeNow
     ..category =
         CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Grocery');
 
@@ -42,6 +44,21 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     await addExpensesIncomeToList();
     await saveExpensesIncomesLocal();
     await getExpensesIncomesLocal();
+  }
+
+  void onDayChanged(String day) {
+    expensesIncomeModel = expensesIncomeModel.copyWith(day: day);
+    emit(OnModelChanged());
+  }
+
+  void onMonthChanged(String month) {
+    expensesIncomeModel = expensesIncomeModel.copyWith(month: month);
+    emit(OnModelChanged());
+  }
+
+  void onYearChanged(String year) {
+    expensesIncomeModel = expensesIncomeModel.copyWith(year: year);
+    emit(OnModelChanged());
   }
 
   void onAmountChanged(String amount) {

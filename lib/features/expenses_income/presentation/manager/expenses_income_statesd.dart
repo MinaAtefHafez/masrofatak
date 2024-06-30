@@ -3,6 +3,8 @@ abstract class ExpensesIncomeState {}
 
 final class InitialState extends ExpensesIncomeState {}
 
+final class OnModelChanged extends ExpensesIncomeState {}
+
 final class OnTypeIncomeChanged extends ExpensesIncomeState {}
 
 final class SaveExpensesIncomeLocal extends ExpensesIncomeState {}

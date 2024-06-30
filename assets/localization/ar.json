@@ -34,5 +34,9 @@
   "Nov" : "نوفمبر" ,
   "Dec" : "ديسمبر" ,
   "MoreDetails" : "المزيد من التفاصيل" ,
-  "DayDetails" : "تفاصيل يوم"
+  "DayDetails" : "تفاصيل يوم" ,
+  "Newest" : "الاحدث" ,
+  "Oldest" : "الاقدم" ,
+  "MostExpensive" : "الاكثر تكلفة" ,
+  "LeastExpensive" : "الاقل تكلفة"
 }

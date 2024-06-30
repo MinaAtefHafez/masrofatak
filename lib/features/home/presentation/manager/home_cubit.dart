@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
+import 'package:masrofatak/features/home/data/models/all_money_model.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
@@ -16,6 +17,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<dynamic> expensesIncomesPerDay = [];
   List<dynamic> today = [];
   int sumAmountToday = 0;
+  AllMoneyModel allMoney = AllMoneyModel();
 
   List<dynamic> get expensesIncomesMonth => expensesIncomesForMonth;
 
@@ -45,6 +47,28 @@ class HomeCubit extends Cubit<HomeStates> {
     await getSumForMonth();
     await getToday();
     await getSumAountToday();
+  }
+
+  Future<void> sortDaysExpensesIncomsAccordingDateTime() async {
+    expensesIncomesPerDay.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    emit(SortingExpensesIncomesForDay());
+  }
+
+  Future<void> sortDaysExpensesIncomsAccordingOldest() async {
+    expensesIncomesPerDay.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
+    emit(SortingExpensesIncomesForDay());
+  }
+
+  Future<void> sortDaysExpensesIncomsAccordingMostExpensive() async {
+    expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
+    emit(SortingExpensesIncomesForDay());
+  }
+
+  Future<void> sortDaysExpensesIncomsAccordingLowExpensive() async {
+    expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
+    emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> getExpensesIncomesPerDay(int index) async {

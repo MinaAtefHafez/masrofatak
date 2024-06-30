@@ -5,6 +5,7 @@ import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 abstract class AppTheme {
   static final lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
+
       appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,

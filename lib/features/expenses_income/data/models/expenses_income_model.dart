@@ -19,15 +19,20 @@ class ExpensesIncomeModel extends HiveObject {
   String? month;
   @HiveField(5)
   String? type;
+  @HiveField(6)
+  String? dateTime;
+  @HiveField(7)
+  String? year;
 
-  ExpensesIncomeModel({
-    this.month,
-    this.day,
-    this.type,
-    this.category,
-    this.amount,
-    this.description,
-  });
+  ExpensesIncomeModel(
+      {this.month,
+      this.day,
+      this.type,
+      this.category,
+      this.amount,
+      this.description,
+      this.dateTime,
+      this.year});
 
   ExpensesIncomeModel copyWith({
     CategoryModel? category,
@@ -36,6 +41,8 @@ class ExpensesIncomeModel extends HiveObject {
     String? day,
     String? month,
     String? type,
+    String? dateTime,
+    String? year,
   }) {
     return ExpensesIncomeModel(
       category: category ?? this.category,
@@ -44,6 +51,8 @@ class ExpensesIncomeModel extends HiveObject {
       day: day ?? this.day,
       month: month ?? this.month,
       type: type ?? this.type,
+      dateTime: dateTime ?? this.dateTime,
+      year: year ?? this.year,
     );
   }
 }

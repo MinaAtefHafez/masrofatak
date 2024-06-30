@@ -23,13 +23,15 @@ class ExpensesIncomeModelAdapter extends TypeAdapter<ExpensesIncomeModel> {
       category: fields[0] as CategoryModel?,
       amount: fields[1] as int?,
       description: fields[2] as String?,
+      dateTime: fields[6] as String?,
+      year: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ExpensesIncomeModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.category)
       ..writeByte(1)
@@ -41,7 +43,11 @@ class ExpensesIncomeModelAdapter extends TypeAdapter<ExpensesIncomeModel> {
       ..writeByte(4)
       ..write(obj.month)
       ..writeByte(5)
-      ..write(obj.type);
+      ..write(obj.type)
+      ..writeByte(6)
+      ..write(obj.dateTime)
+      ..writeByte(7)
+      ..write(obj.year);
   }
 
   @override

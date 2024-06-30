@@ -35,54 +35,56 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8.w),
-      height: 260.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
-      ),
-      child: Column(
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-                widget.today != null
-                    ? tr('Today')
-                    : '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month)}',
-                style: widget.today != null
-                    ? AppStyles.styleMedium12
-                        .copyWith(color: AppColors.color424242)
-                    : AppStyles.styleRegular14
-                        .copyWith(color: AppColors.color424242)),
-            Text(MethodsHelper.convert(context, widget.amountPerDay.toString()),
-                style: AppStyles.styleRegular14
-                    .copyWith(color: AppColors.color424242))
-          ]),
-          if (widget.expensesIncomesModel.length >= 2) ...[
-            ExpensesIncomesSmallItem(
-                expensesIncomesModel: widget.expensesIncomesModel[
-                    widget.expensesIncomesModel.length - 1],
-                color: categoryCubit.getCategoryColor),
-          ],
-          SizedBox(height: 15.h),
-          if (widget.expensesIncomesModel.isNotEmpty) ...[
+    return IntrinsicHeight(
+      child: Container(
+        padding: EdgeInsets.all(8.w),
+        
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
+        ),
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                  widget.today != null
+                      ? tr('Today')
+                      : '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month)}',
+                  style: widget.today != null
+                      ? AppStyles.styleMedium12
+                          .copyWith(color: AppColors.color424242)
+                      : AppStyles.styleRegular14
+                          .copyWith(color: AppColors.color424242)),
+              Text(MethodsHelper.convert(context, widget.amountPerDay.toString()),
+                  style: AppStyles.styleRegular14
+                      .copyWith(color: AppColors.color424242))
+            ]),
+            if (widget.expensesIncomesModel.length >= 2) ...[
+              ExpensesIncomesSmallItem(
+                  expensesIncomesModel: widget.expensesIncomesModel[
+                      widget.expensesIncomesModel.length - 1],
+                  color: categoryCubit.getCategoryColor),
+            ],
             SizedBox(height: 15.h),
-            ExpensesIncomesSmallItem(
-                expensesIncomesModel: widget.expensesIncomesModel[0],
-                color: categoryCubit.getCategoryColor),
+            if (widget.expensesIncomesModel.isNotEmpty) ...[
+              SizedBox(height: 15.h),
+              ExpensesIncomesSmallItem(
+                  expensesIncomesModel: widget.expensesIncomesModel[0],
+                  color: categoryCubit.getCategoryColor),
+            ],
+            SizedBox(height: 25.h),
+            const ExpesesIncomesDivider(count: 50),
+            Expanded(
+              child: TextButton(
+                  onPressed: widget.onTap,
+                  child: Text(
+                    tr('MoreDetails'),
+                    style: AppStyles.styleRegular16
+                        .copyWith(color: AppColors.color424242),
+                  )),
+            )
           ],
-          SizedBox(height: 25.h),
-          const ExpesesIncomesDivider(count: 50),
-          Expanded(
-            child: TextButton(
-                onPressed: widget.onTap,
-                child: Text(
-                  tr('MoreDetails'),
-                  style: AppStyles.styleRegular16
-                      .copyWith(color: AppColors.color424242),
-                )),
-          )
-        ],
+        ),
       ),
     );
   }
