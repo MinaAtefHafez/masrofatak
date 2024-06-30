@@ -21,16 +21,16 @@ class _ReportsScreenState extends State<ReportsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: EdgeInsets.only(top: 30.h),
-          child: SfCartesianChart(
-              primaryXAxis: const CategoryAxis(),
-              series: <CartesianSeries<ReportsCategoryModel, String>>[
+      padding: EdgeInsets.only(top: 30.h),
+      child: SfCartesianChart(
+          primaryXAxis: const CategoryAxis(),
+          series: <CartesianSeries<ReportsCategoryModel, String>>[
             BarSeries<ReportsCategoryModel, String>(
-                dataSource: reportsCubit.reportIncomesCategories,
+                dataSource: reportsCubit.reportExpensesCategories,
                 xValueMapper: (ReportsCategoryModel data, index) => data.name,
                 yValueMapper: (ReportsCategoryModel data, index) => data.amount,
                 color: const Color.fromRGBO(8, 142, 255, 1))
           ]),
-        ));
+    ));
   }
 }

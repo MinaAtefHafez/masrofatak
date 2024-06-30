@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/reports/presentation/manager/reports_states.dart';
@@ -20,17 +21,48 @@ class ReportsCubit extends Cubit<ReportsStates> {
     reportExpensesCategories.clear();
 
     for (var e in allExpenses) {
-      String? name;
-      int sum = 0;
-
+      var reports = ReportsCategoryModel();
       for (var j in e) {
-        sum = (sum + j.amount!).toInt();
-        name = j.category!.name;
+        reports =
+            reports.copyWith(amount: (reports.amount ?? 0 + j.amount!).toInt());
+        reports = reports.copyWith(name: j.category!.name);
+        reports = reports.copyWith(dateTime: j.dateTime);
       }
-      reportExpensesCategories
-          .add(ReportsCategoryModel(name: name, amount: sum));
+
+      reportExpensesCategories.add(reports);
     }
   }
+
+  Future<void> filterExpensesToLastSevenDays() async {
+    var now = DateTime.now();
+    var now_1w = now.subtract(const Duration(days: 7));
+    reportExpensesCategories = reportExpensesCategories.where((e) {
+      var date = DateTime.parse(e.dateTime!);
+      return now_1w.isBefore(date);
+    }).toList();
+  }
+
+//   import 'package:flutter/material.dart';
+// import 'package:intl/intl.dart';
+
+// class MyObject {
+//   DateTime createdAt;
+
+//   MyObject({required this.createdAt});
+// }
+
+// void main() {
+//   List<MyObject> objectsList = []; // Assuming your list of objects
+
+//   DateTime now = DateTime.now();
+//   DateTime sevenDaysAgo = now.subtract(Duration(days: 7));
+
+//   List<MyObject> filteredObjects = objectsList.where((obj) {
+//     return obj.createdAt.isAfter(sevenDaysAgo);
+//   }).toList();
+
+//   print(filteredObjects);
+// }
 
   Future<void> filtersIncomesToNameAndAmountOnly() async {
     reportIncomesCategories.clear();
