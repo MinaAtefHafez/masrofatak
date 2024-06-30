@@ -5,7 +5,6 @@ import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 abstract class AppTheme {
   static final lightTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-
       appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -36,11 +35,14 @@ abstract class AppTheme {
 
   static final darkTheme = ThemeData(
       scaffoldBackgroundColor: Colors.black,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
           backgroundColor: Colors.black,
           elevation: 0,
+          titleTextStyle:
+              AppStyles.styleRegular14.copyWith(color: AppColors.color616161),
+          iconTheme: const IconThemeData(color: Colors.white),
           centerTitle: true,
-          actionsIconTheme: IconThemeData(
+          actionsIconTheme: const IconThemeData(
             color: Colors.white,
           )),
       floatingActionButtonTheme: FloatingActionButtonThemeData(

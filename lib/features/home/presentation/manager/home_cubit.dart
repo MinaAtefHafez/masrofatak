@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/data/models/all_money_model.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
+import 'package:masrofatak/features/reports/presentation/screens/reports_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -37,7 +39,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   final homeScreens = [
-    const HomeDetailsScreen(),
+    const ReportsScreen(),
     const HomeDetailsScreen(),
     const SettingsScreen(),
   ];
@@ -107,12 +109,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortDaysExpensesIncomsAccordingMostExpensive() async {
     expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
+     expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingLowExpensive() async {
     expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
-    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
+   
     emit(SortingExpensesIncomesForDay());
   }
 

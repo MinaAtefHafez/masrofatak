@@ -38,7 +38,6 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
     return IntrinsicHeight(
       child: Container(
         padding: EdgeInsets.all(8.w),
-        
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           border: Border.all(color: AppColors.colorE0E0E0, width: 1.w),
@@ -55,7 +54,9 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                           .copyWith(color: AppColors.color424242)
                       : AppStyles.styleRegular14
                           .copyWith(color: AppColors.color424242)),
-              Text(MethodsHelper.convert(context, widget.amountPerDay.toString()),
+              Text(
+                  MethodsHelper.convert(
+                      context, widget.amountPerDay.toString()),
                   style: AppStyles.styleRegular14
                       .copyWith(color: AppColors.color424242))
             ]),
@@ -126,8 +127,8 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
             children: [
               Text(
                 expensesIncomesModel.description!,
-                style: AppStyles.styleRegular14
-                    .copyWith(color: AppColors.color212121),
+                style: AppStyles.styleRegular14.copyWith(
+                    color: AppColors.color424242, fontWeight: FontWeight.w300),
                 maxLines: isWidgetIntrinsic ? null : 1,
                 overflow: isWidgetIntrinsic ? null : TextOverflow.ellipsis,
               ),

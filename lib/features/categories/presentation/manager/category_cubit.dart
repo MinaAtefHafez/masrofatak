@@ -80,7 +80,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> getExpensesCategoriesLocal() async {
     expensesCategories = await _categoryRepo.getExpensesCategoriesLocal();
-    emit(GetAllCategoriesLocal());
+    emit(GeExpensesCategoriesLocal(expensesCategories));
   }
 
   Future<void> saveIncomesCategoriesLocal() async {
@@ -90,6 +90,6 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> getIncomesCategoriesLocal() async {
     incomesCategories = await _categoryRepo.getIncomesCategoriesLocal();
-    emit(GetAllCategoriesLocal());
+    emit(GetIncomesCategoriesLocal(incomesCategories));
   }
 }
