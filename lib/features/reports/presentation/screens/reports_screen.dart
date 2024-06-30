@@ -26,7 +26,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               primaryXAxis: const CategoryAxis(),
               series: <CartesianSeries<ReportsCategoryModel, String>>[
             BarSeries<ReportsCategoryModel, String>(
-                dataSource: reportsCubit.reportExpensesCategories,
+                dataSource: reportsCubit.reportIncomesCategories,
                 xValueMapper: (ReportsCategoryModel data, index) => data.name,
                 yValueMapper: (ReportsCategoryModel data, index) => data.amount,
                 color: const Color.fromRGBO(8, 142, 255, 1))

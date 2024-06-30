@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/reports/presentation/manager/reports_states.dart';
@@ -94,7 +93,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
     for (var e in incomesCategories) {
       incomes = [];
       for (var j in allExpensesIncomes) {
-        if (e.name == j.category!.name && j.type == 'Income') {
+        if (e.name == j.category!.name && j.type == 'Incomes') {
           incomes.add(j);
         }
       }
