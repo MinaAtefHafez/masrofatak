@@ -26,12 +26,12 @@ class ReportsCubit extends Cubit<ReportsStates> {
       ? reportExpensesCategories
       : reportIncomesCategories;
 
-  Future<void> changeFilterDaysDropIndex(int index) async {
+  Future<void> changeDaysDropIndex(int index) async {
     filterDaysDropIndex = index;
     emit(ChangeFilterDropIndex());
   }
 
-  Future<void> changeFilterIncomesDropIndex(int index) async {
+  Future<void> changeIncomesDropIndex(int index) async {
     filterIncomesIndex = index;
     emit(ChangeFilterDropIndex());
   }
@@ -42,18 +42,60 @@ class ReportsCubit extends Cubit<ReportsStates> {
     } else {
       await filterIncomes();
     }
-    log(reportExpensesCategories.length.toString());
     emit(FilterState());
+  }
+
+  Future<List<ReportsCategoryModel>> sumAmountsOfCategory(
+      List<ReportsCategoryModel> reports) async {
+    List<ReportsCategoryModel> list = [];
+    for (int i = 0; i < reports.length; i++) {
+      var sum = 0;
+      var item = reports[i];
+      var nameCompare = reports[i].name;
+      for (int j = 0; j < reports.length; j++) {
+        if (j == i) continue;
+        var name = reports[j].name;
+        if (name == nameCompare) {
+          sum = sum + reports[j].amount! ;
+          item = item.copyWith(amount: sum);
+        }
+      }
+
+      list.add(item);
+    }
+    return list;
+  }
+
+  Future<void> sumAmountsOfExpensesCategory() async {
+    reportExpensesCategories =
+        await sumAmountsOfCategory(reportExpensesCategories);
+    emit(SumAmountsOfCategory());
+  }
+
+  Future<void> sumAmountsOfIncomeCategory() async {
+    reportIncomesCategories =
+        await sumAmountsOfCategory(reportIncomesCategories);
+    emit(SumAmountsOfCategory());
+  }
+
+  Future<void> handleSumsAmounts() async {
+    if (filterIncomesIndex == 0) {
+      await sumAmountsOfExpensesCategory();
+    } else {
+      await sumAmountsOfIncomeCategory();
+    }
   }
 
   Future<void> filterExpenses() async {
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportExpensesCategories = await filter.filter(reportExpensesCategories);
+    await handleSumsAmounts();
   }
 
   Future<void> filterIncomes() async {
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportIncomesCategories = await filter.filter(reportIncomesCategories);
+    await handleSumsAmounts();
   }
 
   Future<void> getAllFilters() async {
@@ -62,7 +104,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
     } else {
       await convertIncomesToReportsCategories();
     }
-    
+
     emit(GetAllFilters());
   }
 
@@ -78,7 +120,6 @@ class ReportsCubit extends Cubit<ReportsStates> {
         reportExpensesCategories.add(model);
       }
     }
-    log(reportExpensesCategories.length.toString());
   }
 
   Future<void> convertIncomesToReportsCategories() async {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +25,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
   final incomeTypeItems = ['Expenses', 'Income'];
 
   @override
+  void initState() {
+    super.initState();
+    reportsCubit.getAllFilters();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReportsCubit, ReportsStates>(
       bloc: reportsCubit,
@@ -42,9 +47,10 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     Expanded(
                         child: ReportsDropDownButton(
                       onChanaged: (index) async {
-                        await reportsCubit.changeFilterDaysDropIndex(index!);
+                        await reportsCubit.changeDaysDropIndex(index!);
                         if (index == 3) {
                           await reportsCubit.getAllFilters();
+                          await reportsCubit.sumAmountsOfExpensesCategory();
                           return;
                         }
                         await reportsCubit.filter();
@@ -57,7 +63,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       child: ReportsDropDownButton(
                         onChanaged: (index) async {
                           await reportsCubit
-                              .changeFilterIncomesDropIndex(index!);
+                              .changeIncomesDropIndex(index!);
                           await reportsCubit.filter();
                         },
                         value: reportsCubit.filterIncomesIndex,
