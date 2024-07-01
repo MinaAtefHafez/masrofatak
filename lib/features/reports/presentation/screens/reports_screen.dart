@@ -30,6 +30,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
     reportsCubit.getAllFilters();
   }
 
+  void call() async {
+    await reportsCubit.getAllFilters();
+    await reportsCubit.handleSumsAmounts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReportsCubit, ReportsStates>(
@@ -53,6 +58,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           await reportsCubit.sumAmountsOfExpensesCategory();
                           return;
                         }
+
                         await reportsCubit.filter();
                       },
                       items: filterItems,
@@ -62,8 +68,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     Expanded(
                       child: ReportsDropDownButton(
                         onChanaged: (index) async {
-                          await reportsCubit
-                              .changeIncomesDropIndex(index!);
+                          await reportsCubit.changeIncomesDropIndex(index!);
+
                           await reportsCubit.filter();
                         },
                         value: reportsCubit.filterIncomesIndex,

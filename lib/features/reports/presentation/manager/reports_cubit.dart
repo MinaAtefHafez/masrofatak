@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
@@ -49,15 +48,13 @@ class ReportsCubit extends Cubit<ReportsStates> {
       List<ReportsCategoryModel> reports) async {
     List<ReportsCategoryModel> list = [];
     for (int i = 0; i < reports.length; i++) {
-      var sum = 0;
       var item = reports[i];
       var nameCompare = reports[i].name;
       for (int j = 0; j < reports.length; j++) {
         if (j == i) continue;
         var name = reports[j].name;
         if (name == nameCompare) {
-          sum = sum + reports[j].amount! ;
-          item = item.copyWith(amount: sum);
+          item = item.copyWith(amount: (item.amount! + reports[j].amount!));
         }
       }
 
@@ -67,8 +64,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> sumAmountsOfExpensesCategory() async {
-    reportExpensesCategories =
-        await sumAmountsOfCategory(reportExpensesCategories);
+    reportExpensesCategories = await sumAmountsOfCategory(reportExpensesCategories);
     emit(SumAmountsOfCategory());
   }
 
@@ -87,12 +83,14 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> filterExpenses() async {
+    await getAllFilters();
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportExpensesCategories = await filter.filter(reportExpensesCategories);
     await handleSumsAmounts();
   }
 
   Future<void> filterIncomes() async {
+    await getAllFilters();
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportIncomesCategories = await filter.filter(reportIncomesCategories);
     await handleSumsAmounts();
