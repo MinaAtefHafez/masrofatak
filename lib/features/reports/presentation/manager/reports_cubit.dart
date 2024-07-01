@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
@@ -36,13 +37,23 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> filter() async {
-    var filter = FilterFactory.getFilter(filterDaysDropIndex);
     if (filterIncomesIndex == 0) {
-      reportExpensesCategories = await filter.filter(reportExpensesCategories);
+      await filterExpenses();
     } else {
-      reportIncomesCategories = await filter.filter(reportIncomesCategories);
+      await filterIncomes();
     }
+    log(reportExpensesCategories.length.toString());
     emit(FilterState());
+  }
+
+  Future<void> filterExpenses() async {
+    var filter = FilterFactory.getFilter(filterDaysDropIndex);
+    reportExpensesCategories = await filter.filter(reportExpensesCategories);
+  }
+
+  Future<void> filterIncomes() async {
+    var filter = FilterFactory.getFilter(filterDaysDropIndex);
+    reportIncomesCategories = await filter.filter(reportIncomesCategories);
   }
 
   Future<void> getAllFilters() async {
@@ -51,35 +62,35 @@ class ReportsCubit extends Cubit<ReportsStates> {
     } else {
       await convertIncomesToReportsCategories();
     }
+    
     emit(GetAllFilters());
   }
 
   Future<void> convertExpensesToReportsCategories() async {
     reportExpensesCategories.clear();
     for (var e in allExpenses) {
-      ReportsCategoryModel model = ReportsCategoryModel();
       for (var j in e) {
-        model = model.copyWith(amount: model.amount ?? 0 + j.amount!);
-        model = model.copyWith(name: j.category!.name);
-        model = model.copyWith(dateTime: j.dateTime);
-      }
-      if (model.dateTime != null) {
+        ReportsCategoryModel model = ReportsCategoryModel(
+          amount: j.amount,
+          dateTime: j.dateTime,
+          name: j.category!.name,
+        );
         reportExpensesCategories.add(model);
       }
     }
+    log(reportExpensesCategories.length.toString());
   }
 
   Future<void> convertIncomesToReportsCategories() async {
     reportIncomesCategories.clear();
     for (var e in allIncomes) {
-      ReportsCategoryModel model = ReportsCategoryModel();
       for (var j in e) {
-        model = model.copyWith(amount: model.amount ?? 0 + j.amount!);
-        model = model.copyWith(name: j.category!.name);
-        model = model.copyWith(dateTime: j.dateTime);
-      }
-      if (model.dateTime != null) {
-        reportIncomesCategories.add(model);
+        ReportsCategoryModel model = ReportsCategoryModel(
+          amount: j.amount,
+          dateTime: j.dateTime,
+          name: j.category!.name,
+        );
+        reportExpensesCategories.add(model);
       }
     }
   }

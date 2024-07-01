@@ -70,6 +70,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               Expanded(
                 child: SfCartesianChart(
                     primaryXAxis: const CategoryAxis(),
+                    
                     series: <CartesianSeries<ReportsCategoryModel, String>>[
                       BarSeries<ReportsCategoryModel, String>(
                           dataSource: reportsCubit.reportsCategories,
