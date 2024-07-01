@@ -68,19 +68,19 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
             ],
             SizedBox(height: 15.h),
             if (widget.expensesIncomesModel.isNotEmpty) ...[
-              SizedBox(height: 15.h),
               ExpensesIncomesSmallItem(
                   expensesIncomesModel: widget.expensesIncomesModel[0],
                   color: categoryCubit.getCategoryColor),
             ],
             SizedBox(height: 25.h),
             const ExpesesIncomesDivider(count: 50),
+            SizedBox(height: 5.h),
             Expanded(
               child: TextButton(
                   onPressed: widget.onTap,
                   child: Text(
                     tr('MoreDetails'),
-                    style: AppStyles.styleRegular16
+                    style: AppStyles.styleRegular14
                         .copyWith(color: AppColors.color424242),
                   )),
             )

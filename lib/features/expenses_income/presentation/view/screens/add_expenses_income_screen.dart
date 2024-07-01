@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
+import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/core/widgets/custom_bottom_sheet.dart';
 import 'package:masrofatak/core/widgets/custom_date_picker.dart';
@@ -124,6 +126,11 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                SvgPicture.asset(Assets.imagesCalendarToday ,
+                                 width: 20.w ,
+                                 height: 20.h ,
+                                ),
+                                SizedBox(width: 10.w ),
                                 Text(
                                     '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
                                     style: AppStyles.styleRegular14.copyWith(

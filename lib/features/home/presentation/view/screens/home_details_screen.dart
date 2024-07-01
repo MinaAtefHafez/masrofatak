@@ -57,7 +57,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         if (homeCubit.todayy != null &&
                             homeCubit.todayy!.isNotEmpty) ...[
                           ExpensesIncomesItem(
-                            onTap: () {},
+                            onTap: () async {
+                              await homeCubit
+                                  .getExpensesIncomesPerDay(homeCubit.today!);
+                              CustomNavigator.pushNamed(DayDetailsScreen.name);
+                            },
                             today: 'today',
                             expensesIncomesModel: homeCubit.todayy!,
                             amountPerDay: homeCubit.sumToday,
@@ -68,8 +72,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             itemBuilder: (context, index) =>
                                 ExpensesIncomesItem(
                                   onTap: () async {
-                                    await homeCubit
-                                        .getExpensesIncomesPerDay(index);
+                                    await homeCubit.getExpensesIncomesPerDay(
+                                        homeCubit
+                                            .expensesIncomesEachDay[index]);
                                     CustomNavigator.pushNamed(
                                         DayDetailsScreen.name);
                                   },

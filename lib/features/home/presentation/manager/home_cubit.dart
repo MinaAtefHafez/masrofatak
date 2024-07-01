@@ -119,8 +119,8 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(SortingExpensesIncomesForDay());
   }
 
-  Future<void> getExpensesIncomesPerDay(int index) async {
-    expensesIncomesPerDay = List.from(expensesIncomesEachDay[index]);
+  Future<void> getExpensesIncomesPerDay(List <dynamic> item) async {
+    expensesIncomesPerDay = List.from(item);
     emit(GetExpensesIncomesPerDay());
   }
 
