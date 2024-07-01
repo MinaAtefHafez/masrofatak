@@ -51,6 +51,10 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     emit(OnModelChanged());
   }
 
+  void onDateTimeChanged(String dateTime) {
+    expensesIncomeModel = expensesIncomeModel.copyWith(dateTime: dateTime);
+  }
+
   void onMonthChanged(String month) {
     expensesIncomeModel = expensesIncomeModel.copyWith(month: month);
     emit(OnModelChanged());

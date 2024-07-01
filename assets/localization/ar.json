@@ -38,5 +38,9 @@
   "Newest" : "الاحدث" ,
   "Oldest" : "الاقدم" ,
   "MostExpensive" : "الاكثر تكلفة" ,
-  "LeastExpensive" : "الاقل تكلفة"
+  "LeastExpensive" : "الاقل تكلفة" ,
+  "LastWeek" : "الاسبوع الأخير" ,
+  "LastMonth" : "الشهر الأخير" ,
+  "All" : "الكل" 
+  
 }

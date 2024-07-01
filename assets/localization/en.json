@@ -38,5 +38,9 @@
    "Newest" : "Newest" ,
    "Oldest" : "Oldest",
    "MostExpensive" : "Most Expensive" ,
-  "LeastExpensive" : "Least Expensive"
+  "LeastExpensive" : "Least Expensive" , 
+  
+  "LastWeek" : "Last Week" ,
+  "LastMonth" : "Last Month" ,
+  "All" : "All"
 }

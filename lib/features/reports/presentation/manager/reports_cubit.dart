@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
@@ -5,11 +6,13 @@ import 'package:masrofatak/features/reports/presentation/manager/reports_states.
 
 import '../../../categories/data/models/categories_model.dart';
 import '../../data/models/reports_model.dart';
+import '../../filters/filters.dart';
 
 class ReportsCubit extends Cubit<ReportsStates> {
   ReportsCubit() : super(InitialReportsState());
 
-  bool isExpeses = true;
+  int filterDaysDropIndex = 0;
+  int filterIncomesIndex = 0;
 
   List<List<ExpensesIncomeModel>> allExpenses = [];
   List<List<ExpensesIncomeModel>> allIncomes = [];
@@ -18,6 +21,39 @@ class ReportsCubit extends Cubit<ReportsStates> {
   List<ExpensesIncomeModel> allExpensesIncomes = [];
   List<ReportsCategoryModel> reportExpensesCategories = [];
   List<ReportsCategoryModel> reportIncomesCategories = [];
+
+  List<ReportsCategoryModel> get reportsCategories => filterIncomesIndex == 0
+      ? reportExpensesCategories
+      : reportIncomesCategories;
+
+  Future<void> changeFilterDaysDropIndex(int index) async {
+    filterDaysDropIndex = index;
+    emit(ChangeFilterDropIndex());
+  }
+
+  Future<void> changeFilterIncomesDropIndex(int index) async {
+    filterIncomesIndex = index;
+    emit(ChangeFilterDropIndex());
+  }
+
+  Future<void> filter() async {
+    var filter = FilterFactory.getFilter(filterDaysDropIndex);
+    if (filterIncomesIndex == 0) {
+      reportExpensesCategories = await filter.filter(reportExpensesCategories);
+    } else {
+      reportIncomesCategories = await filter.filter(reportIncomesCategories);
+    }
+    emit(FilterState());
+  }
+
+  Future<void> getAllFilters() async {
+    if (filterIncomesIndex == 0) {
+      await filtersExpensesToNameAndAmountOnly();
+    } else {
+      await filtersIncomesToNameAndAmountOnly();
+    }
+    emit(GetAllFilters());
+  }
 
   Future<void> filtersExpensesToNameAndAmountOnly() async {
     reportExpensesCategories.clear();
@@ -32,51 +68,6 @@ class ReportsCubit extends Cubit<ReportsStates> {
         reportExpensesCategories.add(model);
       }
     }
-  }
-
-  Future<List<ReportsCategoryModel>> filterToLastWeek(
-      List<ReportsCategoryModel> expensesIncomes) async {
-    if (expensesIncomes.isEmpty) return [];
-    var now = DateTime.now();
-    var now_1w = now.subtract(const Duration(days: 7));
-    expensesIncomes = expensesIncomes.where((e) {
-      var date = DateTime.parse(e.dateTime!);
-      return now_1w.isBefore(date);
-    }).toList();
-    return expensesIncomes;
-  }
-
-  Future<List<ReportsCategoryModel>> filterToLastMonth(
-      List<ReportsCategoryModel> expensesIncomes) async {
-    if (expensesIncomes.isEmpty) return [];
-    var now = DateTime.now();
-    var now_1w = now.subtract(const Duration(days: 30));
-    expensesIncomes = expensesIncomes.where((e) {
-      var date = DateTime.parse(e.dateTime!);
-      return now_1w.isBefore(date);
-    }).toList();
-    return expensesIncomes;
-  }
-
-  Future<void> filterExpensesToLastmonth() async {
-    reportExpensesCategories =
-        await filterToLastMonth(reportExpensesCategories);
-    emit(FilterExpensesToLastMonth());
-  }
-
-  Future<void> filterExpensesToLastWeek() async {
-    reportExpensesCategories = await filterToLastWeek(reportExpensesCategories);
-    emit(FilterExpensesToLastWeek());
-  }
-
-  Future<void> filterIncomesToLastMonth() async {
-    reportIncomesCategories = await filterToLastMonth(reportIncomesCategories);
-    emit(FilterIncomesToLastMonth());
-  }
-
-  Future<void> filterIncomesToLastWeek() async {
-    reportIncomesCategories = await filterToLastWeek(reportIncomesCategories);
-    emit(FilterIncomesToLastWeek());
   }
 
   Future<void> filtersIncomesToNameAndAmountOnly() async {

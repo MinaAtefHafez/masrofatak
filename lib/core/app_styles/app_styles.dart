@@ -24,5 +24,5 @@ abstract class AppStyles {
   static final styleMedium12 =
       TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500);
   static final styleMedium13 =
-      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500);
+      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500);
 }

@@ -46,7 +46,6 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
     return BlocProvider.value(
       value: expensesIncomeCubit,
       child: BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
-        
         listener: (context, state) {
           if (state is GetExpensesIncomesLocal) {
             CustomNavigator.pop();
@@ -74,7 +73,6 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
-                        
                         builder: (context, state) {
                           return ExpensesIncomeButton(
                             isExpense: expensesIncomeCubit.isExpense,
@@ -120,17 +118,16 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                         onTap: () {
                           showPicker(context);
                         },
-                        child:
-                            BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
-                          
+                        child: BlocBuilder<ExpensesIncomeCubit,
+                            ExpensesIncomeState>(
                           builder: (context, state) {
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
                                     '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
-                                    style: AppStyles.styleRegular14
-                                        .copyWith(color: AppColors.color424242)),
+                                    style: AppStyles.styleRegular14.copyWith(
+                                        color: AppColors.color424242)),
                                 Icon(Icons.arrow_drop_down, size: 20.w),
                               ],
                             );
@@ -139,12 +136,12 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                       ),
                       SizedBox(height: 50.h),
                       BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
-                       
                         builder: (context, state) {
                           return CustomElevatedButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  await expensesIncomeCubit.addExpensesOrIncome();
+                                  await expensesIncomeCubit
+                                      .addExpensesOrIncome();
                                 }
                               },
                               text: expensesIncomeCubit.isExpense
@@ -173,6 +170,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
       expensesIncomeCubit.onDayChanged(day);
       expensesIncomeCubit.onMonthChanged(month);
       expensesIncomeCubit.onYearChanged(year);
+      expensesIncomeCubit.onDateTimeChanged(picked.toString());
     }
   }
 }
