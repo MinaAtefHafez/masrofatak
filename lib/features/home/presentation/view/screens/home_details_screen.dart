@@ -59,7 +59,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                           ExpensesIncomesItem(
                             onTap: () async {
                               await homeCubit
-                                  .getExpensesIncomesPerDay(homeCubit.today!);
+                                  .getExpensesIncomesPerDay(homeCubit.today);
                               CustomNavigator.pushNamed(DayDetailsScreen.name);
                             },
                             today: 'today',

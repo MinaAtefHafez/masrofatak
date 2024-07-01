@@ -121,6 +121,9 @@ class ReportsCubit extends Cubit<ReportsStates> {
         reportExpensesCategories.add(model);
       }
     }
+    
+    
+
   }
 
   Future<void> convertIncomesToReportsCategories() async {
