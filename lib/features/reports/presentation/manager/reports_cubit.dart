@@ -47,14 +47,14 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> getAllFilters() async {
     if (filterIncomesIndex == 0) {
-      await filtersExpensesToNameAndAmountOnly();
+      await convertExpensesToReportsCategories();
     } else {
-      await filtersIncomesToNameAndAmountOnly();
+      await convertIncomesToReportsCategories();
     }
     emit(GetAllFilters());
   }
 
-  Future<void> filtersExpensesToNameAndAmountOnly() async {
+  Future<void> convertExpensesToReportsCategories() async {
     reportExpensesCategories.clear();
     for (var e in allExpenses) {
       ReportsCategoryModel model = ReportsCategoryModel();
@@ -69,7 +69,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
     }
   }
 
-  Future<void> filtersIncomesToNameAndAmountOnly() async {
+  Future<void> convertIncomesToReportsCategories() async {
     reportIncomesCategories.clear();
     for (var e in allIncomes) {
       ReportsCategoryModel model = ReportsCategoryModel();

@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
           await reportsCubit.getAllExpensesIncomes(state.expensesIncomes);
           await reportsCubit.getExpenses();
           await reportsCubit.getIncomes();
-          await reportsCubit.filtersExpensesToNameAndAmountOnly();
-          await reportsCubit.filtersIncomesToNameAndAmountOnly();
+          await reportsCubit.convertExpensesToReportsCategories();
+          await reportsCubit.convertIncomesToReportsCategories();
         }
       },
       child: BlocListener<CategoryCubit, CategoryState>(
