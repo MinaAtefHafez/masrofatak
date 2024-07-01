@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/reports/presentation/manager/reports_states.dart';
@@ -65,13 +67,13 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> sumAmountsOfExpensesCategory() async {
     reportExpensesCategories = await sumAmountsOfCategory(reportExpensesCategories);
-    emit(SumAmountsOfCategory());
+   
   }
 
   Future<void> sumAmountsOfIncomeCategory() async {
     reportIncomesCategories =
         await sumAmountsOfCategory(reportIncomesCategories);
-    emit(SumAmountsOfCategory());
+    
   }
 
   Future<void> handleSumsAmounts() async {
@@ -80,6 +82,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
     } else {
       await sumAmountsOfIncomeCategory();
     }
+    emit(HandleSumsAmounts());
   }
 
   Future<void> filterExpenses() async {
@@ -129,7 +132,7 @@ class ReportsCubit extends Cubit<ReportsStates> {
           dateTime: j.dateTime,
           name: j.category!.name,
         );
-        reportExpensesCategories.add(model);
+        reportIncomesCategories.add(model);
       }
     }
   }

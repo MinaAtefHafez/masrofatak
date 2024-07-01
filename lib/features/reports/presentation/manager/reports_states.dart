@@ -8,4 +8,6 @@ final class ChangeFilterDropIndex extends ReportsStates {}
 
 final class GetAllFilters extends ReportsStates {}
 
-final class SumAmountsOfCategory extends ReportsStates {}
+final class HandleSumsAmounts extends ReportsStates {}
+
+

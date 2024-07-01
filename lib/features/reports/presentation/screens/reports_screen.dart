@@ -27,7 +27,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   @override
   void initState() {
     super.initState();
-    reportsCubit.getAllFilters();
+    call();
   }
 
   void call() async {
@@ -53,9 +53,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
                         child: ReportsDropDownButton(
                       onChanaged: (index) async {
                         await reportsCubit.changeDaysDropIndex(index!);
-                        if (index == 3) {
+                        if (reportsCubit.filterDaysDropIndex == 3) {
                           await reportsCubit.getAllFilters();
-                          await reportsCubit.sumAmountsOfExpensesCategory();
+                          await reportsCubit.handleSumsAmounts();
                           return;
                         }
 
@@ -69,7 +69,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       child: ReportsDropDownButton(
                         onChanaged: (index) async {
                           await reportsCubit.changeIncomesDropIndex(index!);
-
+                          if (reportsCubit.filterDaysDropIndex == 3) {
+                            await reportsCubit.getAllFilters();
+                            await reportsCubit.handleSumsAmounts();
+                            return;
+                          }
                           await reportsCubit.filter();
                         },
                         value: reportsCubit.filterIncomesIndex,
