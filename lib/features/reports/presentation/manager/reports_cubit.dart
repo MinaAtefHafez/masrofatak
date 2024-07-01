@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
@@ -6,12 +5,12 @@ import 'package:masrofatak/features/reports/presentation/manager/reports_states.
 
 import '../../../categories/data/models/categories_model.dart';
 import '../../data/models/reports_model.dart';
-import '../../filters/filters.dart';
+import '../../../../core/filters/filters.dart';
 
 class ReportsCubit extends Cubit<ReportsStates> {
   ReportsCubit() : super(InitialReportsState());
 
-  int filterDaysDropIndex = 0;
+  int filterDaysDropIndex = 3;
   int filterIncomesIndex = 0;
 
   List<List<ExpensesIncomeModel>> allExpenses = [];
