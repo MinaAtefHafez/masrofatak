@@ -55,8 +55,7 @@ class _ExpensesCategoryBottomSheerWidgetState
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () async {
-                    await categoryCubit
-                        .chooseCategory(widget.categories[index]);
+                    
                     expensesIncomeCubit
                         .chooseCategory(widget.categories[index]);
                   },

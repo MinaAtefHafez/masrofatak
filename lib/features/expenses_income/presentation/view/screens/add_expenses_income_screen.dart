@@ -13,7 +13,6 @@ import 'package:masrofatak/core/widgets/custom_date_picker.dart';
 import 'package:masrofatak/core/widgets/custom_elevated_button.dart';
 import 'package:masrofatak/core/widgets/custom_snack_bar.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
-import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
 import 'package:masrofatak/features/expenses_income/presentation/view/widgets/expenses_income_button.dart';
 import '../../manager/expenses_income_cubit.dart';
@@ -40,7 +39,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
   void initState() {
     super.initState();
     categoryTextController =
-        TextEditingController(text: categoryCubit.getCategory.name);
+        TextEditingController(text: expensesIncomeCubit.getCategory.name);
   }
 
   @override
@@ -54,11 +53,11 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
             CustomSnackBar.customSnackBar(context, text: tr('AddDoneSuccess'));
           }
         },
-        child: BlocListener<CategoryCubit, CategoryState>(
-          bloc: categoryCubit,
+        child: BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
+          bloc: expensesIncomeCubit ,
           listener: (context, state) {
-            if (state is ChooseCategory) {
-              categoryTextController.text = categoryCubit.getCategory.name!;
+            if (state is OnTypeIncomeChanged) {
+              categoryTextController.text = expensesIncomeCubit.getCategory.name!;
             }
           },
           child: Scaffold(
@@ -84,8 +83,8 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                         },
                       ),
                       SizedBox(height: 30.h),
-                      BlocBuilder<CategoryCubit, CategoryState>(
-                        bloc: categoryCubit,
+                      BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
+                        bloc: expensesIncomeCubit,
                         builder: (context, state) {
                           return ExpensesIncomeTextField(
                             controller: categoryTextController,

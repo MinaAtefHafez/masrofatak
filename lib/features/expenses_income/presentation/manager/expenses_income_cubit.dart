@@ -23,6 +23,9 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
   bool isExpense = true;
   List<dynamic> expensesIncomeList = [];
 
+
+  CategoryModel get getCategory => expensesIncomeModel.category! ;
+
   Future<void> addExpensesIncomeToList() async {
     expensesIncomeList.add(expensesIncomeModel);
   }

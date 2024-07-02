@@ -12,8 +12,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final CategoryRepo _categoryRepo;
 
-  CategoryModel category =
-      CategoryModel(name: 'Grocery', id: 0, icon: Assets.imagesShopping);
+  
 
   List<CategoryModel> expensesCategories = [
     CategoryModel(name: 'Shopping', id: 0, icon: Assets.imagesShopping),
@@ -66,12 +65,9 @@ class CategoryCubit extends Cubit<CategoryState> {
     return categoriesColors[colorIndex];
   }
 
-  Future<void> chooseCategory(CategoryModel categ) async {
-    category = categ;
-    emit(ChooseCategory());
-  }
+ 
 
-  CategoryModel get getCategory => category;
+  
 
   Future<void> saveExpensesCategoriesLocal() async {
     await _categoryRepo.saveExpensesCategoriesLocal(expensesCategories);
