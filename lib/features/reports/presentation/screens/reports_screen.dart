@@ -31,8 +31,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   }
 
   void call() async {
-    await reportsCubit.getExpenses();
-    await reportsCubit.getIncomes();
+    await reportsCubit.changeDaysDropIndex(3);
     await reportsCubit.filterToAll();
     await reportsCubit.handleSumsAmounts();
   }

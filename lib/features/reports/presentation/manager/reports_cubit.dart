@@ -12,8 +12,6 @@ class ReportsCubit extends Cubit<ReportsStates> {
   int filterDaysDropIndex = 3;
   int filterIncomesIndex = 0;
 
-  List<List<ExpensesIncomeModel>> allExpenses = [];
-  List<List<ExpensesIncomeModel>> allIncomes = [];
   List<CategoryModel> expensesCategories = [];
   List<CategoryModel> incomesCategories = [];
   List<ExpensesIncomeModel> allExpensesIncomes = [];
@@ -97,32 +95,26 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> filterToAll() async {
     if (filterIncomesIndex == 0) {
-      reportExpensesCategories.clear();
       reportExpensesCategories =
-          await convertExpensesOrIncomesToReportsCategories();
+          await convertExpensesOrIncomesToReportsCategories('Expenses');
     } else {
-      reportIncomesCategories.clear();
       reportIncomesCategories =
-          await convertExpensesOrIncomesToReportsCategories();
+          await convertExpensesOrIncomesToReportsCategories('Incomes');
     }
 
     emit(GetAllFilters());
   }
 
   Future<List<ReportsCategoryModel>>
-      convertExpensesOrIncomesToReportsCategories() async {
-    List<ReportsCategoryModel> list = [];
-    for (var e in allIncomes) {
-      for (var j in e) {
-        ReportsCategoryModel model = ReportsCategoryModel(
-          amount: j.amount,
-          dateTime: j.dateTime,
-          name: j.category!.name,
-        );
-        list.add(model);
-      }
-    }
-    return list;
+      convertExpensesOrIncomesToReportsCategories(String type) async {
+    var data = allExpensesIncomes.where((e) => e.type == type).toList();
+    return data
+        .map((e) => ReportsCategoryModel(
+              amount: e.amount,
+              dateTime: e.dateTime,
+              name: e.category!.name,
+            ))
+        .toList();
   }
 
   Future<void> getExpensesCategoriesFromCategoryCubit(
@@ -140,41 +132,4 @@ class ReportsCubit extends Cubit<ReportsStates> {
     allExpensesIncomes = List.from(list);
   }
 
-  Future<List<List<ExpensesIncomeModel>>> getExpenesOrIncomes({
-    required List<CategoryModel> categories,
-    required List<ExpensesIncomeModel> allExpensesIncomes,
-    required String type,
-  }) async {
-    List<ExpensesIncomeModel> expenses = [];
-    List<List<ExpensesIncomeModel>> result = [];
-    for (var e in categories) {
-      expenses = [];
-      for (var j in allExpensesIncomes) {
-        if (e.name == j.category!.name && j.type == type) {
-          expenses.add(j);
-        }
-      }
-      if (expenses.isNotEmpty) {
-        result.add(expenses);
-      }
-    }
-
-    return result;
-  }
-
-  Future<void> getExpenses() async {
-    allExpenses.clear();
-    allExpenses = await getExpenesOrIncomes(
-        allExpensesIncomes: allExpensesIncomes,
-        categories: expensesCategories,
-        type: 'Expenses');
-  }
-
-  Future<void> getIncomes() async {
-    allIncomes.clear();
-    allIncomes = await getExpenesOrIncomes(
-        allExpensesIncomes: allExpensesIncomes,
-        categories: incomesCategories,
-        type: 'Incomes');
-  }
 }

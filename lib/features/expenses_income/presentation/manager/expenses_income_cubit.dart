@@ -18,7 +18,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     ..year = IntlHelper.yearNow
     ..dateTime = IntlHelper.dateTimeNow
     ..category =
-        CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Grocery');
+        CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Shopping');
 
   bool isExpense = true;
   List<dynamic> expensesIncomeList = [];
@@ -89,11 +89,25 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     onTypeIncomeChanged();
   }
 
+  void onExpensesChanged() {
+    expensesIncomeModel = expensesIncomeModel.copyWith(
+        type: 'Expenses',
+        category: CategoryModel(
+            id: 0, icon: Assets.imagesShopping, name: 'Shopping'));
+  }
+
+  void onIncomesChanged() {
+    expensesIncomeModel = expensesIncomeModel.copyWith(
+        type: 'Incomes',
+        category:
+            CategoryModel(id: 0, icon: Assets.imagesSalary, name: 'Salary'));
+  }
+
   void onTypeIncomeChanged() {
     if (isExpense) {
-      expensesIncomeModel = expensesIncomeModel.copyWith(type: 'Expenses');
+      onExpensesChanged();
     } else {
-      expensesIncomeModel = expensesIncomeModel.copyWith(type: 'Incomes');
+      onIncomesChanged();
     }
     emit(OnTypeIncomeChanged());
   }
