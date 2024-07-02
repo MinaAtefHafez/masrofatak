@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/reports/presentation/manager/reports_states.dart';
@@ -66,14 +63,13 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> sumAmountsOfExpensesCategory() async {
-    reportExpensesCategories = await sumAmountsOfCategory(reportExpensesCategories);
-   
+    reportExpensesCategories =
+        await sumAmountsOfCategory(reportExpensesCategories);
   }
 
   Future<void> sumAmountsOfIncomeCategory() async {
     reportIncomesCategories =
         await sumAmountsOfCategory(reportIncomesCategories);
-    
   }
 
   Future<void> handleSumsAmounts() async {
@@ -86,48 +82,36 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> filterExpenses() async {
-    await getAllFilters();
+    await filterToAll();
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportExpensesCategories = await filter.filter(reportExpensesCategories);
     await handleSumsAmounts();
   }
 
   Future<void> filterIncomes() async {
-    await getAllFilters();
+    await filterToAll();
     var filter = FilterFactory.getFilter(filterDaysDropIndex);
     reportIncomesCategories = await filter.filter(reportIncomesCategories);
     await handleSumsAmounts();
   }
 
-  Future<void> getAllFilters() async {
+  Future<void> filterToAll() async {
     if (filterIncomesIndex == 0) {
-      await convertExpensesToReportsCategories();
+      reportExpensesCategories.clear();
+      reportExpensesCategories =
+          await convertExpensesOrIncomesToReportsCategories();
     } else {
-      await convertIncomesToReportsCategories();
+      reportIncomesCategories.clear();
+      reportIncomesCategories =
+          await convertExpensesOrIncomesToReportsCategories();
     }
 
     emit(GetAllFilters());
   }
 
-  Future<void> convertExpensesToReportsCategories() async {
-    reportExpensesCategories.clear();
-    for (var e in allExpenses) {
-      for (var j in e) {
-        ReportsCategoryModel model = ReportsCategoryModel(
-          amount: j.amount,
-          dateTime: j.dateTime,
-          name: j.category!.name,
-        );
-        reportExpensesCategories.add(model);
-      }
-    }
-    
-    
-
-  }
-
-  Future<void> convertIncomesToReportsCategories() async {
-    reportIncomesCategories.clear();
+  Future<List<ReportsCategoryModel>>
+      convertExpensesOrIncomesToReportsCategories() async {
+    List<ReportsCategoryModel> list = [];
     for (var e in allIncomes) {
       for (var j in e) {
         ReportsCategoryModel model = ReportsCategoryModel(
@@ -135,30 +119,38 @@ class ReportsCubit extends Cubit<ReportsStates> {
           dateTime: j.dateTime,
           name: j.category!.name,
         );
-        reportIncomesCategories.add(model);
+        list.add(model);
       }
     }
+    return list;
   }
 
-  Future<void> getExpensesCategories(List<CategoryModel> list) async {
+  Future<void> getExpensesCategoriesFromCategoryCubit(
+      List<CategoryModel> list) async {
     expensesCategories = List.from(list);
   }
 
-  Future<void> getIncomesCategories(List<CategoryModel> list) async {
+  Future<void> getIncomesCategoriesFromCategoryCubit(
+      List<CategoryModel> list) async {
     incomesCategories = List.from(list);
   }
 
-  Future<void> getAllExpensesIncomes(List<dynamic> list) async {
+  Future<void> getAllExpensesIncomesFromCategoryCubit(
+      List<dynamic> list) async {
     allExpensesIncomes = List.from(list);
   }
 
-  Future<List<List<ExpensesIncomeModel>>> getExpesesImpl() async {
+  Future<List<List<ExpensesIncomeModel>>> getExpenesOrIncomes({
+    required List<CategoryModel> categories,
+    required List<ExpensesIncomeModel> allExpensesIncomes,
+    required String type,
+  }) async {
     List<ExpensesIncomeModel> expenses = [];
     List<List<ExpensesIncomeModel>> result = [];
-    for (var e in expensesCategories) {
+    for (var e in categories) {
       expenses = [];
       for (var j in allExpensesIncomes) {
-        if (e.name == j.category!.name && j.type == 'Expenses') {
+        if (e.name == j.category!.name && j.type == type) {
           expenses.add(j);
         }
       }
@@ -172,28 +164,17 @@ class ReportsCubit extends Cubit<ReportsStates> {
 
   Future<void> getExpenses() async {
     allExpenses.clear();
-    allExpenses = await getExpesesImpl();
+    allExpenses = await getExpenesOrIncomes(
+        allExpensesIncomes: allExpensesIncomes,
+        categories: expensesCategories,
+        type: 'Expenses');
   }
 
   Future<void> getIncomes() async {
     allIncomes.clear();
-    allIncomes = await getIncomesImpl();
-  }
-
-  Future<List<List<ExpensesIncomeModel>>> getIncomesImpl() async {
-    List<ExpensesIncomeModel> incomes = [];
-    List<List<ExpensesIncomeModel>> result = [];
-    for (var e in incomesCategories) {
-      incomes = [];
-      for (var j in allExpensesIncomes) {
-        if (e.name == j.category!.name && j.type == 'Incomes') {
-          incomes.add(j);
-        }
-      }
-      if (incomes.isNotEmpty) {
-        result.add(incomes);
-      }
-    }
-    return result;
+    allIncomes = await getExpenesOrIncomes(
+        allExpensesIncomes: allExpensesIncomes,
+        categories: incomesCategories,
+        type: 'Incomes');
   }
 }

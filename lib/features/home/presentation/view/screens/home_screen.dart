@@ -52,22 +52,21 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is GetExpensesIncomesLocal) {
           await homeCubit.showExpensesIncomes(
               state.expensesIncomes, IntlHelper.monthNow);
-          await reportsCubit.getAllExpensesIncomes(state.expensesIncomes);
-          await reportsCubit.getExpenses();
-          await reportsCubit.getIncomes();
-          await reportsCubit.convertExpensesToReportsCategories();
-          await reportsCubit.convertIncomesToReportsCategories();
+          await reportsCubit
+              .getAllExpensesIncomesFromCategoryCubit(state.expensesIncomes);
         }
       },
       child: BlocListener<CategoryCubit, CategoryState>(
         bloc: categoryCubit,
         listener: (context, state) {
           if (state is GeExpensesCategoriesLocal) {
-            reportsCubit.getExpensesCategories(state.categories);
+            reportsCubit
+                .getExpensesCategoriesFromCategoryCubit(state.categories);
           }
 
           if (state is GetIncomesCategoriesLocal) {
-            reportsCubit.getIncomesCategories(state.categories);
+            reportsCubit
+                .getIncomesCategoriesFromCategoryCubit(state.categories);
           }
         },
         child: BlocBuilder<HomeCubit, HomeStates>(

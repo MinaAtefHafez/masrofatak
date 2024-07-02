@@ -31,7 +31,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
   }
 
   void call() async {
-    await reportsCubit.getAllFilters();
+    await reportsCubit.getExpenses();
+    await reportsCubit.getIncomes();
+    await reportsCubit.filterToAll();
     await reportsCubit.handleSumsAmounts();
   }
 
@@ -54,7 +56,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       onChanaged: (index) async {
                         await reportsCubit.changeDaysDropIndex(index!);
                         if (reportsCubit.filterDaysDropIndex == 3) {
-                          await reportsCubit.getAllFilters();
+                          await reportsCubit.filterToAll();
                           await reportsCubit.handleSumsAmounts();
                           return;
                         }
@@ -70,7 +72,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                         onChanaged: (index) async {
                           await reportsCubit.changeIncomesDropIndex(index!);
                           if (reportsCubit.filterDaysDropIndex == 3) {
-                            await reportsCubit.getAllFilters();
+                            await reportsCubit.filterToAll();
                             await reportsCubit.handleSumsAmounts();
                             return;
                           }
