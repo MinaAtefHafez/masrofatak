@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
@@ -47,16 +48,18 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               },
             ),
             const SizedBox(height: 16),
-            Expanded(
-              child: SingleChildScrollView(
-                child: BlocBuilder<HomeCubit, HomeStates>(
-                  bloc: homeCubit,
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        if (homeCubit.todayy != null &&
-                            homeCubit.todayy!.isNotEmpty) ...[
-                          ExpensesIncomesItem(
+            BlocBuilder<HomeCubit, HomeStates>(
+              bloc: homeCubit,
+              builder: (context, state) {
+                return Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Visibility(
+                          visible: homeCubit.todayy != null &&
+                              homeCubit.todayy!.isNotEmpty,
+                          replacement: const SizedBox(),
+                          child: ExpensesIncomesItem(
                             onTap: () async {
                               await homeCubit
                                   .getExpensesIncomesPerDay(homeCubit.today);
@@ -66,32 +69,32 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             expensesIncomesModel: homeCubit.todayy!,
                             amountPerDay: homeCubit.sumToday,
                           ),
-                        ],
-                        ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) =>
-                                ExpensesIncomesItem(
-                                  onTap: () async {
-                                    await homeCubit.getExpensesIncomesPerDay(
-                                        homeCubit
-                                            .expensesIncomesEachDay[index]);
-                                    CustomNavigator.pushNamed(
-                                        DayDetailsScreen.name);
-                                  },
-                                  expensesIncomesModel:
-                                      homeCubit.allExpensesIncomes[index],
-                                  amountPerDay: homeCubit
-                                      .sumsExpensesIncomesPerMonth[index],
-                                ),
-                            separatorBuilder: (context, index) =>
-                                SizedBox(height: 16.h),
-                            itemCount: homeCubit.allExpensesIncomes.length),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(height: 15.h),
+                      ),
+                      SliverList.separated(
+                          itemBuilder: (context, index) => ExpensesIncomesItem(
+                                onTap: () async {
+                                  await homeCubit.getExpensesIncomesPerDay(
+                                      homeCubit.expensesIncomesEachDay[index]);
+                                  CustomNavigator.pushNamed(
+                                      DayDetailsScreen.name);
+                                },
+                                expensesIncomesModel:
+                                    homeCubit.allExpensesIncomes[index],
+                                amountPerDay: homeCubit
+                                    .sumsExpensesIncomesPerMonth[index],
+                              ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 16.h),
+                          itemCount: homeCubit.allExpensesIncomes.length)
+                    ],
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),
