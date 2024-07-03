@@ -8,6 +8,8 @@ import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/core/widgets/custom_elevated_button.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
+import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
+import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/dependency_injection/dependency_injection.dart';
 import '../../../../categories/data/models/categories_model.dart';
 import '../../../../categories/presentation/manager/category_cubit.dart';
@@ -31,10 +33,10 @@ class _ExpensesCategoryBottomSheerWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CategoryCubit, CategoryState>(
-      bloc: categoryCubit,
+    return BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
+      bloc: expensesIncomeCubit,
       listener: (context, state) {
-        if (state is ChooseCategory) {
+        if ( state is ChooseCategories) {
           CustomNavigator.pop();
         }
       },

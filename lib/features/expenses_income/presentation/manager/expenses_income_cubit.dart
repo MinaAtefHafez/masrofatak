@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
@@ -23,8 +25,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
   bool isExpense = true;
   List<dynamic> expensesIncomeList = [];
 
-
-  CategoryModel get getCategory => expensesIncomeModel.category! ;
+  CategoryModel get getCategory => expensesIncomeModel.category!;
 
   Future<void> addExpensesIncomeToList() async {
     expensesIncomeList.add(expensesIncomeModel);
@@ -75,6 +76,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   void chooseCategory(CategoryModel category) {
     expensesIncomeModel = expensesIncomeModel.copyWith(category: category);
+    emit(ChooseCategories());
   }
 
   void onDescriptionChanged(String description) {
@@ -114,4 +116,6 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     }
     emit(OnTypeIncomeChanged());
   }
+
+ 
 }

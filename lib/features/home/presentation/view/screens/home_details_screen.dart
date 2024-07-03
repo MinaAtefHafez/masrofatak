@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
+import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
@@ -58,7 +59,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         child: Visibility(
                           visible: homeCubit.todayy != null &&
                               homeCubit.todayy!.isNotEmpty,
-                          replacement: const SizedBox(),
+                          replacement: ExpensesIncomesItem(
+                            onTap: () async {
+                              await homeCubit
+                                  .getExpensesIncomesPerDay(homeCubit.today);
+                              CustomNavigator.pushNamed(DayDetailsScreen.name);
+                            },
+                            today: 'today',
+                            expensesIncomesModel: List.empty(),
+                            amountPerDay: 0 ,
+                          ),
                           child: ExpensesIncomesItem(
                             onTap: () async {
                               await homeCubit

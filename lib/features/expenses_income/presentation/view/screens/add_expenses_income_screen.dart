@@ -54,10 +54,11 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
           }
         },
         child: BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
-          bloc: expensesIncomeCubit ,
+          bloc: expensesIncomeCubit,
           listener: (context, state) {
-            if (state is OnTypeIncomeChanged) {
-              categoryTextController.text = expensesIncomeCubit.getCategory.name!;
+            if (state is OnTypeIncomeChanged || state is ChooseCategories) {
+              categoryTextController.text =
+                  expensesIncomeCubit.getCategory.name!;
             }
           },
           child: Scaffold(
@@ -125,11 +126,12 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SvgPicture.asset(Assets.imagesCalendarToday ,
-                                 width: 20.w ,
-                                 height: 20.h ,
+                                SvgPicture.asset(
+                                  Assets.imagesCalendarToday,
+                                  width: 20.w,
+                                  height: 20.h,
                                 ),
-                                SizedBox(width: 10.w ),
+                                SizedBox(width: 10.w),
                                 Text(
                                     '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
                                     style: AppStyles.styleRegular14.copyWith(

@@ -14,3 +14,5 @@ final class GetExpensesIncomesLocal extends ExpensesIncomeState {
 
   GetExpensesIncomesLocal(this.expensesIncomes);
 }
+
+final class ChooseCategories extends ExpensesIncomeState {}
