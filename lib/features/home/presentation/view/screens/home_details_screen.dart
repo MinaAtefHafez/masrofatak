@@ -38,8 +38,22 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
           children: [
             HomeDetailsTopPart(onTap: () {}),
             SizedBox(height: 16.h),
-            DateMonthPickerItem(
-                onTap: () {}, onTapLeft: () {}, onTapRight: () {}),
+            BlocBuilder<HomeCubit, HomeStates>(
+              bloc: homeCubit,
+              builder: (context, state) {
+                return DateMonthPickerItem(
+                    month: homeCubit.monthName,
+                    onTap: () {},
+                    onTapLeft: () async {
+                      await homeCubit.changeToPreviousMonth();
+                      await homeCubit.showExpensesIncomes();
+                    },
+                    onTapRight: () async {
+                      await homeCubit.changeToNextMonth();
+                      await homeCubit.showExpensesIncomes();
+                    });
+              },
+            ),
             SizedBox(height: 30.h),
             BlocBuilder<HomeCubit, HomeStates>(
               bloc: homeCubit,
@@ -58,16 +72,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         child: Visibility(
                           visible: homeCubit.todayy != null &&
                               homeCubit.todayy!.isNotEmpty,
-                          replacement: ExpensesIncomesItem(
-                            onTap: () async {
-                              await homeCubit
-                                  .getExpensesIncomesPerDay(homeCubit.today);
-                              CustomNavigator.pushNamed(DayDetailsScreen.name);
-                            },
-                            today: 'today',
-                            expensesIncomesModel: List.empty(),
-                            amountPerDay: 0 ,
-                          ),
+                          replacement: const SizedBox(),
                           child: ExpensesIncomesItem(
                             onTap: () async {
                               await homeCubit

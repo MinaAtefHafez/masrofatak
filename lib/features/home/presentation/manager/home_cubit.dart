@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/data/models/all_money_model.dart';
@@ -12,6 +10,9 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
 
   int bottomNavIndex = 1;
+
+  int monthAsInt = int.parse(IntlHelper.monthNow);
+  String monthName = IntlHelper.month();
 
   List<dynamic> expensesIncomes = [];
   List<dynamic> expensesIncomesForMonth = [];
@@ -43,18 +44,28 @@ class HomeCubit extends Cubit<HomeStates> {
     const SettingsScreen(),
   ];
 
-  Future<void> showExpensesIncomes(
-      List<dynamic> expensesIncomesList, String month) async {
-    await getExpensesIncomesFromExpensesCubit(expensesIncomesList);
+  Future<void> showExpensesIncomes() async {
     await getAllExpenses();
     await getAllIncomes();
     await getBalance();
-    await filterExpensesIncomesForMonth(month);
+    await filterExpensesIncomesForMonth(monthAsInt.toString());
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
     await getSumForMonth();
     await getToday();
     await getSumAountToday();
+  }
+
+  Future<void> changeToPreviousMonth() async {
+    if (monthAsInt == 1) return;
+    monthAsInt = monthAsInt - 1;
+    monthName = IntlHelper.month(monthAsInt);
+  }
+
+  Future<void> changeToNextMonth() async {
+    if (monthAsInt == 12) return;
+    monthAsInt = monthAsInt + 1;
+    monthName = IntlHelper.month(monthAsInt);
   }
 
   Future<int> getAllIncomesImpl() async {
@@ -103,23 +114,23 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-    
+
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingMostExpensive() async {
     expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
-     expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingLowExpensive() async {
     expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
-   
+
     emit(SortingExpensesIncomesForDay());
   }
 
-  Future<void> getExpensesIncomesPerDay(List <dynamic> item) async {
+  Future<void> getExpensesIncomesPerDay(List<dynamic> item) async {
     expensesIncomesPerDay = List.from(item);
     emit(GetExpensesIncomesPerDay());
   }

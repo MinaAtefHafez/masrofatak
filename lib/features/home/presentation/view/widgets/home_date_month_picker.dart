@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'dart:ui' as ui;
 
 import '../../../../../core/app_styles/app_styles.dart';
@@ -12,11 +13,12 @@ class DateMonthPickerItem extends StatelessWidget {
       {super.key,
       required this.onTapLeft,
       required this.onTapRight,
-      required this.onTap});
+      required this.onTap, required this.month});
 
   final Function() onTapLeft;
   final Function() onTapRight;
   final Function() onTap;
+  final String month ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class DateMonthPickerItem extends StatelessWidget {
               )),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-            width: 124.w,
+            
             decoration: BoxDecoration(
               color: AppColors.colorF5F5F5,
               borderRadius: BorderRadius.circular(50.r),
@@ -47,7 +49,7 @@ class DateMonthPickerItem extends StatelessWidget {
                   height: 16.h,
                 ),
                 SizedBox(width: 10.w),
-                Text('May , 2024',
+                Text('$month ${IntlHelper.yearNow}',
                     style: AppStyles.styleRegular14.copyWith(
                         fontWeight: FontWeight.w500,
                         color: AppColors.color424242))
