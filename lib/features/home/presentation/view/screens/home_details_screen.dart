@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
-import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
