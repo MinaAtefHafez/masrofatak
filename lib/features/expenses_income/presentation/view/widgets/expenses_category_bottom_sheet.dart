@@ -7,9 +7,7 @@ import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/app_theme/colors/app_colors.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/core/widgets/custom_elevated_button.dart';
-import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
-import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/dependency_injection/dependency_injection.dart';
 import '../../../../categories/data/models/categories_model.dart';
 import '../../../../categories/presentation/manager/category_cubit.dart';
@@ -50,7 +48,7 @@ class _ExpensesCategoryBottomSheerWidgetState
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4),
+                  crossAxisCount: 3),
               padding: EdgeInsets.zero,
               itemCount: widget.categories.length,
               shrinkWrap: true,

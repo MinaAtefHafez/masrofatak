@@ -69,7 +69,7 @@ class _DayDetailsScreenState extends State<DayDetailsScreen> {
         child: Column(
           children: [
             Text(
-              '${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].day)} / ${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].month)}',
+              '${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].day!)} / ${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].month!)}',
               style: AppStyles.styleRegular16.copyWith(
                   color: AppColors.color424242, fontWeight: FontWeight.w500),
             ),

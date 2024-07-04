@@ -9,8 +9,8 @@ abstract class AppTheme {
           backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
-          titleTextStyle:
-              AppStyles.styleRegular16.copyWith(color: AppColors.color424242),
+          titleTextStyle: AppStyles.styleSemiBold20.copyWith(
+              color: AppColors.color424242, fontWeight: FontWeight.w600),
           actionsIconTheme: const IconThemeData(
             color: Colors.black,
           )),

@@ -22,7 +22,6 @@ class CategoryCubit extends Cubit<CategoryState> {
     CategoryModel(name: 'Transportation', id: 4, icon: Assets.imagesVehicle),
     CategoryModel(name: 'Electronics', id: 5, icon: Assets.imagesElectronics),
     CategoryModel(name: 'Personal', id: 6, icon: Assets.imagesLaundry),
-    CategoryModel(name: 'Liquor', id: 7, icon: Assets.imagesLiquor),
     CategoryModel(
         name: 'Restaurant', id: 8, icon: Assets.imagesRestaurantBlack24dp)
   ];
@@ -32,8 +31,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
     CategoryModel(name: 'Savings', id: 2, icon: Assets.imagesSavings),
     CategoryModel(name: 'Wages', id: 3, icon: Assets.imagesWages),
-    CategoryModel(name: 'Interest', id: 4, icon: Assets.imagesInterest),
-    CategoryModel(name: 'Other', id: 5, icon: Assets.imagesAllowance),
+   
   ];
 
   List<Color> categoriesColors = [

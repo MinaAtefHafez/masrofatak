@@ -41,6 +41,8 @@
   "LeastExpensive" : "الاقل تكلفة" ,
   "LastWeek" : "الاسبوع الأخير" ,
   "LastMonth" : "الشهر الأخير" ,
-  "All" : "الكل" 
+  "All" : "الكل"  ,
+  "Language" : "اختار اللغة" ,
+  "ManageCategories" : "ادارة الفئات"
   
 }

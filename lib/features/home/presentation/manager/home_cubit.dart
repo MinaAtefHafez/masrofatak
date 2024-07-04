@@ -6,6 +6,8 @@ import 'package:masrofatak/features/home/presentation/view/screens/home_details_
 import 'package:masrofatak/features/reports/presentation/screens/reports_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
 
+import '../../../expenses_income/data/models/expenses_income_model.dart';
+
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
 
@@ -14,18 +16,18 @@ class HomeCubit extends Cubit<HomeStates> {
   int monthAsInt = int.parse(IntlHelper.monthNow);
   String monthName = IntlHelper.month();
 
-  List<dynamic> expensesIncomes = [];
-  List<dynamic> expensesIncomesForMonth = [];
-  List<List<dynamic>> expensesIncomesEachDay = [];
+  List<ExpensesIncomeModel> expensesIncomes = [];
+  List<ExpensesIncomeModel> expensesIncomesForMonth = [];
+  List<List<ExpensesIncomeModel>> expensesIncomesEachDay = [];
   List<int> sumsExpensesIncomesPerMonth = [];
-  List<dynamic> expensesIncomesPerDay = [];
-  List<dynamic> today = [];
+  List<ExpensesIncomeModel> expensesIncomesPerDay = [];
+  List<ExpensesIncomeModel> today = [];
   int sumAmountToday = 0;
   AllMoneyModel allMoney = AllMoneyModel(balance: 0, expenses: 0, incomes: 0);
 
-  List<dynamic> get expensesIncomesMonth => expensesIncomesForMonth;
+  List<ExpensesIncomeModel> get expensesIncomesMonth => expensesIncomesForMonth;
 
-  List<List<dynamic>> get allExpensesIncomes => expensesIncomesEachDay;
+  List<List<ExpensesIncomeModel>> get allExpensesIncomes => expensesIncomesEachDay;
 
   List<dynamic>? get todayy => today;
 
@@ -72,7 +74,7 @@ class HomeCubit extends Cubit<HomeStates> {
     int sum = 0;
     for (var e in expensesIncomes) {
       if (e.type == 'Incomes') {
-        sum = (sum + e.amount).toInt();
+        sum = (sum + e.amount!).toInt();
       }
     }
     return sum;
@@ -82,7 +84,7 @@ class HomeCubit extends Cubit<HomeStates> {
     int sum = 0;
     for (var e in expensesIncomes) {
       if (e.type == 'Expenses') {
-        sum = (sum + e.amount).toInt();
+        sum = (sum + e.amount!).toInt();
       }
     }
     return sum;
@@ -107,25 +109,25 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future<void> sortDaysExpensesIncomsAccordingDateTime() async {
-    expensesIncomesPerDay.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
     expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
-    expensesIncomesPerDay.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
 
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingMostExpensive() async {
-    expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
+    expensesIncomesPerDay.sort((a, b) => a.amount!.compareTo(b.amount!));
     expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingLowExpensive() async {
-    expensesIncomesPerDay.sort((a, b) => a.amount.compareTo(b.amount));
+    expensesIncomesPerDay.sort((a, b) => a.amount!.compareTo(b.amount!));
 
     emit(SortingExpensesIncomesForDay());
   }
@@ -135,9 +137,9 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetExpensesIncomesPerDay());
   }
 
-  Future<List<dynamic>> getDayFromDaysList(
-      {required List<List<dynamic>> days, required String day}) async {
-    List<dynamic> result = [];
+  Future<List<ExpensesIncomeModel>> getDayFromDaysList(
+      {required List<List<ExpensesIncomeModel>> days, required String day}) async {
+    List<ExpensesIncomeModel> result = [];
     for (var e in days) {
       if (e[0].day == day) {
         result = List.from(e);
@@ -206,7 +208,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortingExppensesIncomesAccordingDay() async {
     expensesIncomesForMonth
-        .sort((a, b) => int.parse(b.day).compareTo(int.parse(a.day)));
+        .sort((a, b) => int.parse(b.day!).compareTo(int.parse(a.day!)));
     emit(SortingExpensesIncomesAccordingDay());
   }
 
@@ -215,12 +217,12 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetExpensesIncomesForEachDay());
   }
 
-  Future<List<List<dynamic>>> getExpensesIncomesForEachDayImpl() async {
-    List<List<dynamic>> days = [];
+  Future<List<List<ExpensesIncomeModel>>> getExpensesIncomesForEachDayImpl() async {
+    List<List<ExpensesIncomeModel>> days = [];
     for (int i = 1; i <= 31; i++) {
-      List<dynamic> day = [];
+      List<ExpensesIncomeModel> day = [];
       for (int j = 0; j < expensesIncomesMonth.length; j++) {
-        if (int.parse(expensesIncomesMonth[j].day) == i) {
+        if (int.parse(expensesIncomesMonth[j].day!) == i) {
           day.add(expensesIncomesMonth[j]);
         }
       }
