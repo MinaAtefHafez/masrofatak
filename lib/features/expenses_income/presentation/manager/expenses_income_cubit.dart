@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
@@ -19,8 +18,7 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     ..month = IntlHelper.monthNow
     ..year = IntlHelper.yearNow
     ..dateTime = IntlHelper.dateTimeNow
-    ..category =
-        CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Shopping');
+    ..category = CategoryModel(id: 0, icon: Assets.imagesShopping, name: 'Shopping');
 
   bool isExpense = true;
   List<dynamic> expensesIncomeList = [];
@@ -33,7 +31,6 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
 
   Future<void> getExpensesIncomesLocal() async {
     var data = await _expensesIncomeRepo.getExpensesIncomeLocal();
-
     expensesIncomeList = data ?? [];
     emit(GetExpensesIncomesLocal(expensesIncomeList));
   }

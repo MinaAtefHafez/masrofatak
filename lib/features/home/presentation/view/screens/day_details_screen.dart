@@ -36,7 +36,7 @@ class _DayDetailsScreenState extends State<DayDetailsScreen> {
                 value: 0,
                 child: Text(tr('Newest')),
                 onTap: () {
-                  homeCubit.sortDaysExpensesIncomsAccordingDateTime();
+                  homeCubit.sortDaysExpensesIncomsAccordingNewest();
                 },
               ),
               PopupMenuItem(

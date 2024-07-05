@@ -27,7 +27,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<ExpensesIncomeModel> get expensesIncomesMonth => expensesIncomesForMonth;
 
-  List<List<ExpensesIncomeModel>> get allExpensesIncomes => expensesIncomesEachDay;
+  List<List<ExpensesIncomeModel>> get allExpensesIncomes =>
+      expensesIncomesEachDay;
 
   List<dynamic>? get todayy => today;
 
@@ -108,15 +109,14 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetBalance());
   }
 
-  Future<void> sortDaysExpensesIncomsAccordingDateTime() async {
+  Future<void> sortDaysExpensesIncomsAccordingNewest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
@@ -138,7 +138,8 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future<List<ExpensesIncomeModel>> getDayFromDaysList(
-      {required List<List<ExpensesIncomeModel>> days, required String day}) async {
+      {required List<List<ExpensesIncomeModel>> days,
+      required String day}) async {
     List<ExpensesIncomeModel> result = [];
     for (var e in days) {
       if (e[0].day == day) {
@@ -217,7 +218,8 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetExpensesIncomesForEachDay());
   }
 
-  Future<List<List<ExpensesIncomeModel>>> getExpensesIncomesForEachDayImpl() async {
+  Future<List<List<ExpensesIncomeModel>>>
+      getExpensesIncomesForEachDayImpl() async {
     List<List<ExpensesIncomeModel>> days = [];
     for (int i = 1; i <= 31; i++) {
       List<ExpensesIncomeModel> day = [];
