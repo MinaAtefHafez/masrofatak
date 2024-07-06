@@ -28,26 +28,24 @@ class CategoryCubit extends Cubit<CategoryState> {
         name: 'Restaurant', id: 8, icon: Assets.imagesRestaurantBlack24dp)
   ];
 
-
-  List <String> categoriesIcons  = [ 
-    Assets.imagesFootball ,
-    Assets.imagesHealth ,
-    Assets.imagesElectronics ,
-    Assets.imagesInterest ,
-    Assets.imagesSalary ,
-    Assets.imagesSavings ,
-    Assets.imagesShopping ,
-    Assets.imagesWages ,
-    Assets.imagesBarCafe ,
-    Assets.imagesVehicle ,
-    Assets.imagesCardGiftcard ,
-    Assets.imagesLaundry ,
-    Assets.imagesRestaurantBlack24dp ,
-    Assets.imagesLiquor ,
-    Assets.imagesSchoolBlack24dp ,
-    Assets.imagesConstructionBlack24dp ,
-    Assets.imagesYoga ,
-    
+  List<String> categoriesIcons = [
+    Assets.imagesFootball,
+    Assets.imagesHealth,
+    Assets.imagesElectronics,
+    Assets.imagesInterest,
+    Assets.imagesSalary,
+    Assets.imagesSavings,
+    Assets.imagesShopping,
+    Assets.imagesWages,
+    Assets.imagesBarCafe,
+    Assets.imagesVehicle,
+    Assets.imagesCardGiftcard,
+    Assets.imagesLaundry,
+    Assets.imagesRestaurantBlack24dp,
+    Assets.imagesLiquor,
+    Assets.imagesSchoolBlack24dp,
+    Assets.imagesConstructionBlack24dp,
+    Assets.imagesYoga,
   ];
 
   List<dynamic> incomesCategories = [
@@ -78,21 +76,20 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   CategoryModel get getCategoryModel => categoryModel;
 
-
-  Future <void> addToExpensesCategories() async {
-     expensesCategories.add(categoryModel);
+  Future<void> addToExpensesCategories() async {
+    expensesCategories.add(categoryModel);
   }
 
-  void onCategoryIconChanged (String urlIcon) {
+  void onCategoryIconChanged(String urlIcon) {
     categoryModel = categoryModel.copyWith(icon: urlIcon);
     emit(OnCategoryIconChanged());
   }
 
-  Future <void> addToIncomesCategories() async {
+  Future<void> addToIncomesCategories() async {
     incomesCategories.add(categoryModel);
   }
 
-  Future <void> addToExpensesOrIncomes () async {
+  Future<void> addToExpensesOrIncomes() async {
     if (isExpenses) {
       await addToExpensesCategories();
     } else {
@@ -100,6 +97,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     }
     emit(AddToExpensesOrIncomes());
   }
+
   void onCategoryNameChanged(String value) {
     categoryModel = categoryModel.copyWith(name: value);
   }
