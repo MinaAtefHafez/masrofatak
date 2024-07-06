@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
@@ -114,5 +116,10 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     emit(OnTypeIncomeChanged());
   }
 
- 
+   @override
+  void onChange(Change<ExpensesIncomeState> change) {
+    // TODO: implement onChange
+    log(change.toString());
+  }
+  
 }

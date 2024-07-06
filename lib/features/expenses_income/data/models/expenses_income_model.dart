@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hive_flutter/adapters.dart';
-
 import 'package:masrofatak/features/categories/data/models/categories_model.dart';
-
 part 'expenses_income_model.g.dart';
 
 @HiveType(typeId: 1)

@@ -12,9 +12,11 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   final CategoryRepo _categoryRepo;
 
-  
+  bool isExpenses = true;
 
-  List<CategoryModel> expensesCategories = [
+  CategoryModel categoryModel = CategoryModel();
+
+  List<dynamic> expensesCategories = [
     CategoryModel(name: 'Shopping', id: 0, icon: Assets.imagesShopping),
     CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
     CategoryModel(name: 'Bar & Cafe', id: 2, icon: Assets.imagesBarCafe),
@@ -26,12 +28,33 @@ class CategoryCubit extends Cubit<CategoryState> {
         name: 'Restaurant', id: 8, icon: Assets.imagesRestaurantBlack24dp)
   ];
 
-  List<CategoryModel> incomesCategories = [
+
+  List <String> categoriesIcons  = [ 
+    Assets.imagesFootball ,
+    Assets.imagesHealth ,
+    Assets.imagesElectronics ,
+    Assets.imagesInterest ,
+    Assets.imagesSalary ,
+    Assets.imagesSavings ,
+    Assets.imagesShopping ,
+    Assets.imagesWages ,
+    Assets.imagesBarCafe ,
+    Assets.imagesVehicle ,
+    Assets.imagesCardGiftcard ,
+    Assets.imagesLaundry ,
+    Assets.imagesRestaurantBlack24dp ,
+    Assets.imagesLiquor ,
+    Assets.imagesSchoolBlack24dp ,
+    Assets.imagesConstructionBlack24dp ,
+    Assets.imagesYoga ,
+    
+  ];
+
+  List<dynamic> incomesCategories = [
     CategoryModel(name: 'Salary', id: 0, icon: Assets.imagesSalary),
     CategoryModel(name: 'Gifts', id: 1, icon: Assets.imagesCardGiftcard),
     CategoryModel(name: 'Savings', id: 2, icon: Assets.imagesSavings),
     CategoryModel(name: 'Wages', id: 3, icon: Assets.imagesWages),
-   
   ];
 
   List<Color> categoriesColors = [
@@ -53,7 +76,45 @@ class CategoryCubit extends Cubit<CategoryState> {
     AppColors.color17FFF9C4
   ];
 
-  List<CategoryModel> getExpensesOrIncomesCategories(bool isExpenses) {
+  CategoryModel get getCategoryModel => categoryModel;
+
+
+  Future <void> addToExpensesCategories() async {
+     expensesCategories.add(categoryModel);
+  }
+
+  void onCategoryIconChanged (String urlIcon) {
+    categoryModel = categoryModel.copyWith(icon: urlIcon);
+    emit(OnCategoryIconChanged());
+  }
+
+  Future <void> addToIncomesCategories() async {
+    incomesCategories.add(categoryModel);
+  }
+
+  Future <void> addToExpensesOrIncomes () async {
+    if (isExpenses) {
+      await addToExpensesCategories();
+    } else {
+      await addToIncomesCategories();
+    }
+    emit(AddToExpensesOrIncomes());
+  }
+  void onCategoryNameChanged(String value) {
+    categoryModel = categoryModel.copyWith(name: value);
+  }
+
+  void onTapExpenses() {
+    isExpenses = true;
+    emit(ChooseExpensesOrIncomesToAddCategory());
+  }
+
+  void onTapIncomes() {
+    isExpenses = false;
+    emit(ChooseExpensesOrIncomesToAddCategory());
+  }
+
+  List<dynamic> getExpensesOrIncomesCategories(bool isExpenses) {
     return isExpenses ? expensesCategories : incomesCategories;
   }
 
@@ -62,10 +123,6 @@ class CategoryCubit extends Cubit<CategoryState> {
     var colorIndex = random.nextInt(categoriesColors.length - 1);
     return categoriesColors[colorIndex];
   }
-
- 
-
-  
 
   Future<void> saveExpensesCategoriesLocal() async {
     await _categoryRepo.saveExpensesCategoriesLocal(expensesCategories);

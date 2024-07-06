@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
+import 'package:masrofatak/core/helpers/hive_helper/hive_helper.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_cubit.dart';
@@ -36,9 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void call() async {
-    await categoryCubit.saveExpensesCategoriesLocal();
+    if (!HiveHelper.isContainesKey(HiveConstants.incomesCategories)) {
+      await categoryCubit.saveExpensesCategoriesLocal();
+      await categoryCubit.saveIncomesCategoriesLocal();
+    }
     await categoryCubit.getExpensesCategoriesLocal();
-    await categoryCubit.saveIncomesCategoriesLocal();
     await categoryCubit.getIncomesCategoriesLocal();
     await expensesIncomesCubit.getExpensesIncomesLocal();
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:masrofatak/core/widgets/custom_date_picker.dart';
 import 'package:masrofatak/core/widgets/custom_elevated_button.dart';
 import 'package:masrofatak/core/widgets/custom_snack_bar.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
+import 'package:masrofatak/features/categories/presentation/view/screens/add_new_category_screen.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
 import 'package:masrofatak/features/expenses_income/presentation/view/widgets/expenses_income_button.dart';
 import '../../manager/expenses_income_cubit.dart';
@@ -52,114 +55,117 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
             CustomNavigator.pop();
             CustomSnackBar.customSnackBar(context, text: tr('AddDoneSuccess'));
           }
+
+          if (state is ChooseCategories) {
+            CustomNavigator.pop();
+          }
+
+          if (state is OnTypeIncomeChanged || state is ChooseCategories) {
+            categoryTextController.text = expensesIncomeCubit.getCategory.name!;
+          }
         },
-        child: BlocListener<ExpensesIncomeCubit, ExpensesIncomeState>(
-          bloc: expensesIncomeCubit,
-          listener: (context, state) {
-            if (state is OnTypeIncomeChanged || state is ChooseCategories) {
-              categoryTextController.text =
-                  expensesIncomeCubit.getCategory.name!;
-            }
-          },
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: AppColors.colorF5F5F5,
-              title: Text(tr('AddNew')),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
-                        builder: (context, state) {
-                          return ExpensesIncomeButton(
-                            isExpense: expensesIncomeCubit.isExpense,
-                            onTapExpenses: expensesIncomeCubit.onChooseExpenses,
-                            onTapIncome: expensesIncomeCubit.onChooseIncome,
-                          );
-                        },
-                      ),
-                      SizedBox(height: 30.h),
-                      BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
-                        bloc: expensesIncomeCubit,
-                        builder: (context, state) {
-                          return ExpensesIncomeTextField(
-                            controller: categoryTextController,
-                            label: tr('CategoryName'),
-                            readOnly: true,
-                            onTap: () {
-                              customBottomSheet(context,
-                                  widget: ExpensesCategoryBottomSheerWidget(
-                                    categories: categoryCubit
-                                        .getExpensesOrIncomesCategories(
-                                            expensesIncomeCubit.isExpense),
-                                  ));
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(height: 30.h),
-                      ExpensesIncomeTextField(
-                        inputType: TextInputType.number,
-                        hint: tr('EnterAmount'),
-                        onChanged: (value) {
-                          expensesIncomeCubit.onAmountChanged(value.trim());
-                        },
-                      ),
-                      SizedBox(height: 30.h),
-                      ExpensesIncomeTextField(
-                        hint: tr('Description'),
-                        onChanged: expensesIncomeCubit.onDescriptionChanged,
-                      ),
-                      SizedBox(height: 20.h),
-                      InkWell(
-                        onTap: () {
-                          showPicker(context);
-                        },
-                        child: BlocBuilder<ExpensesIncomeCubit,
-                            ExpensesIncomeState>(
-                          builder: (context, state) {
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SvgPicture.asset(
-                                  Assets.imagesCalendarToday,
-                                  width: 20.w,
-                                  height: 20.h,
-                                ),
-                                SizedBox(width: 10.w),
-                                Text(
-                                    '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
-                                    style: AppStyles.styleRegular14.copyWith(
-                                        color: AppColors.color424242)),
-                                Icon(Icons.arrow_drop_down, size: 20.w),
-                              ],
-                            );
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.colorF5F5F5,
+            title: Text(tr('AddNew')),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
+                      builder: (context, state) {
+                        return ExpensesIncomeButton(
+                          isExpense: expensesIncomeCubit.isExpense,
+                          onTapExpenses: expensesIncomeCubit.onChooseExpenses,
+                          onTapIncome: expensesIncomeCubit.onChooseIncome,
+                        );
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
+                      bloc: expensesIncomeCubit,
+                      builder: (context, state) {
+                        return ExpensesIncomeTextField(
+                          controller: categoryTextController,
+                          label: tr('CategoryName'),
+                          readOnly: true,
+                          onTap: () {
+                            customBottomSheet(context,
+                                widget: ExpensesCategoryBottomSheerWidget(
+                                  addNewCategory: () {
+                                    CustomNavigator.pushNamed(
+                                        AddNewCategoryScreen.name);
+                                  },
+                                  categories: categoryCubit
+                                      .getExpensesOrIncomesCategories(
+                                          expensesIncomeCubit.isExpense),
+                                ));
                           },
-                        ),
-                      ),
-                      SizedBox(height: 50.h),
-                      BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
+                        );
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    ExpensesIncomeTextField(
+                      inputType: TextInputType.number,
+                      hint: tr('EnterAmount'),
+                      onChanged: (value) {
+                        expensesIncomeCubit.onAmountChanged(value.trim());
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    ExpensesIncomeTextField(
+                      hint: tr('Description'),
+                      onChanged: expensesIncomeCubit.onDescriptionChanged,
+                    ),
+                    SizedBox(height: 20.h),
+                    InkWell(
+                      onTap: () {
+                        showPicker(context);
+                      },
+                      child: BlocBuilder<ExpensesIncomeCubit,
+                          ExpensesIncomeState>(
                         builder: (context, state) {
-                          return CustomElevatedButton(
-                              onPressed: () async {
-                                if (formKey.currentState!.validate()) {
-                                  await expensesIncomeCubit
-                                      .addExpensesOrIncome();
-                                }
-                              },
-                              text: expensesIncomeCubit.isExpense
-                                  ? tr('AddExpenses')
-                                  : tr('AddIncome'),
-                              size: Size(158.w, 32.h));
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                Assets.imagesCalendarToday,
+                                width: 20.w,
+                                height: 20.h,
+                              ),
+                              SizedBox(width: 10.w),
+                              Text(
+                                  '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
+                                  style: AppStyles.styleRegular14.copyWith(
+                                      color: AppColors.color424242)),
+                              Icon(Icons.arrow_drop_down, size: 20.w),
+                            ],
+                          );
                         },
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                    SizedBox(height: 50.h),
+                    BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
+                      builder: (context, state) {
+                        return CustomElevatedButton(
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                await expensesIncomeCubit
+                                    .addExpensesOrIncome();
+                              }
+                            },
+                            text: expensesIncomeCubit.isExpense
+                                ? tr('AddExpenses')
+                                : tr('AddIncome'),
+                            size: Size(158.w, 32.h));
+                      },
+                    )
+                  ],
                 ),
               ),
             ),

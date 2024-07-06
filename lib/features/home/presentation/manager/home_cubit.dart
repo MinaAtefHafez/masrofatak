@@ -5,7 +5,6 @@ import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
 import 'package:masrofatak/features/reports/presentation/screens/reports_screen.dart';
 import 'package:masrofatak/features/settings/presentation/view/screens/settings_screen.dart';
-
 import '../../../expenses_income/data/models/expenses_income_model.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -48,10 +47,10 @@ class HomeCubit extends Cubit<HomeStates> {
   ];
 
   Future<void> showExpensesIncomes() async {
+    await filterExpensesIncomesForMonth(monthAsInt.toString());
     await getAllExpenses();
     await getAllIncomes();
     await getBalance();
-    await filterExpensesIncomesForMonth(monthAsInt.toString());
     await sortingExppensesIncomesAccordingDay();
     await getExpensesIncomesForEachDay();
     await getSumForMonth();
@@ -71,20 +70,10 @@ class HomeCubit extends Cubit<HomeStates> {
     monthName = IntlHelper.month(monthAsInt);
   }
 
-  Future<int> getAllIncomesImpl() async {
+  Future<int> getAllExpensesImpl(String type) async {
     int sum = 0;
-    for (var e in expensesIncomes) {
-      if (e.type == 'Incomes') {
-        sum = (sum + e.amount!).toInt();
-      }
-    }
-    return sum;
-  }
-
-  Future<int> getAllExpensesImpl() async {
-    int sum = 0;
-    for (var e in expensesIncomes) {
-      if (e.type == 'Expenses') {
+    for (var e in expensesIncomesForMonth) {
+      if (e.type == type) {
         sum = (sum + e.amount!).toInt();
       }
     }
@@ -92,13 +81,13 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future<void> getAllIncomes() async {
-    var incomesSumAmount = await getAllIncomesImpl();
+    var incomesSumAmount = await getAllExpensesImpl('Incomes');
     allMoney = allMoney.copyWith(incomes: incomesSumAmount);
     emit(GetAllIncomes());
   }
 
   Future<void> getAllExpenses() async {
-    var expensesSumAmount = await getAllExpensesImpl();
+    var expensesSumAmount = await getAllExpensesImpl('Expenses');
     allMoney = allMoney.copyWith(expenses: expensesSumAmount);
     emit(GetAllExpenses());
   }
@@ -111,12 +100,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortDaysExpensesIncomsAccordingNewest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
+
     emit(SortingExpensesIncomesForDay());
   }
 

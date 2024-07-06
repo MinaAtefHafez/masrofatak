@@ -1,6 +1,9 @@
 class Assets {
   Assets._();
   
+  /// Assets for imagesAccountBalanceBlack24dp(1) 1
+  /// assets/images/account_balance_black_24dp(1) 1.svg
+
   /// Assets for imagesAllowance
   /// assets/images/allowance.svg
   static const String imagesAllowance = "assets/images/allowance.svg";
@@ -21,6 +24,10 @@ class Assets {
   /// assets/images/card_giftcard.svg
   static const String imagesCardGiftcard = "assets/images/card_giftcard.svg";
 
+  /// Assets for imagesConstructionBlack24dp
+  /// assets/images/construction_black_24dp.svg
+  static const String imagesConstructionBlack24dp = "assets/images/construction_black_24dp.svg";
+
   /// Assets for imagesElectronics
   /// assets/images/electronics.svg
   static const String imagesElectronics = "assets/images/electronics.svg";
@@ -28,6 +35,10 @@ class Assets {
   /// Assets for imagesExpenses
   /// assets/images/expenses.svg
   static const String imagesExpenses = "assets/images/expenses.svg";
+
+  /// Assets for imagesFootball
+  /// assets/images/football.svg
+  static const String imagesFootball = "assets/images/football.svg";
 
   /// Assets for imagesHealth
   /// assets/images/health.svg
@@ -61,6 +72,10 @@ class Assets {
   /// assets/images/liquor.svg
   static const String imagesLiquor = "assets/images/liquor.svg";
 
+  /// Assets for imagesLocalGasStationBlack24dp
+  /// assets/images/local_gas_station_black_24dp.svg
+  static const String imagesLocalGasStationBlack24dp = "assets/images/local_gas_station_black_24dp.svg";
+
   /// Assets for imagesLogo
   /// assets/images/logo.svg
   static const String imagesLogo = "assets/images/logo.svg";
@@ -89,6 +104,10 @@ class Assets {
   /// assets/images/savings.svg
   static const String imagesSavings = "assets/images/savings.svg";
 
+  /// Assets for imagesSchoolBlack24dp
+  /// assets/images/school_black_24dp.svg
+  static const String imagesSchoolBlack24dp = "assets/images/school_black_24dp.svg";
+
   /// Assets for imagesSearch
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
@@ -112,5 +131,9 @@ class Assets {
   /// Assets for imagesWages
   /// assets/images/wages.svg
   static const String imagesWages = "assets/images/wages.svg";
+
+  /// Assets for imagesYoga
+  /// assets/images/yoga.svg
+  static const String imagesYoga = "assets/images/yoga.svg";
 }
 

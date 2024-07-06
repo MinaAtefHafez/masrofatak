@@ -118,12 +118,12 @@ class ReportsCubit extends Cubit<ReportsStates> {
   }
 
   Future<void> getExpensesCategoriesFromCategoryCubit(
-      List<CategoryModel> list) async {
+      List<dynamic> list) async {
     expensesCategories = List.from(list);
   }
 
   Future<void> getIncomesCategoriesFromCategoryCubit(
-      List<CategoryModel> list) async {
+      List<dynamic> list) async {
     incomesCategories = List.from(list);
   }
 
