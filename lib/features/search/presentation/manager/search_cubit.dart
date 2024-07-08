@@ -47,15 +47,11 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(ChooseItemFromSearchMap());
   }
 
-  Future<void> filterSearchListAccordingCategories() async {
-    searchList =
-        expensesIncomes.where((e) => searchMap[e.category!.name]!).toList();
-    emit(FilterSearchListAccordingCategories());
-  }
+  
 
   Future<void> searchOnItem(String text) async {
     searchList =
-        searchList.where((e) => e.description!.contains(text)).toList();
+        expensesIncomes.where((e) => e.description!.contains(text) && searchMap[e.category!.name]! ).toList();
     emit(FilterSearchListAccordingSearchText());
   }
 }

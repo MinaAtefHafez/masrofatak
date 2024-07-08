@@ -32,12 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
     call();
     textController.addListener(() async {
-      if (textController.text.isEmpty) {
-        await searchCubit.filterSearchListAccordingCategories();
-      } else {
-        await searchCubit.filterSearchListAccordingCategories();
-        await searchCubit.searchOnItem(textController.text);
-      }
+      searchCubit.searchOnItem(textController.text);
     });
   }
 
@@ -93,14 +88,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           onTap: (index) async {
                             await searchCubit.chooseCategoryFromMap(
                                 searchCubit.allCategories[index].name!);
-                            if (textController.text.isNotEmpty) {
-                              await searchCubit
-                                  .filterSearchListAccordingCategories();
-                              await searchCubit.searchOnItem(textController.text);
-                            } else {
-                              await searchCubit
-                                  .filterSearchListAccordingCategories();
-                            }
+                            await searchCubit
+                                .searchOnItem(textController.text.trim());
                           },
                           searchMap: searchCubit.searchMap,
                           categories: searchCubit.allCategories,
