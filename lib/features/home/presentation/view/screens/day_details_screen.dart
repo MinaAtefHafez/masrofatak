@@ -7,10 +7,10 @@ import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/helpers/methos_helper/methods_helper.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
-import 'package:masrofatak/features/home/presentation/view/widgets/expenses_incomes_item.dart';
 
 import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../../manager/home_states.dart';
+import '../widgets/expenses_incomes_small_item.dart';
 
 class DayDetailsScreen extends StatefulWidget {
   const DayDetailsScreen({super.key});

@@ -8,16 +8,20 @@ import 'dart:ui' as ui;
 import '../../../../../core/app_theme/colors/app_colors.dart';
 
 class SearchCategoriesListViewItem extends StatelessWidget {
-  const SearchCategoriesListViewItem({super.key, required this.categoryModel, required this.isActive});
-  
-  final CategoryModel categoryModel ;
-  final bool isActive ;
+  const SearchCategoriesListViewItem(
+      {super.key, required this.categoryModel, required this.isActive});
+
+  final CategoryModel categoryModel;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
       decoration: BoxDecoration(
+        color: isActive ? Colors.blue.withOpacity(0.4) : null,
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: AppColors.colorBDBDBD, width: 1.w)),
       child: Directionality(
