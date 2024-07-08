@@ -10,6 +10,7 @@ import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/day_details_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/widgets/expenses_incomes_item.dart';
+import 'package:masrofatak/features/search/presentation/view/screens/search_screen.dart';
 
 import '../widgets/home_basic_item.dart';
 import '../widgets/home_date_month_picker.dart';
@@ -36,7 +37,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
         child: Column(
           children: [
-            HomeDetailsTopPart(onTap: () {}),
+            HomeDetailsTopPart(onTap: () {
+              CustomNavigator.pushNamed(SearchScreen.name);
+            }),
             SizedBox(height: 16.h),
             BlocBuilder<HomeCubit, HomeStates>(
               bloc: homeCubit,

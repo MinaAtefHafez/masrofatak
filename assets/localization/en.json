@@ -45,6 +45,7 @@
   "Language" : "Choose Language" ,
   "ManageCategories" : "Manage Categories" ,
   "ShouldAddIcon" : "Must Add Category icon" ,
-  "ChooseCategoryIcon"  : "Choose Category Icon"
+  "ChooseCategoryIcon"  : "Choose Category Icon" ,
+  "Search" :  "Search"
 
 }

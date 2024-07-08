@@ -45,6 +45,7 @@
   "Language" : "اختار اللغة" ,
   "ManageCategories" : "ادارة الفئات"  ,
   "ShouldAddIcon" : "يجب عليك اضافة ايقونة فئة" ,
-  "ChooseCategoryIcon"  : "اختر ايقونة للفئة"
+  "ChooseCategoryIcon"  : "اختر ايقونة للفئة" ,
+  "Search" : "بحث"
   
 }

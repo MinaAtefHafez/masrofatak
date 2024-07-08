@@ -15,6 +15,7 @@ import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 
 import '../../../../categories/presentation/manager/category_cubit.dart';
 import '../../../../reports/presentation/manager/reports_cubit.dart';
+import '../../../../search/presentation/manager/search_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final categoryCubit = getIt<CategoryCubit>();
   final expensesIncomesCubit = getIt<ExpensesIncomeCubit>();
   final reportsCubit = getIt<ReportsCubit>();
+  final searchCubit = getIt<SearchCubit>();
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await categoryCubit.getExpensesCategoriesLocal();
     await categoryCubit.getIncomesCategoriesLocal();
     await expensesIncomesCubit.getExpensesIncomesLocal();
+    await searchCubit.initSearchMap();
   }
 
   @override
@@ -52,11 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: expensesIncomesCubit,
       listener: (context, state) async {
         if (state is GetExpensesIncomesLocal) {
-          await homeCubit
-              .getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
+          homeCubit.getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
 
-          await reportsCubit
+          reportsCubit
               .getAllExpensesIncomesFromCategoryCubit(state.expensesIncomes);
+
+          searchCubit
+              .getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
           await homeCubit.showExpensesIncomes();
         }
       },
@@ -66,11 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is GeExpensesCategoriesLocal) {
             reportsCubit
                 .getExpensesCategoriesFromCategoryCubit(state.categories);
+            searchCubit
+                .getExpensesCategoriesFromCategoryCubit(state.categories);
           }
 
           if (state is GetIncomesCategoriesLocal) {
             reportsCubit
                 .getIncomesCategoriesFromCategoryCubit(state.categories);
+            searchCubit.getIncomesCategoriesFromCategoryCubit(state.categories);
           }
         },
         child: BlocBuilder<HomeCubit, HomeStates>(

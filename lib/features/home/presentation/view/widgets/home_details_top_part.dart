@@ -27,7 +27,7 @@ class HomeDetailsTopPart extends StatelessWidget {
                 fontWeight: FontWeight.w700, color: AppColors.color424242)),
         const Spacer(),
         InkWell(
-            onTap: () {},
+            onTap: onTap ,
             child: SvgPicture.asset(Assets.imagesSearch,
                 width: 24.w, height: 24.h))
       ],
