@@ -30,6 +30,10 @@ class SearchCubit extends Cubit<SearchStates> {
     allCategories = List.from(expensesCategories)..addAll(incomesCategories);
   }
 
+  bool get isSearchMapContainsTrue {
+    return searchMap.containsValue(true);
+  }
+
   Future<void> initSearchMap() async {
     searchMap.clear();
     for (var e in allCategories) {
@@ -40,6 +44,7 @@ class SearchCubit extends Cubit<SearchStates> {
 
   Future<void> clearSearchList() async {
     searchList.clear();
+    emit(ClearSearchList());
   }
 
   Future<void> chooseCategoryFromMap(String value) async {
@@ -47,11 +52,25 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(ChooseItemFromSearchMap());
   }
 
-  
-
   Future<void> searchOnItem(String text) async {
     searchList =
-        expensesIncomes.where((e) => e.description!.contains(text) && searchMap[e.category!.name]! ).toList();
+        expensesIncomes.where((e) => e.description!.contains(text)).toList();
     emit(FilterSearchListAccordingSearchText());
+  }
+
+  Future<void> searchOnSearchMapContainsTrue(String text) async {
+    searchList = expensesIncomes
+        .where((e) =>
+            e.description!.contains(text) && searchMap[e.category!.name]!)
+        .toList();
+    emit(FilterSearchListAccordingSearchText());
+  }
+
+  Future<void> search(String text) async {
+    if (isSearchMapContainsTrue) {
+      await searchOnSearchMapContainsTrue(text);
+    } else {
+      await searchOnItem(text);
+    }
   }
 }
