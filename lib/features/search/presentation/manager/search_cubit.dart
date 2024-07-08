@@ -8,6 +8,7 @@ class SearchCubit extends Cubit<SearchStates> {
 
   List<CategoryModel> expensesCategories = [];
   List<CategoryModel> incomesCategories = [];
+  List<CategoryModel> allCategories = [];
   Map<String, bool> searchMap = {};
   List<ExpensesIncomeModel> expensesIncomes = [];
   List<ExpensesIncomeModel> searchList = [];
@@ -25,9 +26,11 @@ class SearchCubit extends Cubit<SearchStates> {
     incomesCategories = List.from(categories);
   }
 
+  Future<void> mergeIncomesAndExpensesCategories() async {
+    allCategories = List.from(expensesCategories)..addAll(incomesCategories);
+  }
+
   Future<void> initSearchMap() async {
-    List<CategoryModel> allCategories = List.from(expensesCategories)
-      ..addAll(incomesCategories);
     for (var e in allCategories) {
       searchMap.addAll({e.name!: false});
     }
