@@ -46,8 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await categoryCubit.getExpensesCategoriesLocal();
     await categoryCubit.getIncomesCategoriesLocal();
     await expensesIncomesCubit.getExpensesIncomesLocal();
-    await searchCubit.mergeIncomesAndExpensesCategories();
-    await searchCubit.initSearchMap();
+    
   }
 
   @override

@@ -115,11 +115,5 @@ class ExpensesIncomeCubit extends Cubit<ExpensesIncomeState> {
     }
     emit(OnTypeIncomeChanged());
   }
-
-   @override
-  void onChange(Change<ExpensesIncomeState> change) {
-    // TODO: implement onChange
-    log(change.toString());
-  }
   
 }

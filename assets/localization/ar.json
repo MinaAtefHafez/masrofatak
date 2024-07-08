@@ -46,6 +46,7 @@
   "ManageCategories" : "ادارة الفئات"  ,
   "ShouldAddIcon" : "يجب عليك اضافة ايقونة فئة" ,
   "ChooseCategoryIcon"  : "اختر ايقونة للفئة" ,
-  "Search" : "بحث"
+  "Search" : "بحث" ,
+  "NoData" : "لا توجد عناصر"
   
 }

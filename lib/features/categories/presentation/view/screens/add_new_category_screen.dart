@@ -9,7 +9,10 @@ import 'package:masrofatak/core/widgets/custom_bottom_sheet.dart';
 import 'package:masrofatak/core/widgets/custom_elevated_button.dart';
 import 'package:masrofatak/core/widgets/custom_snack_bar.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
+// ignore: unused_import
+import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_statesd.dart';
 import 'package:masrofatak/features/expenses_income/presentation/view/widgets/expenses_income_text_field.dart';
+import 'package:masrofatak/features/search/presentation/manager/search_cubit.dart';
 
 import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../../../../expenses_income/presentation/view/widgets/expenses_income_button.dart';
@@ -27,6 +30,7 @@ class AddNewCategoryScreen extends StatefulWidget {
 
 class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   final categoryCubit = getIt<CategoryCubit>();
+  final searchCubit = getIt<SearchCubit>();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,12 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
           if (state is GetIncomesCategoriesLocal) {
             CustomSnackBar.customSnackBar(context, text: 'AddDoneSuccess');
             CustomNavigator.pop(2);
+            searchCubit.getExpensesIncomesFromExpensesCubit(state.categories);
+          }
+
+          if (state is GeExpensesCategoriesLocal) {
+            searchCubit
+                .getExpensesCategoriesFromCategoryCubit(state.categories);
           }
         },
         builder: (context, state) {

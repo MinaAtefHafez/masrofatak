@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
@@ -8,6 +10,7 @@ import 'package:masrofatak/features/search/presentation/manager/search_cubit.dar
 import 'package:masrofatak/features/search/presentation/manager/search_states.dart';
 import 'package:masrofatak/features/search/presentation/view/widgets/search_expenses_incomes_item.dart';
 
+import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../widgets/search_categories_list_view.dart';
 import '../widgets/search_text_field.dart';
 
@@ -27,20 +30,26 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    call();
     textController.addListener(() async {
       if (textController.text.isEmpty) {
         await searchCubit.filterSearchListAccordingCategories();
+      } else {
+        await searchCubit.search(textController.text);
       }
-
-      await searchCubit
-          .filterSearchListAccordingSearchText(textController.text);
     });
+  }
+
+  void call() async {
+    await searchCubit.mergeIncomesAndExpensesCategories();
+    await searchCubit.initSearchMap();
   }
 
   @override
   void dispose() {
     super.dispose();
     searchCubit.initSearchMap();
+    searchCubit.clearSearchList();
   }
 
   @override
@@ -64,46 +73,69 @@ class _SearchScreenState extends State<SearchScreen> {
                         )),
                     SizedBox(width: 5.w),
                     Expanded(
-                      child: SearchTextField(
-                        textController: textController,
+                      child: SizedBox(
+                        height: 50.h,
+                        child: SearchTextField(
+                          textController: textController,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 30.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: SizedBox(
-                      height: 43.h,
-                      child: SearchCategoriesListView(
-                        onTap: (index) async {
-                          await searchCubit.chooseCategoryFromMap(
-                              searchCubit.allCategories[index].name!);
-                          await searchCubit
-                              .filterSearchListAccordingCategories();
-                        },
-                        searchMap: searchCubit.searchMap,
-                        categories: searchCubit.allCategories,
-                      )),
-                ),
-                SizedBox(height: 30.h),
-                Expanded(
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10.h),
-                      itemCount: searchCubit.searchList.length,
-                      itemBuilder: (context, index) => Card(
-                            color: Colors.grey.shade100,
-                            elevation: 3,
-                            child: Padding(
-                              padding:  EdgeInsets.all(5.w),
-                              child: SearchExpensesIncomesItem(
-                                expensesIncomeModel:
-                                    searchCubit.searchList[index],
+                if (searchCubit.searchMap.isNotEmpty) ...[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: SizedBox(
+                        height: 43.h,
+                        child: SearchCategoriesListView(
+                          onTap: (index) async {
+                            await searchCubit.chooseCategoryFromMap(
+                                searchCubit.allCategories[index].name!);
+                            if (textController.text.isNotEmpty) {
+                              await searchCubit
+                                  .filterSearchListAccordingCategories();
+                              await searchCubit.search(textController.text);
+                            } else {
+                              await searchCubit
+                                  .filterSearchListAccordingCategories();
+                            }
+                          },
+                          searchMap: searchCubit.searchMap,
+                          categories: searchCubit.allCategories,
+                        )),
+                  ),
+                ],
+                SizedBox(height: 15.h),
+                Divider(thickness: 1, color: Colors.grey.withOpacity(0.5)),
+                SizedBox(height: 15.h),
+                if (searchCubit.searchList.isNotEmpty) ...[
+                  Expanded(
+                    child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10.h),
+                        itemCount: searchCubit.searchList.length,
+                        itemBuilder: (context, index) => Card(
+                              color: Colors.grey.shade100,
+                              elevation: 3,
+                              child: Padding(
+                                padding: EdgeInsets.all(5.w),
+                                child: SearchExpensesIncomesItem(
+                                  expensesIncomeModel:
+                                      searchCubit.searchList[index],
+                                ),
                               ),
-                            ),
-                          )),
-                )
+                            )),
+                  ),
+                ] else ...[
+                  Center(
+                    child: Text(
+                      tr('NoData'),
+                      style: AppStyles.styleRegular16
+                          .copyWith(color: AppColors.color424242),
+                    ),
+                  ),
+                ],
               ],
             ),
           );

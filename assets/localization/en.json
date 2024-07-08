@@ -46,6 +46,7 @@
   "ManageCategories" : "Manage Categories" ,
   "ShouldAddIcon" : "Must Add Category icon" ,
   "ChooseCategoryIcon"  : "Choose Category Icon" ,
-  "Search" :  "Search"
+  "Search" :  "Search" ,
+  "NoData" : "No Items Exist"
 
 }
