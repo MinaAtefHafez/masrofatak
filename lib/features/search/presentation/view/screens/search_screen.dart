@@ -35,7 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
       if (textController.text.isEmpty) {
         await searchCubit.filterSearchListAccordingCategories();
       } else {
-        await searchCubit.search(textController.text);
+        await searchCubit.filterSearchListAccordingCategories();
+        await searchCubit.searchOnItem(textController.text);
       }
     });
   }
@@ -95,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             if (textController.text.isNotEmpty) {
                               await searchCubit
                                   .filterSearchListAccordingCategories();
-                              await searchCubit.search(textController.text);
+                              await searchCubit.searchOnItem(textController.text);
                             } else {
                               await searchCubit
                                   .filterSearchListAccordingCategories();

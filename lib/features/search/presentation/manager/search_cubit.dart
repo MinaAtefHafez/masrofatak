@@ -38,10 +38,6 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(InitSearchMap());
   }
 
-  bool get isSearchMapContainsOnTrue {
-    return searchMap.containsValue(true);
-  }
-
   Future<void> clearSearchList() async {
     searchList.clear();
   }
@@ -57,27 +53,9 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(FilterSearchListAccordingCategories());
   }
 
-  Future<List<ExpensesIncomeModel>> searchOnItem(String text,
-      {required List<ExpensesIncomeModel> list}) async {
-    list = list.where((e) => e.description!.contains(text)).toList();
-    return list;
-  }
-
-  Future<void> searchInSearchList(String text) async {
-    searchList = await searchOnItem(text, list: searchList);
+  Future<void> searchOnItem(String text) async {
+    searchList =
+        searchList.where((e) => e.description!.contains(text)).toList();
     emit(FilterSearchListAccordingSearchText());
-  }
-
-  Future<void> searchOnExpensesIncomesList(String text) async {
-    searchList = await searchOnItem(text, list: expensesIncomes);
-    emit(FilterSearchListAccordingSearchText());
-  }
-
-  Future<void> search(String text) async {
-    if (isSearchMapContainsOnTrue) {
-      await searchInSearchList(text);
-    } else {
-      await searchOnExpensesIncomesList(text);
-    }
   }
 }
