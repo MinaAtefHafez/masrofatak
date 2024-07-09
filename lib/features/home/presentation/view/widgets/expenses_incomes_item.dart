@@ -36,7 +36,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Card(
-        elevation: 4,
+        elevation: 3,
         color: Colors.white,
         shadowColor: Colors.grey.shade500 ,
         child: Padding(
