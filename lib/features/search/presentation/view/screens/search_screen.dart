@@ -36,6 +36,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void call() async {
     await searchCubit.mergeIncomesAndExpensesCategories();
     await searchCubit.initSearchMap();
+    await searchCubit.search(textController.text.trim());
   }
 
   @override

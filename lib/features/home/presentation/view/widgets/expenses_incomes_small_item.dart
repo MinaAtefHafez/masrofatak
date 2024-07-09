@@ -31,8 +31,8 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
           child: UnconstrainedBox(
             child: SvgPicture.asset(
               expensesIncomesModel.category!.icon!,
-              width: 24.w,
-              height: 24.w,
+              width: 22.w,
+              height: 22.w,
             ),
           ),
         ),
@@ -50,8 +50,7 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
               ),
               Text(
                 expensesIncomesModel.category!.name!,
-                style: AppStyles.styleMedium13
-                    .copyWith(color: AppColors.color616161),
+                style: AppStyles.styleMedium12.copyWith(color: Colors.blue),
               ),
             ],
           ),

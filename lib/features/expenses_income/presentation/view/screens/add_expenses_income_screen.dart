@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -127,8 +125,8 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                       onTap: () {
                         showPicker(context);
                       },
-                      child: BlocBuilder<ExpensesIncomeCubit,
-                          ExpensesIncomeState>(
+                      child:
+                          BlocBuilder<ExpensesIncomeCubit, ExpensesIncomeState>(
                         builder: (context, state) {
                           return Row(
                             mainAxisSize: MainAxisSize.min,
@@ -141,8 +139,8 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                               SizedBox(width: 10.w),
                               Text(
                                   '${expensesIncomeCubit.expensesIncomeModel.day} / ${expensesIncomeCubit.expensesIncomeModel.month} / ${expensesIncomeCubit.expensesIncomeModel.year}',
-                                  style: AppStyles.styleRegular14.copyWith(
-                                      color: AppColors.color424242)),
+                                  style: AppStyles.styleRegular14
+                                      .copyWith(color: AppColors.color424242)),
                               Icon(Icons.arrow_drop_down, size: 20.w),
                             ],
                           );
@@ -155,8 +153,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                         return CustomElevatedButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-                                await expensesIncomeCubit
-                                    .addExpensesOrIncome();
+                                await expensesIncomeCubit.addExpensesOrIncome();
                               }
                             },
                             text: expensesIncomeCubit.isExpense
