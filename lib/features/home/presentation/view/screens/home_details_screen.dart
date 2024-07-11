@@ -40,31 +40,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
             HomeDetailsTopPart(onTap: () {
               CustomNavigator.pushNamed(SearchScreen.name);
             }),
-            SizedBox(height: 16.h),
-            BlocBuilder<HomeCubit, HomeStates>(
-              bloc: homeCubit,
-              builder: (context, state) {
-                return DateMonthPickerItem(
-                    month: homeCubit.monthName,
-                    onTap: () {},
-                    onTapLeft: () async {
-                      await homeCubit.changeToPreviousMonth();
-                      await homeCubit.showExpensesIncomes();
-                    },
-                    onTapRight: () async {
-                      await homeCubit.changeToNextMonth();
-                      await homeCubit.showExpensesIncomes();
-                    });
-              },
-            ),
             SizedBox(height: 30.h),
-            BlocBuilder<HomeCubit, HomeStates>(
-              bloc: homeCubit,
-              builder: (context, state) {
-                return HomeBasicItem(allMoney: homeCubit.getAllMoney);
-              },
-            ),
-            const SizedBox(height: 16),
             BlocBuilder<HomeCubit, HomeStates>(
               bloc: homeCubit,
               builder: (context, state) {
@@ -72,24 +48,41 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   child: CustomScrollView(
                     slivers: [
                       SliverToBoxAdapter(
-                        child: Visibility(
-                          visible: homeCubit.todayy != null &&
-                              homeCubit.todayy!.isNotEmpty,
-                          replacement: const SizedBox(),
-                          child: ExpensesIncomesItem(
-                            onTap: () async {
-                              await homeCubit
-                                  .getExpensesIncomesPerDay(homeCubit.today);
-                              CustomNavigator.pushNamed(DayDetailsScreen.name);
+                        child: DateMonthPickerItem(
+                            month: homeCubit.monthName,
+                            onTap: () {},
+                            onTapLeft: () async {
+                              await homeCubit.changeToPreviousMonth();
+                              await homeCubit.showExpensesIncomes();
                             },
-                            today: 'today',
-                            expensesIncomesModel: homeCubit.todayy!,
-                            amountPerDay: homeCubit.sumToday,
-                          ),
+                            onTapRight: () async {
+                              await homeCubit.changeToNextMonth();
+                              await homeCubit.showExpensesIncomes();
+                            }),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(height: 30.h),
+                      ),
+                      SliverToBoxAdapter(
+                        child: HomeBasicItem(allMoney: homeCubit.getAllMoney),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 16),
+                      ),
+                      SliverToBoxAdapter(
+                        child: ExpensesIncomesItem(
+                          onTap: () async {
+                            await homeCubit
+                                .getExpensesIncomesPerDay(homeCubit.today);
+                            CustomNavigator.pushNamed(DayDetailsScreen.name);
+                          },
+                          today: 'today',
+                          expensesIncomesModel: homeCubit.todayy!,
+                          amountPerDay: homeCubit.sumToday,
                         ),
                       ),
                       SliverToBoxAdapter(
-                        child: SizedBox(height: 15.h),
+                        child: SizedBox(height: 25.h),
                       ),
                       SliverList.separated(
                           itemBuilder: (context, index) => ExpensesIncomesItem(
@@ -97,7 +90,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                   await homeCubit.getExpensesIncomesPerDay(
                                       homeCubit.expensesIncomesEachDay[index]);
                                   CustomNavigator.pushNamed(
-                                      DayDetailsScreen.name);
+                                      DayDetailsScreen.name,
+                                      arguments: homeCubit
+                                          .expensesIncomesEachDay[index]);
                                 },
                                 expensesIncomesModel:
                                     homeCubit.allExpensesIncomes[index],
@@ -105,7 +100,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                     .sumsExpensesIncomesPerMonth[index],
                               ),
                           separatorBuilder: (context, index) =>
-                              SizedBox(height: 16.h),
+                              SizedBox(height: 25.h),
                           itemCount: homeCubit.allExpensesIncomes.length)
                     ],
                   ),

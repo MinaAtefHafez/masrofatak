@@ -11,11 +11,10 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
   const ExpensesIncomesSmallItem(
       {super.key,
       required this.expensesIncomesModel,
-      required this.color,
+      
       this.isWidgetIntrinsic = false});
 
   final dynamic expensesIncomesModel;
-  final Color color;
   final bool isWidgetIntrinsic;
   @override
   Widget build(BuildContext context) {
@@ -25,9 +24,9 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
           width: 40.w,
           height: 40.h,
           decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(15.r) 
+                            ),
           child: UnconstrainedBox(
             child: SvgPicture.asset(
               expensesIncomesModel.category!.icon!,
@@ -58,8 +57,8 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
-              ? '-${MethodsHelper.convert(context, expensesIncomesModel.amount.toString())}'
-              : '+${MethodsHelper.convert(context, expensesIncomesModel.amount.toString())}',
+              ? MethodsHelper.convert(context, expensesIncomesModel.amount.toString())
+              : MethodsHelper.convert(context, expensesIncomesModel.amount.toString()),
           style: AppStyles.styleRegular14.copyWith(
               color:
                   getMoneyType(expensesIncomesModel.type!) == MoneyType.incomes

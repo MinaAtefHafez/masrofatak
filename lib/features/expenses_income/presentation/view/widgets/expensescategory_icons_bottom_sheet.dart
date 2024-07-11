@@ -50,8 +50,9 @@ class _ExpensesCategoryBottomSheerWidgetState
                         width: 50.w,
                         height: 50.h,
                         decoration: BoxDecoration(
-                            color: categoryCubit.getCategoryColor,
-                            shape: BoxShape.circle),
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(15.r) 
+                            ),
                         child: UnconstrainedBox(
                           child: SvgPicture.asset(
                             widget.icons[index],

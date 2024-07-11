@@ -100,13 +100,12 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortDaysExpensesIncomsAccordingNewest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();  
     emit(SortingExpensesIncomesForDay());
   }
 
@@ -150,11 +149,7 @@ class HomeCubit extends Cubit<HomeStates> {
     int sum = 0;
     List<int> amounts = [];
     for (var e in data) {
-      if (e.type == 'Expenses') {
-        amounts.add(e.amount * -1);
-      } else {
-        amounts.add(e.amount);
-      }
+      amounts.add(e.amount);
     }
 
     for (var e in amounts) {

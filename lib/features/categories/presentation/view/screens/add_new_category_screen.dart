@@ -105,8 +105,9 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           height: 40.h,
                           padding: EdgeInsets.all(5.w),
                           decoration: BoxDecoration(
-                              color: categoryCubit.getCategoryColor,
-                              shape: BoxShape.circle),
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(15.r) 
+                            ),
                           child: SvgPicture.asset(
                             categoryCubit.getCategoryModel.icon!,
                             width: 25.w,

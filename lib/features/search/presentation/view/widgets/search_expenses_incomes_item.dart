@@ -32,9 +32,8 @@ class _SearchExpensesIncomesItemState extends State<SearchExpensesIncomesItem> {
           width: 40.w,
           height: 40.h,
           decoration: BoxDecoration(
-            color: categoryCubit.getCategoryColor,
-            shape: BoxShape.circle,
-          ),
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(15.r)),
           child: UnconstrainedBox(
             child: SvgPicture.asset(
               widget.expensesIncomeModel.category!.icon!,

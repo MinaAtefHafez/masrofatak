@@ -1,10 +1,7 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/features/categories/data/repo/category_repo.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
-import '../../../../core/app_theme/colors/app_colors.dart';
 import '../../data/models/categories_model.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
@@ -55,24 +52,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     CategoryModel(name: 'Wages', id: 3, icon: Assets.imagesWages),
   ];
 
-  List<Color> categoriesColors = [
-    AppColors.color1C8E6C9,
-    AppColors.color2FFECB3,
-    AppColors.color3FFCDD2,
-    AppColors.color4E1BEE7,
-    AppColors.color5B3E5FC,
-    AppColors.color6BBDEFB,
-    AppColors.color7DCEDC8,
-    AppColors.color8D7CCC8,
-    AppColors.color9B39DDB,
-    AppColors.color11CFD8DC,
-    AppColors.color12F8BBD0,
-    AppColors.color13B2EBF2,
-    AppColors.color14C5CAE9,
-    AppColors.color15E6EE9C,
-    AppColors.color16FFE0B2,
-    AppColors.color17FFF9C4
-  ];
+
 
   CategoryModel get getCategoryModel => categoryModel;
 
@@ -116,11 +96,6 @@ class CategoryCubit extends Cubit<CategoryState> {
     return isExpenses ? expensesCategories : incomesCategories;
   }
 
-  Color get getCategoryColor {
-    var random = Random();
-    var colorIndex = random.nextInt(categoriesColors.length - 1);
-    return categoriesColors[colorIndex];
-  }
 
   Future<void> saveExpensesCategoriesLocal() async {
     await _categoryRepo.saveExpensesCategoriesLocal(expensesCategories);

@@ -68,6 +68,7 @@ class _DayDetailsScreenState extends State<DayDetailsScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
         child: Column(
           children: [
+            if (homeCubit.expensesIncomesPerDay.isNotEmpty)
             Text(
               '${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].day!)} / ${MethodsHelper.convert(context, homeCubit.expensesIncomesPerDay[0].month!)}',
               style: AppStyles.styleRegular16.copyWith(
@@ -86,7 +87,6 @@ class _DayDetailsScreenState extends State<DayDetailsScreen> {
                               padding: EdgeInsets.all(5.w),
                               child: ExpensesIncomesSmallItem(
                                 isWidgetIntrinsic: true,
-                                color: categoryCubit.getCategoryColor,
                                 expensesIncomesModel:
                                     homeCubit.expensesIncomesPerDay[index],
                               ),
