@@ -69,18 +69,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                       const SliverToBoxAdapter(
                         child: SizedBox(height: 16),
                       ),
-                      SliverToBoxAdapter(
-                        child: ExpensesIncomesItem(
-                          onTap: () async {
-                            await homeCubit
-                                .getExpensesIncomesPerDay(homeCubit.today);
-                            CustomNavigator.pushNamed(DayDetailsScreen.name);
-                          },
-                          today: 'today',
-                          expensesIncomesModel: homeCubit.todayy!,
-                          amountPerDay: homeCubit.sumToday,
+                      if (homeCubit.today.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: ExpensesIncomesItem(
+                            onTap: () async {
+                              await homeCubit
+                                  .getExpensesIncomesPerDay(homeCubit.today);
+                              CustomNavigator.pushNamed(DayDetailsScreen.name);
+                            },
+                            today: 'today',
+                            expensesIncomesModel: homeCubit.todayy!,
+                            amountPerDay: homeCubit.sumToday,
+                          ),
                         ),
-                      ),
                       SliverToBoxAdapter(
                         child: SizedBox(height: 25.h),
                       ),
