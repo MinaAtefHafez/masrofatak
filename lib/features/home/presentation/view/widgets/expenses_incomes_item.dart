@@ -35,82 +35,84 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (widget.today == null)
-          Text(
-            '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].year!)}',
-            style: AppStyles.styleRegular14,
-          ),
-        SizedBox(height: 10.h),
-        Card(
-          elevation: 3,
-          color: Colors.white,
-          shadowColor: Colors.grey.shade500,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                    mainAxisAlignment: widget.today == null
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (widget.today != null)
-                        Text(tr('Today'),
-                            style: AppStyles.styleMedium12
-                                .copyWith(color: AppColors.color424242)),
-                      Text(
-                          MethodsHelper.convert(
-                              context, widget.amountPerDay.toString()),
-                          style: AppStyles.styleRegular14
-                              .copyWith(color: AppColors.color424242))
-                    ]),
-                if (widget.today == null) ...[
-                  SizedBox(height: 20.h),
-                  if (widget.expensesIncomesModel.length >= 2) ...[
-                    ExpensesIncomesSmallItem(
-                      expensesIncomesModel: widget.expensesIncomesModel[
-                          widget.expensesIncomesModel.length - 1],
+    return Card(
+      color: Colors.lime.shade100,
+      elevation: 4,
+      shadowColor: Colors.lime,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                right: 20.w,
+                left: 20.w,
+                top: 20.h,
+                bottom: widget.today != null ? 0 : 25.h),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (widget.today != null) ...[
+                    Text(tr('Today'),
+                        style: AppStyles.styleMedium12
+                            .copyWith(color: AppColors.color424242)),
+                  ] else ...[
+                    Text(
+                      '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].year!)}',
+                      style: AppStyles.styleRegular14,
                     ),
                   ],
-                  SizedBox(height: 15.h),
-                  if (widget.expensesIncomesModel.isNotEmpty) ...[
-                    ExpensesIncomesSmallItem(
-                      expensesIncomesModel: widget.expensesIncomesModel[0],
-                    ),
-                  ],
-                ] else ...[
-                  ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          ExpensesIncomesSmallItem(
-                            expensesIncomesModel:
-                                widget.expensesIncomesModel[index],
-                          ),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 15.h),
-                      itemCount: widget.expensesIncomesModel.length),
-                ],
-                SizedBox(height: 25.h),
-                const ExpesesIncomesDivider(count: 50),
-                SizedBox(height: 5.h),
-                TextButton(
-                    onPressed: widget.onTap,
-                    child: Text(
-                      tr('MoreDetails'),
+                  Text(
+                      MethodsHelper.convert(
+                          context, widget.amountPerDay.toString()),
                       style: AppStyles.styleRegular14
-                          .copyWith(color: Colors.lime),
-                    )),
-              ],
-            ),
+                          .copyWith(color: AppColors.color424242))
+                ]),
           ),
-        ),
-      ],
+          if (widget.today == null) ...[
+            if (widget.expensesIncomesModel.length >= 2) ...[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: ExpensesIncomesSmallItem(
+                  expensesIncomesModel: widget.expensesIncomesModel[
+                      widget.expensesIncomesModel.length - 1],
+                ),
+              ),
+            ],
+            SizedBox(height: 15.h),
+            if (widget.expensesIncomesModel.isNotEmpty) ...[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: ExpensesIncomesSmallItem(
+                  expensesIncomesModel: widget.expensesIncomesModel[0],
+                ),
+              ),
+            ],
+          ] else ...[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+              child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => ExpensesIncomesSmallItem(
+                        expensesIncomesModel:
+                            widget.expensesIncomesModel[index],
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(height: 15.h),
+                  itemCount: widget.expensesIncomesModel.length),
+            ),
+          ],
+          SizedBox(height: 25.h),
+          const ExpesesIncomesDivider(count: 60),
+          SizedBox(height: 5.h),
+          TextButton(
+              onPressed: widget.onTap,
+              child: Text(
+                tr('MoreDetails'),
+                style: AppStyles.styleRegular14.copyWith(color: Colors.teal),
+              )),
+              SizedBox(height: 10.h),
+        ],
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ class HomeBasicItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3 ,
-      color: Colors.white ,
+      color: Colors.blue.shade50 ,
       shadowColor: Colors.grey.shade500 ,
       child: Container(
         decoration: BoxDecoration(

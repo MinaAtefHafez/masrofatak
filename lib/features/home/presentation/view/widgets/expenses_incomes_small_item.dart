@@ -11,7 +11,6 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
   const ExpensesIncomesSmallItem(
       {super.key,
       required this.expensesIncomesModel,
-      
       this.isWidgetIntrinsic = false});
 
   final dynamic expensesIncomesModel;
@@ -21,12 +20,10 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 40.w,
-          height: 40.h,
+          padding: EdgeInsets.all(4.w),
           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(15.r) 
-                            ),
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(10.r)),
           child: UnconstrainedBox(
             child: SvgPicture.asset(
               expensesIncomesModel.category!.icon!,
@@ -35,7 +32,7 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 5.w),
+        SizedBox(width: 10.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,8 +54,10 @@ class ExpensesIncomesSmallItem extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           getMoneyType(expensesIncomesModel.type!) == MoneyType.expenses
-              ? MethodsHelper.convert(context, expensesIncomesModel.amount.toString())
-              : MethodsHelper.convert(context, expensesIncomesModel.amount.toString()),
+              ? MethodsHelper.convert(
+                  context, expensesIncomesModel.amount.toString())
+              : MethodsHelper.convert(
+                  context, expensesIncomesModel.amount.toString()),
           style: AppStyles.styleRegular14.copyWith(
               color:
                   getMoneyType(expensesIncomesModel.type!) == MoneyType.incomes
