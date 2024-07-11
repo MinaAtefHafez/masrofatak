@@ -24,14 +24,7 @@ class HomeCubit extends Cubit<HomeStates> {
   int sumAmountToday = 0;
   AllMoneyModel allMoney = AllMoneyModel(balance: 0, expenses: 0, incomes: 0);
 
-  List<ExpensesIncomeModel> get expensesIncomesMonth => expensesIncomesForMonth;
-
-  List<List<ExpensesIncomeModel>> get allExpensesIncomes =>
-      expensesIncomesEachDay;
-
-  List<dynamic>? get todayy => today;
-
-  int get sumToday => sumAmountToday;
+  
 
   AllMoneyModel get getAllMoney => allMoney;
 
@@ -209,9 +202,9 @@ class HomeCubit extends Cubit<HomeStates> {
     List<List<ExpensesIncomeModel>> days = [];
     for (int i = 1; i <= 31; i++) {
       List<ExpensesIncomeModel> day = [];
-      for (int j = 0; j < expensesIncomesMonth.length; j++) {
-        if (int.parse(expensesIncomesMonth[j].day!) == i) {
-          day.add(expensesIncomesMonth[j]);
+      for (int j = 0; j < expensesIncomesForMonth.length; j++) {
+        if (int.parse(expensesIncomesForMonth[j].day!) == i) {
+          day.add(expensesIncomesForMonth[j]);
         }
       }
       if (day.isNotEmpty) {

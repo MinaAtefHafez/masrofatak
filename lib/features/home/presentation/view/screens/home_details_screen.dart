@@ -79,8 +79,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                               CustomNavigator.pushNamed(DayDetailsScreen.name);
                             },
                             today: 'today',
-                            expensesIncomesModel: homeCubit.todayy!,
-                            amountPerDay: homeCubit.sumToday,
+                            expensesIncomesModel: homeCubit.today,
+                            amountPerDay: homeCubit.sumAmountToday,
                           ),
                         ),
                       SliverToBoxAdapter(
@@ -97,13 +97,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                           .expensesIncomesEachDay[index]);
                                 },
                                 expensesIncomesModel:
-                                    homeCubit.allExpensesIncomes[index],
+                                    homeCubit.expensesIncomesEachDay[index],
                                 amountPerDay: homeCubit
                                     .sumsExpensesIncomesPerMonth[index],
                               ),
                           separatorBuilder: (context, index) =>
                               SizedBox(height: 25.h),
-                          itemCount: homeCubit.allExpensesIncomes.length)
+                          itemCount: homeCubit.expensesIncomesEachDay.length)
                     ],
                   ),
                 );

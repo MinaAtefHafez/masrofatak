@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
+import 'package:masrofatak/features/expenses_income/data/models/expenses_income_model.dart';
 import 'package:masrofatak/features/home/presentation/manager/home_cubit.dart';
 import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../../../../../core/helpers/methos_helper/methods_helper.dart';
@@ -19,7 +20,7 @@ class ExpensesIncomesItem extends StatefulWidget {
     required this.onTap,
   });
 
-  final List<dynamic> expensesIncomesModel;
+  final List<ExpensesIncomeModel> expensesIncomesModel;
   final String? today;
   final int amountPerDay;
   final Function() onTap;
@@ -40,7 +41,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
       children: [
         if (widget.today == null)
           Text(
-            '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].year)}',
+            '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].year!)}',
             style: AppStyles.styleRegular14,
           ),
         SizedBox(height: 10.h),
