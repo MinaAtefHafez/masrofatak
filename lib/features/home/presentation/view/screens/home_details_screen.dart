@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
+import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
 import 'package:masrofatak/features/expenses_income/presentation/manager/expenses_income_cubit.dart';
@@ -69,7 +70,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                       const SliverToBoxAdapter(
                         child: SizedBox(height: 16),
                       ),
-                      if (homeCubit.today.isNotEmpty)
+                      if (homeCubit.monthName == IntlHelper.month())
                         SliverToBoxAdapter(
                           child: ExpensesIncomesItem(
                             onTap: () async {
