@@ -99,7 +99,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
                 SizedBox(height: 15.h),
                 Divider(thickness: 1, color: Colors.grey.withOpacity(0.5)),
-                
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(left: 10.w , right: 10.w , bottom: 20.h ),

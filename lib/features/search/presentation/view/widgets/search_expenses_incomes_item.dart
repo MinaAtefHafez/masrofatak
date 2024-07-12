@@ -67,8 +67,8 @@ class _SearchExpensesIncomesItemState extends State<SearchExpensesIncomesItem> {
             Text(
               getMoneyType(widget.expensesIncomeModel.type!) ==
                       MoneyType.expenses
-                  ? '-${MethodsHelper.convert(context, widget.expensesIncomeModel.amount.toString())}'
-                  : '+${MethodsHelper.convert(context, widget.expensesIncomeModel.amount.toString())}',
+                  ? MethodsHelper.convert(context, widget.expensesIncomeModel.amount.toString())
+                  : MethodsHelper.convert(context, widget.expensesIncomeModel.amount.toString()),
               style: AppStyles.styleRegular14.copyWith(
                   color: getMoneyType(widget.expensesIncomeModel.type!) ==
                           MoneyType.incomes
