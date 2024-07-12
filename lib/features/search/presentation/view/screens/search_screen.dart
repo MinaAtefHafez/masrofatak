@@ -68,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     SizedBox(width: 5.w),
                     Expanded(
                       child: SizedBox(
-                        height: 50.h,
+                        height: 45.h,
                         child: SearchTextField(
                           textController: textController,
                         ),

@@ -62,6 +62,7 @@ class _SearchExpensesIncomesItemState extends State<SearchExpensesIncomesItem> {
         const SizedBox(width: 10),
         Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               getMoneyType(widget.expensesIncomeModel.type!) ==
