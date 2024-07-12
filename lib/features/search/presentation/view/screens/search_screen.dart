@@ -53,28 +53,31 @@ class _SearchScreenState extends State<SearchScreen> {
         bloc: searchCubit,
         builder: (context, state) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 50.h),
+            padding: EdgeInsets.only(top: 50.h),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          CustomNavigator.pop();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                        )),
-                    SizedBox(width: 5.w),
-                    Expanded(
-                      child: SizedBox(
-                        height: 45.h,
-                        child: SearchTextField(
-                          textController: textController,
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w, right: 10.h),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            CustomNavigator.pop();
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                          )),
+                      SizedBox(width: 5.w),
+                      Expanded(
+                        child: SizedBox(
+                          height: 45.h,
+                          child: SearchTextField(
+                            textController: textController,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(height: 30.h),
                 if (searchCubit.searchMap.isNotEmpty) ...[
@@ -96,23 +99,26 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
                 SizedBox(height: 15.h),
                 Divider(thickness: 1, color: Colors.grey.withOpacity(0.5)),
-                SizedBox(height: 15.h),
+                
                 Expanded(
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 10.h),
-                      itemCount: searchCubit.searchList.length,
-                      itemBuilder: (context, index) => Card(
-                            color: Colors.grey.shade100,
-                            elevation: 3,
-                            child: Padding(
-                              padding: EdgeInsets.all(5.w),
-                              child: SearchExpensesIncomesItem(
-                                expensesIncomeModel:
-                                    searchCubit.searchList[index],
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.w , right: 10.w , bottom: 20.h ),
+                    child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10.h),
+                        itemCount: searchCubit.searchList.length,
+                        itemBuilder: (context, index) => Card(
+                              color: Colors.grey.shade100,
+                              elevation: 3,
+                              child: Padding(
+                                padding: EdgeInsets.all(5.w),
+                                child: SearchExpensesIncomesItem(
+                                  expensesIncomeModel:
+                                      searchCubit.searchList[index],
+                                ),
                               ),
-                            ),
-                          )),
+                            )),
+                  ),
                 ),
               ],
             ),

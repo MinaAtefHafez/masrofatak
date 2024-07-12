@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 
+import '../../../../../core/app_theme/colors/app_colors.dart';
 import '../../../../../core/gen/app_images.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -15,6 +16,8 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: textController,
+      cursorHeight: 25.h,
+      cursorColor: AppColors.color424242,
       decoration: InputDecoration(
           suffixIcon: UnconstrainedBox(
             child: SvgPicture.asset(
@@ -26,7 +29,7 @@ class SearchTextField extends StatelessWidget {
           fillColor: Colors.grey.shade200,
           filled: true,
           hintText: tr('Search'),
-          hintStyle: AppStyles.styleMedium13 ,
+          hintStyle: AppStyles.styleMedium13,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
             borderSide: BorderSide.none,
