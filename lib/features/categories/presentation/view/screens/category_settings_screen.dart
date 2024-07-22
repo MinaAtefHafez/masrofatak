@@ -9,7 +9,6 @@ import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
 import 'package:masrofatak/features/categories/presentation/view/screens/add_new_category_screen.dart';
-
 import '../../../../expenses_income/presentation/view/widgets/expenses_income_button.dart';
 
 class CategorySettingsScreen extends StatefulWidget {
