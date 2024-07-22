@@ -53,7 +53,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   ];
 
 
-
+ List <dynamic> get categories => isExpenses ? expensesCategories : incomesCategories; 
   
 
   Future<void> addToExpensesCategories() async {
