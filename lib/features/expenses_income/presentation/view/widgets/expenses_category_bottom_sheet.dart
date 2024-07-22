@@ -56,8 +56,7 @@ class _ExpensesCategoryBottomSheerWidgetState
                         height: 50.h,
                         decoration: BoxDecoration(
                             color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(15.r) 
-                            ),
+                            borderRadius: BorderRadius.circular(15.r)),
                         child: UnconstrainedBox(
                           child: SvgPicture.asset(
                             widget.categories[index].icon!,
@@ -79,7 +78,7 @@ class _ExpensesCategoryBottomSheerWidgetState
           ),
         ),
         CustomElevatedButton(
-          onPressed: widget.addNewCategory ,
+          onPressed: widget.addNewCategory,
           text: 'AddNewCategory',
           size: Size(158.w, 32.h),
         ),

@@ -46,15 +46,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
           }
 
           if (state is GetIncomesCategoriesLocal) {
+            CustomNavigator.pop();
             CustomSnackBar.customSnackBar(context, text: 'AddDoneSuccess');
-            CustomNavigator.pop(2);
-            searchCubit.getExpensesIncomesFromExpensesCubit(state.categories);
           }
 
-          if (state is GeExpensesCategoriesLocal) {
-            searchCubit
-                .getExpensesCategoriesFromCategoryCubit(state.categories);
-          }
         },
         builder: (context, state) {
           return Center(
@@ -105,9 +100,8 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           height: 40.h,
                           padding: EdgeInsets.all(5.w),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(15.r) 
-                            ),
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(15.r)),
                           child: SvgPicture.asset(
                             categoryCubit.categoryModel.icon!,
                             width: 25.w,

@@ -96,6 +96,7 @@ class _AddExpensesIncomeScreenState extends State<AddExpensesIncomeScreen> {
                             customBottomSheet(context,
                                 widget: ExpensesCategoryBottomSheerWidget(
                                   addNewCategory: () {
+                                    CustomNavigator.pop();
                                     CustomNavigator.pushNamed(
                                         AddNewCategoryScreen.name);
                                   },
