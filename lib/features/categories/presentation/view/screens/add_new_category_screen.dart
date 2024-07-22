@@ -99,7 +99,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                         ),
                       ),
                       SizedBox(width: 20.w),
-                      if (categoryCubit.getCategoryModel.icon != null) ...[
+                      if (categoryCubit.categoryModel.icon != null) ...[
                         Container(
                           width: 40.w,
                           height: 40.h,
@@ -109,7 +109,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                             borderRadius: BorderRadius.circular(15.r) 
                             ),
                           child: SvgPicture.asset(
-                            categoryCubit.getCategoryModel.icon!,
+                            categoryCubit.categoryModel.icon!,
                             width: 25.w,
                             height: 25.h,
                           ),
@@ -132,7 +132,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                   CustomElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          if (categoryCubit.getCategoryModel.icon == null) {
+                          if (categoryCubit.categoryModel.icon == null) {
                             CustomSnackBar.customSnackBar(context,
                                 text: 'ShouldAddIcon');
                             return;

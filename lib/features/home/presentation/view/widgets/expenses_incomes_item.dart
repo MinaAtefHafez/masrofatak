@@ -35,10 +35,11 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.lime.shade100,
-      elevation: 4,
-      shadowColor: Colors.lime,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: Colors.grey, width: 1.w),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -58,7 +59,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                   ] else ...[
                     Text(
                       '${MethodsHelper.convert(context, widget.expensesIncomesModel[0].day!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].month!)} / ${MethodsHelper.convert(context, widget.expensesIncomesModel[0].year!)}',
-                      style: AppStyles.styleRegular14,
+                      style: AppStyles.styleMedium13 ,
                     ),
                   ],
                   Text(
@@ -102,7 +103,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
             ),
           ],
           SizedBox(height: 25.h),
-          const ExpesesIncomesDivider(count: 60),
+           const ExpesesIncomesDivider(count: 70),
           SizedBox(height: 5.h),
           TextButton(
               onPressed: widget.onTap,
@@ -110,7 +111,7 @@ class _ExpensesIncomesItemState extends State<ExpensesIncomesItem> {
                 tr('MoreDetails'),
                 style: AppStyles.styleRegular14.copyWith(color: Colors.teal),
               )),
-              SizedBox(height: 10.h),
+          SizedBox(height: 10.h),
         ],
       ),
     );

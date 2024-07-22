@@ -54,7 +54,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
 
 
-  CategoryModel get getCategoryModel => categoryModel;
+  
 
   Future<void> addToExpensesCategories() async {
     expensesCategories.add(categoryModel);

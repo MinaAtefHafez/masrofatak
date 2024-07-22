@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     await categoryCubit.getExpensesCategoriesLocal();
     await categoryCubit.getIncomesCategoriesLocal();
     await expensesIncomesCubit.getExpensesIncomesLocal();
-    
   }
 
   @override
@@ -55,12 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: expensesIncomesCubit,
       listener: (context, state) async {
         if (state is GetExpensesIncomesLocal) {
-          homeCubit.getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
+          await homeCubit
+              .getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
 
-          reportsCubit
+          await reportsCubit
               .getAllExpensesIncomesFromCategoryCubit(state.expensesIncomes);
 
-          searchCubit
+          await searchCubit
               .getExpensesIncomesFromExpensesCubit(state.expensesIncomes);
           await homeCubit.showExpensesIncomes();
         }

@@ -12,7 +12,6 @@ import 'package:masrofatak/features/home/presentation/manager/home_states.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/day_details_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/widgets/expenses_incomes_item.dart';
 import 'package:masrofatak/features/search/presentation/view/screens/search_screen.dart';
-
 import '../widgets/home_basic_item.dart';
 import '../widgets/home_date_month_picker.dart';
 import '../widgets/home_details_top_part.dart';
@@ -47,17 +46,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               builder: (context, state) {
                 return Expanded(
                   child: CustomScrollView(
+                    physics: const BouncingScrollPhysics(),
                     slivers: [
                       SliverToBoxAdapter(
                         child: DateMonthPickerItem(
                             month: homeCubit.monthName,
+                            year: homeCubit.yearAsInt.toString(),
                             onTap: () {},
                             onTapLeft: () async {
-                              await homeCubit.changeToPreviousMonth();
+                              await homeCubit.changeToPreviousMonthOrYear();
                               await homeCubit.showExpensesIncomes();
                             },
                             onTapRight: () async {
-                              await homeCubit.changeToNextMonth();
+                              await homeCubit.changeToNextMonthOrYear();
                               await homeCubit.showExpensesIncomes();
                             }),
                       ),
@@ -65,12 +66,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         child: SizedBox(height: 30.h),
                       ),
                       SliverToBoxAdapter(
-                        child: HomeBasicItem(allMoney: homeCubit.getAllMoney),
+                        child: HomeBasicItem(allMoney: homeCubit.allMoney),
                       ),
                       const SliverToBoxAdapter(
                         child: SizedBox(height: 16),
                       ),
-                      if (homeCubit.monthName == IntlHelper.month())
+                      if (homeCubit.monthName == IntlHelper.month() &&
+                          homeCubit.yearAsInt.toString() == IntlHelper.yearNow)
                         SliverToBoxAdapter(
                           child: ExpensesIncomesItem(
                             onTap: () async {

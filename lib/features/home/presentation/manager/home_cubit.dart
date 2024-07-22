@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masrofatak/core/helpers/intl_helper/intl_helper.dart';
 import 'package:masrofatak/features/home/data/models/all_money_model.dart';
@@ -14,19 +15,18 @@ class HomeCubit extends Cubit<HomeStates> {
 
   int monthAsInt = int.parse(IntlHelper.monthNow);
   String monthName = IntlHelper.month();
+  int yearAsInt = int.parse(IntlHelper.yearNow);
 
   List<ExpensesIncomeModel> expensesIncomes = [];
+  List<ExpensesIncomeModel> expensesIncomesForYear = [];
   List<ExpensesIncomeModel> expensesIncomesForMonth = [];
+
   List<List<ExpensesIncomeModel>> expensesIncomesEachDay = [];
   List<int> sumsExpensesIncomesPerMonth = [];
   List<ExpensesIncomeModel> expensesIncomesPerDay = [];
   List<ExpensesIncomeModel> today = [];
   int sumAmountToday = 0;
   AllMoneyModel allMoney = AllMoneyModel(balance: 0, expenses: 0, incomes: 0);
-
-  
-
-  AllMoneyModel get getAllMoney => allMoney;
 
   void changeBottomNavIndex(int index) {
     bottomNavIndex = index;
@@ -40,7 +40,8 @@ class HomeCubit extends Cubit<HomeStates> {
   ];
 
   Future<void> showExpensesIncomes() async {
-    await filterExpensesIncomesForMonth(monthAsInt.toString());
+    await filterExpensesIncomesForYear();
+    await filterExpensesIncomesForMonth();
     await getAllExpenses();
     await getAllIncomes();
     await getBalance();
@@ -61,6 +62,34 @@ class HomeCubit extends Cubit<HomeStates> {
     if (monthAsInt == 12) return;
     monthAsInt = monthAsInt + 1;
     monthName = IntlHelper.month(monthAsInt);
+  }
+
+  Future<void> changeToPreviousYear() async {
+    yearAsInt = yearAsInt - 1;
+    monthAsInt = 12;
+    monthName = IntlHelper.month(monthAsInt);
+  }
+
+  Future<void> changeToNextYear() async {
+    yearAsInt = yearAsInt + 1;
+    monthAsInt = 1;
+    monthName = IntlHelper.month(monthAsInt);
+  }
+
+  Future<void> changeToPreviousMonthOrYear() async {
+    if (monthAsInt == 1) {
+      changeToPreviousYear();
+    } else {
+      changeToPreviousMonth();
+    }
+  }
+
+  Future<void> changeToNextMonthOrYear() async {
+    if (monthAsInt == 12) {
+      changeToNextYear();
+    } else {
+      changeToNextMonth();
+    }
   }
 
   Future<int> getAllExpensesImpl(String type) async {
@@ -93,13 +122,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> sortDaysExpensesIncomsAccordingNewest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList(); 
+    expensesIncomesPerDay = expensesIncomesPerDay.reversed.toList();
     emit(SortingExpensesIncomesForDay());
   }
 
   Future<void> sortDaysExpensesIncomsAccordingOldest() async {
     expensesIncomesPerDay.sort((a, b) => a.dateTime!.compareTo(b.dateTime!));
-     
+
     emit(SortingExpensesIncomesForDay());
   }
 
@@ -180,10 +209,18 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetAllExpensesIncomes());
   }
 
-  Future<void> filterExpensesIncomesForMonth(String month) async {
-    expensesIncomesForMonth =
-        expensesIncomes.where((element) => element.month == month).toList();
+  Future<void> filterExpensesIncomesForMonth() async {
+    expensesIncomesForMonth = expensesIncomesForYear
+        .where((element) => element.month == monthAsInt.toString())
+        .toList();
+
     emit(FilterExpensesIncomesAccordingMonthDate());
+  }
+
+  Future<void> filterExpensesIncomesForYear() async {
+    expensesIncomesForYear = expensesIncomes
+        .where((element) => element.year.toString() == yearAsInt.toString())
+        .toList();
   }
 
   Future<void> sortingExppensesIncomesAccordingDay() async {

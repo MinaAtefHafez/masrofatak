@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masrofatak/features/categories/presentation/view/screens/add_new_category_screen.dart';
+import 'package:masrofatak/features/categories/presentation/view/screens/category_settings_screen.dart';
 import 'package:masrofatak/features/expenses_income/presentation/view/screens/add_expenses_income_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/day_details_screen.dart';
 import 'package:masrofatak/features/home/presentation/view/screens/home_details_screen.dart';
@@ -12,6 +13,7 @@ import 'package:masrofatak/features/settings/presentation/view/screens/splash_sc
 abstract class CustomRouter {
   static Route onGenerateRoutes(RouteSettings settings) {
     final widget = switch (settings.name) {
+      CategorySettingsScreen.name => const CategorySettingsScreen(),
       SearchScreen.name => const SearchScreen(),
       AddNewCategoryScreen.name => const AddNewCategoryScreen(),
       ReportsScreen.name => const ReportsScreen(),
