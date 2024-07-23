@@ -7,7 +7,6 @@ import 'package:masrofatak/features/categories/presentation/manager/category_cub
 import 'package:masrofatak/features/search/presentation/manager/search_cubit.dart';
 import 'package:masrofatak/features/search/presentation/manager/search_states.dart';
 import 'package:masrofatak/features/search/presentation/view/widgets/search_expenses_incomes_item.dart';
-
 import '../widgets/search_categories_list_view.dart';
 import '../widgets/search_text_field.dart';
 
@@ -28,15 +27,15 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     call();
-    textController.addListener(() async {
-      searchCubit.search(textController.text.trim());
-    });
   }
 
   void call() async {
     await searchCubit.mergeIncomesAndExpensesCategories();
     await searchCubit.initSearchMap();
     await searchCubit.search(textController.text.trim());
+    textController.addListener(() async {
+      searchCubit.search(textController.text.trim());
+    });
   }
 
   @override
@@ -101,7 +100,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 Divider(thickness: 1, color: Colors.grey.withOpacity(0.5)),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10.w , right: 10.w , bottom: 20.h ),
+                    padding:
+                        EdgeInsets.only(left: 10.w, right: 10.w, bottom: 20.h),
                     child: ListView.separated(
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 10.h),

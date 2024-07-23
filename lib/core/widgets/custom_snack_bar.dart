@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 
+import '../app_theme/colors/app_colors.dart';
+
 abstract class CustomSnackBar {
   static customSnackBar(BuildContext context,
       {required String text, Color? color}) {
@@ -18,7 +20,7 @@ abstract class CustomSnackBar {
               style: AppStyles.styleRegular14.copyWith(color: Colors.white)),
         ],
       ),
-      backgroundColor: color ?? Colors.green,
+      backgroundColor: color ?? AppColors.color424242,
       shape: OutlineInputBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10.r)),
           borderSide: BorderSide.none),

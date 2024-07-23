@@ -52,29 +52,8 @@ class CategoryCubit extends Cubit<CategoryState> {
     CategoryModel(name: 'Wages', id: 3, icon: Assets.imagesWages),
   ];
 
-  List<dynamic> get categories =>
-      isExpenses ? expensesCategories : incomesCategories;
-
   Future<void> addToExpensesCategories() async {
     expensesCategories.add(categoryModel);
-  }
-
-  Future<void> removeExpensesCategory(int index) async {
-    expensesCategories.removeAt(index);
-    emit(RemoveCategory());
-  }
-
-  Future<void> removeIncomesCategory(int index) async {
-    incomesCategories.removeAt(index);
-    emit(RemoveCategory());
-  }
-
-  Future<void> removeCategory(int index) async {
-    if (isExpenses) {
-      await removeExpensesCategory(index);
-    } else {
-      await removeIncomesCategory(index);
-    }
   }
 
   void onCategoryIconChanged(String urlIcon) {

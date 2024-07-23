@@ -13,8 +13,8 @@ class Assets {
   static const String imagesBalance = "assets/images/Balance.svg";
 
   /// Assets for imagesBarCafe
-  /// assets/images/Bar_Cafe.svg
-  static const String imagesBarCafe = "assets/images/Bar_Cafe.svg";
+  /// assets/images/bar_cafe.svg
+  static const String imagesBarCafe = "assets/images/bar_cafe.svg";
 
   /// Assets for imagesCalendarToday
   /// assets/images/calendar_today.svg

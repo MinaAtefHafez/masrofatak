@@ -9,7 +9,6 @@ import 'package:masrofatak/core/gen/app_images.dart';
 import 'package:masrofatak/core/helpers/localization_helper/localization_helper.dart';
 import 'package:masrofatak/core/router/navigation.dart';
 import 'package:masrofatak/core/widgets/custom_bottom_sheet.dart';
-import 'package:masrofatak/features/categories/presentation/view/screens/category_settings_screen.dart';
 import 'package:masrofatak/features/settings/presentation/manager/settings_cubit.dart';
 import 'package:masrofatak/features/settings/presentation/manager/settings_state.dart';
 import 'package:masrofatak/features/settings/presentation/view/widgets/language_bottom_sheet_widget.dart';
@@ -68,19 +67,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   trailing: Icon(Icons.arrow_forward_ios, size: 18.w),
                 ),
               ),
-              SizedBox(height: 10.h),
-              InkWell(
-                onTap: () {
-                  CustomNavigator.pushNamed(CategorySettingsScreen.name);
-                },
-                child: ListTile(
-                  leading: SvgPicture.asset(Assets.imagesManage,
-                      width: 24, height: 24),
-                  title: Text(tr('ManageCategories'),
-                      style: AppStyles.styleRegular14),
-                  trailing: Icon(Icons.arrow_forward_ios, size: 18.w),
-                ),
-              )
             ],
           ));
         },
