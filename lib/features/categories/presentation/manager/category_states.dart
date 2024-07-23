@@ -1,4 +1,3 @@
-
 abstract class CategoryState {}
 
 final class InitialState extends CategoryState {}
@@ -11,7 +10,6 @@ final class GeExpensesCategoriesLocal extends CategoryState {
   GeExpensesCategoriesLocal(this.categories);
 }
 
-
 final class GetIncomesCategoriesLocal extends CategoryState {
   final List<dynamic> categories;
 
@@ -20,9 +18,10 @@ final class GetIncomesCategoriesLocal extends CategoryState {
 
 final class ChooseCategory extends CategoryState {}
 
-
 final class ChooseExpensesOrIncomesToAddCategory extends CategoryState {}
 
 final class AddToExpensesOrIncomes extends CategoryState {}
 
 final class OnCategoryIconChanged extends CategoryState {}
+
+final class RemoveCategory extends CategoryState {}

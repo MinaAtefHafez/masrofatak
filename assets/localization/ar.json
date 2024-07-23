@@ -47,5 +47,6 @@
   "ShouldAddIcon" : "يجب عليك اضافة ايقونة فئة" ,
   "ChooseCategoryIcon"  : "اختر ايقونة للفئة" ,
   "Search" : "بحث" ,
-  "NoData" : "لا توجد عناصر"   
+  "NoData" : "لا توجد عناصر"  ,
+  "RemoveDoneSuccess" : "تم الحذف بنجاح"  
 }

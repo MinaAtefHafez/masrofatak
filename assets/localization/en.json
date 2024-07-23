@@ -47,5 +47,6 @@
   "ShouldAddIcon" : "Must Add Category icon" ,
   "ChooseCategoryIcon"  : "Choose Category Icon" ,
   "Search" :  "Search" ,
-  "NoData" : "No Items Exist" 
+  "NoData" : "No Items Exist"  ,
+  "RemoveDoneSuccess" : "Remove Done Successfully"
 }

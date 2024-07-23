@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masrofatak/core/app_styles/app_styles.dart';
 import 'package:masrofatak/core/dependency_injection/dependency_injection.dart';
 import 'package:masrofatak/core/router/navigation.dart';
+import 'package:masrofatak/core/widgets/custom_snack_bar.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_cubit.dart';
 import 'package:masrofatak/features/categories/presentation/manager/category_states.dart';
 import 'package:masrofatak/features/categories/presentation/view/screens/add_new_category_screen.dart';
@@ -25,8 +26,13 @@ class _CategorySettingsScreenState extends State<CategorySettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryCubit, CategoryState>(
+    return BlocConsumer<CategoryCubit, CategoryState>(
       bloc: categoryCubit,
+      listener: (context, state) {
+        if (state is RemoveCategory) {
+          CustomSnackBar.customSnackBar(context, text: 'RemoveDoneSuccess');
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -61,7 +67,12 @@ class _CategorySettingsScreenState extends State<CategorySettingsScreen> {
                       style: AppStyles.styleMedium13,
                     ),
                     trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await categoryCubit.removeCategory(index);
+                          await categoryCubit.saveExpensesCategoriesLocal();
+                          await categoryCubit.saveIncomesCategoriesLocal();
+                          await categoryCubit.getIncomesCategoriesLocal();
+                        },
                         icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
